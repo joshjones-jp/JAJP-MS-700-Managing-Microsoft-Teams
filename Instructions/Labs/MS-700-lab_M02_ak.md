@@ -1,256 +1,229 @@
+# **ラボ 02: Microsoft Teams の展開に向けた環境の準備**
 
+# **受講者用ラボ解答**
 
-# **Lab 02: Prepare the environment for a Microsoft Teams deployment**
+## **ラボ シナリオ**
 
-# **Student lab answer key**
+このコースのラボでは、Contoso Ltd. のグローバル管理者の役割を担います。組織では Microsoft Teams の導入を計画しています。導入を開始する前に、IT 部門は[...]
 
-## **Lab Scenario**
-
-In the labs of this course, you will assume the role of the Global Administrator for Contoso Ltd. Your organization is planning to deploy Microsoft Teams. Before starting the deployment, the IT department is gathering business requirements about data security and compliance, including how the data shared in Teams be regulated according to the organization’s compliance requirements. Also there are concerns about the current network infrastructure to meet the requirements for Microsoft Teams services. Therefore, you need to analyze the current network infrastructure and perform bandwidth calculations. Based on your estimation, you can provide recommendations to the networking team.
-
-After you complete the planning process, you will protect Teams from threats, and configure Teams to meet your organization’s compliance requirements.
+計画プロセスを完了した後、Teams を脅威から保護し、組織のコンプライアンス要件を満たすように Teams を構成します。
 
  
 
-## **Objectives**
+## **目標**
 
-After you complete this lab, you will be able to:
+このラボを完了すると、次のことができるようになります。
 
-- Configure guest access in Azure and Teams
+- Azure と Teams でゲスト アクセスを構成する
+- リソースへのアクセスをレビューする
+- 機密ラベルを有効化、作成、割り当てする
+- SharePoint、OneDrive、Teams のセーフ アタッチメントを有効化する
+- 保持ポリシーを作成、構成、テストする
+- GDPR コンテンツを保護する DLP ポリシーを作成してテストする
+- Teams 導入に必要なネットワーク帯域幅容量を計算する
+- クライアントで Microsoft 365 ネットワーク接続テスト ツールを使用する
 
-- Review Access to a resource
+## **ラボ セットアップ**
 
-- Activate, create and assign sensitivity lables
+- **推定時間:** 120 分
 
-- Activating Safe Attachments for SharePoint, OneDrive, and Teams
+## **手順**
 
-- Create, configure and test retention policies
+### **演習 1: Microsoft Teams のゲスト アクセスを管理する**
 
-- Create and test a DLP policy to protect GDPR content
+この演習では、Microsoft 365 のゲスト アクセス機能をテストします。そのために、Microsoft Entra ID（旧 Azure AD）でゲスト アクセスを構成し、新しい外部ゲスト ユーザーを追加して、アクセス レビューを使用してゲスト アクセスを取り消します[...]
 
-- Calculate the network bandwidth capacity for a Teams deployment
+#### タスク 1 - ゲスト アクセスの設定を確認する（任意）
 
-- Work with the Microsoft 365 network connectivity test tool on a client
+1. Client1 VM に接続し、**MOD Administrator** として [Microsoft Entra 管理センター](https://entra.microsoft.com/) にアクセスします。
 
-## **Lab Setup**
+2. メイン ページの **Contoso** で、**ユーザーの表示** > **ユーザー設定** > 外部ユーザーの **外部コラボレーションの設定を管理** を選択します。外部コラボレーションの設定を確認し、以下のとおりであることを確認します[...]
 
-- **Estimated Time:** 120 minutes.
+   - **ゲスト ユーザー アクセス:** ゲスト ユーザーは、ディレクトリ オブジェクトのプロパティとメンバーシップへのアクセスが制限されます。
+   - **ゲスト招待の設定:** 組織内の誰でも、ゲストや非管理者を含めてゲスト ユーザーを招待できます（最も包括的）。
+   - **コラボレーションの制限:** すべてのドメインに招待状を送信することを許可します（最も包括的）。
 
-## **Instructions**
+3. **MOD Administrator** として [Microsoft 365 管理センター](https://admin.microsoft.com/) にアクセスします。
 
-### **Exercise 1: Manage guest access for Microsoft Teams**
+4. Microsoft 365 管理センターの左側のナビゲーションで、**すべて表示** を選択し、**設定** > **組織設定** を選択します。
 
-In this exercise, you will test the guest access features in Microsoft 365. To do so, you will configure guest access in Azure AD, add a new external guest user and revoke the guest access by using access reviews.
+   - **サービス** タブで **Microsoft 365 グループ** を選択します。**グループ所有者が組織外のユーザーをゲストとして Microsoft 365 グループに追加できるようにする** のチェック ボックスがオンになっていることを確認します。[...]
+   - **セキュリティとプライバシー** タブで **共有** を選択します。**ユーザーが組織に新しいゲストを追加できるようにする** のチェック ボックスがオンになっていることを確認します。
 
-#### Task 1 - Review guest access settings (optional)
+これで、異なる管理センターでゲスト アクセスの設定を確認しました。コラボレーションのためにゲストを招待する準備が整いました。
 
-1. Connect to the Client1 VM and browse to Entra admin center (https://entra.microsoft.com/) as **MOD Administrator**.
+#### タスク 2 - Teams でゲスト アクセスを構成する
 
-2. On the main page under **Contoso**, select **View users** > **User settings** > **Manage external collaboration settings** under the External users. Review and ensure the following settings for external users at the Azure AD level:
+Teams 管理センターを確認したので、最初の設定を構成します。このタスクはテナント全体に反映されるまで時間がかかるため、ゲスト ユーザーのアクセスを先に構成します[...]
 
-	- **Guest user access**: Guest users have limited access to properties and memberships of directory objects.
+1. **Client 1 VM** に接続し、**Joni Sherman**（JoniS@&lt;YourTenant&gt;.onmicrosoft.com）として [Teams 管理センター](https://admin.teams.microsoft.com) にアクセスします。
 
-	- **Guest invite settings**: Anyone in the organization can invite guest users including guests and non-admins (most inclusive).
+2. Teams 管理センターの左側のナビゲーションで、**ユーザー** > **ゲスト アクセス** を選択します。
 
-	- **Collaboration restrictions**: Allow invitations to be sent to any domain (most inclusive)
+3. **ゲスト アクセス** ページで、**ゲスト アクセス** が有効か確認します。有効でない場合は **オン** を選択します。
 
-3. Browse to Microsoft 365 admin center (https://admin.microsoft.com/) as **MOD Administrator**.
+4. 下にスクロールして **メッセージング** セクションで、**送信済みメッセージを削除する** を無効にします。
 
-4. In the left navigation of the Microsoft 365 admin center, select the **Show all** and select **Settings** > **Org settings**.
+5. 下にスクロールして **保存** を選択します。
 
-	- Under the **Services** tab, select **Microsoft 365 Groups**. Make sure the checkbox is selected for **Let group owners add people outside your organization to Microsoft 365 Groups as guests**. Close the **Microsoft 365 Groups** page by selecting **X** button.
+これで、テナントでゲスト アクセスを有効化し、ゲストが送信済みメッセージを削除できないように構成しました。
 
-	- Under the **Security &amp; privacy** tab, select **Sharing**. Make sure the checkbox is selected for **Let users add new guests to the organization**.
+#### タスク 3 - チームにゲストを追加する
 
-You have now reviewed guest access settings across different admin centers. You are ready to invite the guest for collaboration.
+このタスクでは、ラボ 1 で作成したチーム **Group_Afterwork_** にゲスト ユーザーを招待して追加します。
 
-#### Task 2 - Configure guest access in Teams
+ゲスト ユーザーの招待/作成の既定の設定を変更し、個人の Outlook.com アカウントをテナントのゲスト ユーザーとして追加します。
 
-Now that you have explored the Teams admin center it is time to configure the first setting. Since this task will take some time to replicate through the tenant, you will configure the guest user access for Microsoft Teams right now, so it is available for later use.
+**注:** この演習には Outlook.com アカウントが必要です。アカウントがない場合は、[https://outlook.com](https://outlook.com/) から新しいアカウントを作成できます。
 
-1. Connect to the **Client 1 VM** and browse to Teams admin center (https://admin.teams.microsoft.com) as **Joni Sherman** (JoniS@&lt;YourTenant&gt;.onmicrosoft.com).
+1. **Client 2 VM** に接続し、**Alex Wilber**（AlexW@&lt;YourTenant&gt;.onmicrosoft.com）として [**Teams デスクトップ クライアント**](https://teams.microsoft.com/) を開きます。
 
-2. In the left navigation of the Teams admin center, select **Users** > **Guest access**.
+2. **Group_Afterwork_** チームにゲストを追加します。
 
-3. On the **Guest access** page, check if **Guest Access** is enabled. If not, select **On**.
+   - **Teams** を選��� > **Group_Afterwork_** チームの横の **…** を選択。
+   - **メンバーの追加** を選択し、Outlook アカウントを入力します。
+   - **&lt;あなたの Outlook アカウント&gt; をゲストとして追加** というメッセージが表示されます。メッセージを選択し、**追加** を選択します。
 
-4. Scroll down and under **Messaging** section, disable **Delete sent messages**
+3. ゲスト招待を承諾します。
 
-5. Scroll down and select **Save**.
+   - **新しい InPrivate ウィンドウ** を開き、**Outlook Web ポータル**（https://outlook.live.com/owa/）で **You have been added as a guest to Contoso in Microsoft Teams** という件名のメールを確認します。
+   - メールから **Open Microsoft Teams** を選択します。権限付与の同意要求を伴うサインイン ページにリダイレクトされます。
+   - **承諾** を選択し、Outlook アカウントで Teams の Web クライアントにサインインします。
+   - Teams クライアントで **Teams** を選択すると、**Group_Afterwork_** チームが表示されます。
 
-You have now successfully activated guest access and disallowed guests to delete their sent messages for Teams in your tenant.
+4. ゲスト アクセスをテストします。
 
-#### Task 3 - Add a guest to a team
+   - **Group_Afterwork_United States** チームの **一般** チャネルで、**投稿を開始** を選択し、**Hello!** とメッセージを送信します。
+   - 投稿したメッセージの **…** を選択します。**削除** のオプションがないことに注目してください。
 
-In this task, you will add a guest user by inviting the guest to the team **Group_Afterwork_** you created from Lab 1.
+ゲストをチームに招待し、前のタスクで構成したゲスト アクセス設定が有効であることを検証できました。
 
-You will change the default settings for inviting/creating guest users and then add your personal Outlook.com account as a guest user to your tenant.
+#### タスク 4 - アクセス レビューを作成する
 
-**Note**: You will need an Outlook.com account for this exercise. If you don’t have an outlook account, you can create a new account from [**https://outlook.com**](https://outlook.com/).
+システム管理者として、テナント内のリソースへのアクセスを定期的にレビューする必要があります。アクセス レビューの作成によってこれを実施できます。
 
-1. Connect to the **Client 2 VM** and open the **Teams desktop client** (https://teams.microsoft.com/) as **Alex Wilber** (AlexW@&lt;YourTenant&gt;.onmicrosoft.com)
+1. Client1 VM に接続し、**MOD Administrator** として [Microsoft Entra 管理センター](https://entra.microsoft.com/) にアクセスします。 
 
-2. Add the guest to **Group_Afterwork_** team.
+2. ゲスト ユーザーを監視するアクセス レビューを作成します。
 
-	- Select **Teams** > Select **…** next to the **Group_Afterwork_** team.
+   Entra 管理センター上部の検索バーで **ID ガバナンス** と入力して選択 > **アクセス レビュー** を選択 > **+ 新しいアクセス レビュー** を選択します。ウィザードで以下の情報に従います[...]
 
-	- Select **Add member** and enter your outlook account.
+   1. **レビューの種類** タブ:
+      - **レビュー対象を選択** セクションで **Teams + グループ** を選択。
+      - **レビュー範囲** セクションで **ゲスト ユーザーがいるすべての Microsoft 365 グループ** を選択。
+      - **スコープ** セクションで **ゲスト ユーザーのみ** が選択されていることを確認。
+      - **次へ: レビュー** を選択。
 
-	- You will see a message **add &lt;Your outlook account&gt; as a guest**. Select the message and select **Add**.
+   2. **レビュー** タブ:
+      - **レビュー担当者を選択** セクションで **グループ所有者** を選択。
+      - **レビューの繰り返し** セクションで **毎週** を選択し、他は既定のまま。
+      - **次へ: 設定** を選択。
 
-3. Accept the guest invite
+   3. **設定** タブは既定のままにして、**次へ: レビュー + 作成** > **作成** を選択。
 
-	- Open a **New InPrivate window** and check the email with subject **You have been added as a guest to Contoso in Microsoft Teams** from **Outlook Web Portal** (https://outlook.live.com/owa/).
+3. Azure AD のアクセス レビュー ダッシュボードを確認します。
 
-	- Select **Open Microsoft Teams** from the email. You will be redirected to the sign-in page with a permission consent request.
+   1. **ID ガバナンス | アクセス レビュー** ページで、**Review guest access across Microsoft 365 groups** という名前のアクセス レビュー レポートが表示されます。
+   2. 数分待ち、レポートの **状態** が **アクティブ** になったら、レポート名 **Review guest access across Microsoft 365 groups** を選択します。
+   3. **Review guest access across Microsoft 365 groups | 概要** ページで、グループ名の **Group_Afterwork_** を選択します。
+   4. **Group_Afterwork_**（グループ名）を選択 > **アクセス レビューの詳細 | 概要** ページで、**未レビュー** カテゴリに 1 ユーザーが表示されていることがわかります。
 
-	- Select **Accept** and sign in to Teams web client with your outlook account.
+4. アクセス レビューを実施し、ゲスト ユーザーを承認します。
 
-	- From the Teams client, select **Teams**, you will see the team **Group_Afterwork_**.
+   1. **Client 2 VM** に接続し、**Alex Wilber**（AlexW@&lt;YourTenant&gt;.onmicrosoft.com）として **Outlook.com**（https://outlook.office.com/）にアクセスします。InPrivate ウィンドウを開いてかまいません。
+   2. 件名 **Action required: Review group access** のメールを確認します。
+   3. メールの内容の **Start review >** を選択します。 
+   4. **My Access**（Https://myaccess.microsoft.com）ページで **Review guest access across Microsoft 365 groups** を選択します。 
+   5. **Review guest access across Microsoft 365 groups** ページで、ゲスト アカウントを選択して **承認** を選択します。 
+   6. **継続アクセスの承認** ウィンドウでテキスト ��ックスに **Approved.** と入力し、**送信** を選択します。
 
-4. Test the guest access
+テナントでアクセス レビューを作成し、ゲスト ユーザーを承認することに成功しました。
 
-	- Under the team **Group_Afterwork_United States**, select **General** channel, select **Start a post** and send the message: **Hello!**.
+### **演習 2: Microsoft Teams のセキュリティを実装する**
 
-	- Select **…** of the message you just posted. Notice there’s no **Delete** option.
+この演習では、Teams で共有されるドキュメントにマルウェアが含まれていないことを保証するために、セーフ アタッチメントを構成してセキュリティ レベルを高めます。ドキュメントをブロックすることで、組織内のユーザーが [...]
 
-You have successfully invited a guest to a team and validated the guest access setting from the previous task.
+#### タスク 1 - Microsoft Teams 用セーフ アタッチメントを構成する
 
-#### Task 4 - Create access reviews
+組織のユーザーは Microsoft Teams を使用してコミュニケーションとコラボレーションを行っています。業務管理者は、Microsoft Teams 内で共有されるドキュメントにマルウェアが含まれている可能性を懸念しています。あなたは [...]
 
-As a part of your system administrator role, you need to review access to resources in your tenant regularly. You can do that by creating an access review.
+1. **Client 1 VM** に接続し、**MOD Administrator** として [Microsoft 365 Defender ポータル](https://security.microsoft.com/) にアクセスします。
 
-1. Connect to the Client1 VM and browse to Entra admin center (https://entra.microsoft.com/) as **MOD Administrator**. 
+2. Microsoft 365 Defender ポータルの左ナビゲーションで **メールとコラボレーション** を展開し、**ポリシーとルール** > **脅威ポリシー** > **セーフ アタッチメント**（ポリシー セクション）を選択します。[...]
 
-2. Create an access review to monitor guest users.
+3. セーフ アタッチメント ページで **グローバル設定** を選択します。
 
-	In search bar at the top of the Entra admin center, type and seelct **Identity Governance** > and select **Access Reviews** and select **+ New access review**. Follow the wizard with the following information:
+4. 表示されたグローバル設定のフライアウトで、**SharePoint、OneDrive、Microsoft Teams 用の Defender for Office 365 を有効にする** のトグルを **オン** にします。
 
-	1. On the **Review type** tab:
-	
-		* In the **Select what to review** section, select **Teams + Groups**.
-		* In the **Review scope** section, select **All Microsoft 365 groups with guest users.** 
-		* In the **Scope** section, ensure **Guest users only** is selected.
-		* Select **Next: Reviews**.
+5. **保存** を選択します。
 
-	2. On the **Reviews** tab:
-	 
-		* In the **Select reviewers** section, select **Group owner(s)**.* In the **Review recurrence** section, select **Weekly** and keep rest as default. 
-		* Select on **Next: Settings**.
+このタスクでは、SharePoint、OneDrive、Microsoft Teams のセーフ アタッチメント スキャンを有効化し、マルウェアを含むドキュメントをブロックしました。
 
-	3. On the **Settings** tab, leave the settings as default. Select on **Next: Review+Create** > **Create**. 
+### **演習 3: Microsoft Teams のコンプライアンスを実装する**
 
-3. Review the access review dashboard from Azure AD.
+組織で Microsoft Teams を導入する前に、組織の要件を満たすために Microsoft Teams のコンプライアンス機能を評価する必要があります。
 
-	1. On the **Identity Governance | Access reviews** page, you will see an access review report named **Review guest access across Microsoft 365 groups**
+#### タスク 1 – Teams 用の機密ラベルを有効化する
 
-	2. Wait for a few minutes, when the **Status** of the report shows as **Active**, select the name of the report - **Review guest access across Microsoft 365 groups**.
+組織で Microsoft 365 グループを展開する前に、そのガバナンスを評価する必要があります。このタスクでは、Teams に割り当てるために、Microsoft Entra ID（旧 Azure AD）で機密ラベルを有効化します[...]
 
-	3. On the **Review guest access across Microsoft 365 groups | Overview** page, select **Group_Afterwork_** under the group name.
+1. 提供された資格情報で **Client 1 VM** に接続します。
 
-	4. Select **Group_Afterwork_** under Group Name > on the **Access review details | Overview** page, you can see there is one user shown under **Not reviewed** category. 
+2. **Windows PowerShell** を管理者として実行します。
 
-4. Review the access review and approve the guest user. 
+3. AAD テナントに接続します。
 
-	1. Connect to the **Client 2 VM** and browse to the **Outlook.com** (https://outlook.office.com/) as **Alex Wilber** (AlexW@&lt;YourTenant&gt;.onmicrosoft.com). You can open an InPrivate window.
-
-	2. Check the email with the subject **Action required: Review group access**.
-
-	3. Select **Start review >** in the content of the email. 
-
-	4. From the **My Access** (Https://myaccess.microsoft.com) page, select **Review guest access across Microsoft 365 groups**. 
-
-	5. On the **Review guest access across Microsoft 365 groups** page, select the guest account and select **Approve**. 
-	
-	6. From the **Approve continued access** window, enter **Approved.** to the textbox, and select **Submit**
-
-You have successfully created an access review and approved a guest user in your tenant.
-
-### **Exercise 2: Implement security for Microsoft Teams**
-
-In this exercise, you will increase the security level in your organization by configuring Safe Attachments to ensure that no malicious content is sent through documents shared in Teams by blocking attachments that contain malware.
-
-#### Task 1 - Configure Safe Attachments for Microsoft Teams
-
-Users in your organization are using Microsoft Teams for communication and collaboration. Business managers are concerned that documents that are shared within Microsoft Teams may contain malware. You will need to ensure that no malicious content is sent through documents shared in Teams by configuring Safe Attachments that block documents that contain malware.
-
-1. Connect to the **Client 1 VM** and browse to Microsoft 365 Defender portal (https://security.microsoft.com/) as **MOD Administrator**.
-
-2. In left navigation of the Microsoft 365 Defender portal, expand **Email & Collaboration** section, select **Policies &amp; rules** > **Threat policies** > **Safe Attachments** in the **Policies** section.
-
-3. On the Safe attachments page, select **Global settings**.
-
-4. In the Global settings flyout that appears, **Turn On** the toggle under **Turn on Defender for Office 365 for SharePoint, OneDrive, and Microsoft Teams**.
-
-5. Select **Save**.
-
-In this task, you have activated Safe Attachments scanning for SharePoint, OneDrive, and Microsoft Teams that block documents that contain malware.
-
-### **Exercise 3: Implement compliance for Microsoft Teams**
-
-Before deploying Microsoft Teams in your organization, you need to evaluate Microsoft Team’s compliance features to meet the organization’s requirements.
-
-#### Task 1 – Activate sensitivity lables for Teams
-
-You need to evaluate governance for Microsoft 365 Groups before deploying them in your organizations. In this task, you will activate the sensitivity lables for Teams in Azure AD, for being able to assign labels to teams.
-
-1. Connect to the **Client 1 VM** with the credentials that have been provided to you.
-
-2. Open **Windows PowerShell** and run as Administrator.
-
-3. Connect to your AAD tenant.
-
-    Enter the following cmdlet in the PowerShell window and press **Enter**. In the Sign-in window, sign in as the Global admin - MOD Administrator(admin@&lt;YourTenant&gt;.onmicrosoft.com).
-  
+   PowerShell ウィンドウで次のコマンドレットを入力して **Enter** キーを押します。サインイン ウィンドウで、グローバル管理者 - MOD Administrator（admin@&lt;YourTenant&gt;.onmicrosoft.com）としてサインインします。
+   
      	Connect-AzureAD
    
-4. Fetch the current group settings for the Azure AD organization.
+4. Microsoft Entra 組織の現在のグループ設定を取得します。
    
      	$Setting = Get-AzureADDirectorySetting -Id (Get-AzureADDirectorySetting | where -Property DisplayName -Value "Group.Unified" -EQ).id
    
-5. Enable the Microsoft Identity Protection (MIP) support in your configuration:
+5. 構成で Microsoft Information Protection (MIP) サポートを有効化します:
     
     	$Setting["EnableMIPLabels"] = "True"
    
-6. To verify the new configuration, run the following cmdlet:
+6. 新しい構成を検証するために、次のコマンドレットを実行します:
    
 
     	$Setting.Values
 
-7. Then save the changes and apply the settings:
+7. 変更を保存して設定を適用します:
 
 		Set-AzureADDirectorySetting -Id $Setting.Id -DirectorySetting $Setting
 
-    **Note:** If there’s no directory settings object in the tenant yet. You need to use ```New-AzureADDirectorySetting``` to create a directory settings object for the first time.
+   **注:** テナントにディレクトリ設定オブジェクトがまだない場合、最初に ```New-AzureADDirectorySetting``` を使用してディレクトリ設定オブジェクトを作成する必要があります。
 
-8. Disconnects the current session from an Azure Active Directory tenant and closes the PowerShell window.
+8. 現在のセッションを Microsoft Entra ID から切断し、PowerShell ウィンドウを閉じます。
 
         	Disconnect-AzureAD
 
-You have successfully changed your tenant’s Azure AD settings and activated sensitivity labels for Microsoft 365 Groups and Microsoft Teams.
+テナントの Microsoft Entra 設定を変更し、Microsoft 365 グループと Microsoft Teams 用の機密ラベルを有効化することに成功しました。
 
-#### Task 2 - Configure sensitivity labels for Teams
+#### タスク 2 - Teams 用の機密ラベルを構成する
 
-After activating sensitivity labels for groups, you will now create three sensitivity labels. In this task, you will create and update three sensitivity labels **General**, **Internal**, and **Confidential**. For each of them, you will create appropriate user and admin descriptions.
+グループで機密ラベルを有効化した後、3 つの機密ラベルを作成します。このタスクでは、**General**、**Internal**、**Confidential** の 3 つの機密ラベルを作成して更新します[...]
 
-1. Connect to the **Client 1 VM** and browse to Microsoft Purview Portal https://compliance.microsoft.com/) as **MOD Administrator**.
+1. **Client 1 VM** に接続し、**MOD Administrator** として [Microsoft Purview ポータル](https://compliance.microsoft.com/) にアクセスします。
 
-2. Open up **Windows PowerShell** and **Run as Adminstrator**
+2. **Windows PowerShell** を開き、**管理者として実行** します。
 
-3. Open a PowerShell prompt on your computer and run the following commands to prepare to run the cmdlets. 
+3. コマンドレットを実行する準備のために、コンピューター上の PowerShell プロンプトで次のコマンドを実行します。 
 
         	Install-Module Microsoft.Graph -Scope CurrentUser
 		Install-Module Microsoft.Graph.Beta -Scope CurrentUser
 
-5. Connect to your tenant as **MOD Administrator**. When you sign in, a pop up screen will appear. Ensure you select the checkbox **Consent on behalf of your organization** and then press **Accept** . 
+5. **MOD Administrator** としてテナントに接続します。サインイン時にポップアップ画面が表示されます。**組織を代表して同意する** のチェック ボックスを選択し、**承諾** を押してください[...]
 
         	Connect-MgGraph -Scopes "Directory.ReadWrite.All"
    
-6. Fetch the current group settings for the Microsoft Entra organization and display the current group settings.
+6. Microsoft Entra 組織の現在のグループ設定を取得し、表示します。
 
         	$grpUnifiedSetting = Get-MgBetaDirectorySetting -Search DisplayName:"Group.Unified"
    
-7. Apply the new settings.
+7. 新しい設定を適用します。
 
         	$params = @{
      		Values = @(
@@ -263,687 +236,620 @@ After activating sensitivity labels for groups, you will now create three sensit
 
 		Update-MgBetaDirectorySetting -DirectorySettingId $grpUnifiedSetting.Id -BodyParameter $params
 
-8. Verify that the new value is present.
+8. 新しい値が反映されていることを確認します。
 
         	$Setting = Get-MgBetaDirectorySetting -DirectorySettingId $grpUnifiedSetting.Id
 		$Setting.Values
 
-9. Connect to the Client 1 VM and browse to Microsoft Purview Portal https://compliance.microsoft.com/) as MOD Administrator.
+9. **Client 1 VM** に接続し、**MOD Administrator** として [Microsoft Purview ポータル](https://compliance.microsoft.com/) にアクセスします。
    
-10. In the left navigation of the Microsoft Purview compliance portal, select **Solutions**, **Information Protection** and then select **Sensitivity labels** from the menu.
+10. Microsoft Purview コンプライアンス ポータルの左側ナビゲーションで **ソリューション**、**情報保護** を選択し、メニューから **機密ラベル** を選択します。
 
-11. Select **Turn on now** next to the following warning message to activate content processing in Office online files:
+11. 次の警告メッセージの右側にある **今すぐオンにする** を選択して、OneDrive と SharePoint に保存され、暗号化された機密ラベルが適用された Office オンライン ファイルのコンテンツ処理を有効化します:
 
-    *Your organization has not turned on the ability to process content in Office online files that have encrypted sensitivity labels applied and are stored in OneDrive and SharePoint. You can turn it on here, but note that additional configuration is required for Multi-Geo environments. Learn more*
+    「組織では、OneDrive と SharePoint に保存されている、暗号化された機密ラベルが適用された Office オンライン ファイル内のコンテンツを処理する機能がオンになっていません。次の [...」
 
-12. Update the first sensitivity label - **General**.
+12. 最初の機密ラベル **General** を更新します。
 
-	Select the **General** label and select the **...** button then select the **Edit label** button, follow the wizard with the following information and select **Next** after each step: 
-	
-	a. In the **Name &amp; description** section, enter the following information:
-		- **Name** : Leave unchanged
-		- **Display name** : General
-		- **Description for users** : Leave unchanged
-		- **Description for admins** : General information without encryption, marking or sharing restriction settings activated.
-    		Then select **Next**.
+   **General** ラベルを選択し、**...** ボタンから **ラベルの編集** を選択し、各ステップ後に **次へ** を選択しながら、以下の情報でウィザードを進めます: 
+   
+   a. **名前と説明** セクション:
+      - **名前**: 変更しない
+      - **表示名**: General
+      - **ユーザー向けの説明**: 変更しない
+      - **管理者向けの説明**: 暗号化、マーキング、共有制限の設定を有効化しない一般情報。
+      その後 **次へ**。
 
-	b. In the **Scope** section, select **Files &amp; other data assets** and **Groups &amp; sites**. Then select **Next**.
+   b. **スコープ** セクションで **ファイルとその他のデータ資産** および **グループとサイト** を選択し **次へ**。
 
-	c. Under the **Choose protection settings for the types of items you selected** page, leave the boxes unchecked and select **Next**.
+   c. **選択したアイテムの保護設定を選ぶ** ページではチェック ボックスをオフのまま **次へ**。
 
-	d. In the **Items** section and **Auto-labeling for files and emails** page, leave the settings as default.
+   d. **アイテム** セクションの **ファイルとメールの自動ラベル付け** ページは既定の設定のまま。
 
-	e. In the **Groups & sites** section, under the paged called **Define protection settings for groups and sites**,  select both checkboxes. 
- 
-	* **Privacy and external user access** 
-	* **External sharing and Conditional Access** 
+   e. **グループとサイト** セクションの **グループとサイトの保護設定を定義** ページで、次の 2 つのチェック ボックスを選択。
+      - **プライバシーと外部ユーザー アクセス**
+      - **外部共有と条件付きアクセス** 
   
-	f. In the **Define privacy & external user access** section,
- 
-	* Select **None** under Privacy section.
-	* Check the checkbox of **Let Microsoft 365 Group owners add people outside your organization to the group as guests** under External user access section. 
+   f. **プライバシーと外部ユーザー アクセスを定義** セクション:
+      - プライバシーは **なし** を選択。
+      - 外部ユーザー アクセスで **Microsoft 365 グループの所有者が組織外のユーザーをゲストとしてグループに追加できるようにする** のチェック ボックスをオン。 
   
-	g. In the **External sharing & conditional access** section,
-		* Select **Control external sharing from labeled SharePoint sites** and select **Anyone**.
-  
-	* Select **Use Microsoft Entra Conditional Access to protect labeled SharePoint sites** and select  **Allow full access from desktop apps, mobile apps, and the web**.
+   g. **外部共有と条件付きアクセス** セクション:
+      - **ラベル付き SharePoint サイトの外部共有を制御** を選択し、**誰でも** を選択。
+      - **ラベル付き SharePoint サイトを保護するために Microsoft Entra の条件付きアクセスを使用する** を選択し、**デスクトップ アプリ、モバイル アプリ、Web からのフル アクセスを許可** を選択。
  
-	h. Select **Save label** > **Done**.
+   h. **ラベルを保存** > **完了** を選択。
 
-13. Create the second sensitivity label - **Internal**.
+13. 2 つ目の機密ラベル **Internal** を作成します。
 
-	Select **Information Protection** on the left hand side navigation panel then select the **Sensitivity labels** button then select **+ Create a label**, follow the wizard with the following information and select **Next** after each step: 
+   左のナビゲーションで **情報保護** を選択し、**機密ラベル** を選択して **+ ラベルの作成** を選択し、以下の情報でウィザードを進めます [...]
+   
+   a. **ラベルの詳細** セクション（**このラベルの基本情報を指定** ページ）:
+      - **名前**: Internal
+      - **表示名**: Internal
+      - **ユーザー向けの説明**: 共有保護付きの社内情報
+      - **管理者向けの説明**: 暗号化、マーキング、共有制限を中程度に有効化した社内情報
+
+   b. **スコープ** セクション（**このラベルのスコープを定義** ページ）では、チェック済みの項目はそのまま。
+
+   c. **アイテム** セクション（**選択したアイテムの保護設定を選ぶ** ページ）で、**アクセス制御** と **コンテンツ マーキングを適用** のチェック ボックスをオン。  
+
+   d. **アクセス制御** ページ:
+      - **アクセス制御設定を構成** を選択
+      - 権限の割り当て: **今すぐ権限を割り当てる**
+      - コンテンツへのユーザー アクセスの有効期限: **なし**
+      - オフライン アクセスを許可: **常に**
+      - **権限の割り当て** を選択し、**+ 組織内のすべてのユーザーとグループを追加** を選択
+      - 下にスクロールして **保存** を選択
+
+   e. **コンテンツ マーキング** セクション:
+      - **コンテンツ マーキング** のスライダーをオンにし、**透かしを追加** のチェック ボックスをオン。**テキストをカスタマイズ** を選択して **透かしテキスト** に次を入力: 
+        **Internal use only**
+      - **フッターを追加** のチェック ボックスをオンにし、**テキストをカスタマイズ** を選択して **フッター テキスト** に次を入力: **Internal use only**
+      - **保存** を選択
+
+14. **自動ラベル付け** セクションは既定のまま。
+
+15. **グループとサイト** セクションの **グループとサイトの保護設定を定義** で、次の 2 つにチェックを入れます。 
+   - **プライバシーと外部ユーザー アクセス**
+   - **外部共有と条件付きアクセス**
+
+16. **プライバシーと外部ユーザー アクセス** セクションで **なし** を選択。 
+
+17. **外部共有とデバイス アクセス** セクション:
+   - **ラベル付き SharePoint サイトの外部共有を制御** に **既存のゲスト** を選択
+   - **ラベル付き SharePoint サイトを保護するために Microsoft Entra の条件付きアクセスを使用する** に **制限付きの Web のみアクセスを許可** を選択 
+
+18. **ラベルの作成** > **完了** を選択。
+
+19. **ラベルの公開** のポップアウト ページでは **キャンセル** を選択。
+
+20. 3 つ目の機密ラベル **Confidential** を更新します。
+
+   左のナビゲーションで **情報保護** を選択し、**ラベル** を選択して **Confidential** ラベルを選択し、**...** ボタンから **ラベルの編集** を選択し、以下に従います [...]
+   
+   a. **名前と説明** セクション:
+      - **名前**: 変更しない
+      - **表示名**: Confidential
+      - **ユーザー向けの説明**: 変更しない
+      - **管理者向けの説明**: 暗号化、マーキング、共有設定をすべて制限した機密情報
+
+   b. **スコープ** セクション（**このラベルのスコープを定義** ページ）で **グループとサイト** を選択。
+
+   c. **アイテム** セクションで次の 2 つのチェック ボックスをオン:
+      - **アクセス制御**
+      - **コンテンツ マーキングを適用**
 	
-	a. In the **label details** section, under the **Provide basic details for this label** page, enter the following information:
-		- **Name**: Internal
-		- **Display name**: Internal
-		- **Description for users**: Internal information with sharing protection
-		- **Description for admins**: Internal information with moderate encryption, marking and sharing restriction settings activated
-
-	b. In the **Scope** section,  under the **Define the scope for this label** page, leave the marked checkboxes as is.
-
-	c. In the **Items** section under the page **Choose protection settings for the types of items you selected** page, select the **Control access** and **Apply content marking** checkboxes.  
-
-	d. In the **Access control** page:
-		* Select **Configure access control settings**
-		* Assign permissions now or let users decide: **Assign permissions now**.
-		* User access to content expires: **Never**.
-		* Allow offline access: **Always**.
-		* Select **Assign permissions**, and select **+ Add all users and groups in your organization**.
-		* Scroll down and select **Save** to apply the changes.
-		
-
-	e. In the **Content marking** sections,
-
-    * Select the slider under the **Content marking** header and the checkbox **Add a watermark**, then ***Customize text** and enter the following to the **Watermark text** box: 
-    **Internal use only**
-    * Select  the * Add a footer** checkbox  then ***Customize text** and enter the following to the **Footer text** box: **Internal use only**
-    * Click **Save** to apply the changes.
-		
-
-14. In the **Auto-labeling** section, leave the settings as default.
-	
-15. In the **Groups & sites** section, under the **Define protection settings for groups and sites**, select both checkboxes. 
-	
-	* **Privacy and external user access** 
-	* **External sharing and Conditional Access** 
-
-16. In the **Privacy & external user access** section, select **None**. 
-
-17. In the **External sharing & device access** section
-	* Select **Control external sharing from labeled SharePoint sites** and select **Existing guests**
-	* Select **Use Microsoft Entra Conditional Access to protect labeled SharePoint sites** and select  **Allow limited, web-only access** 
-
-18. Select **Create label** > **Done**.
-
-19. On the **Publish label**  pop-out page, select **Cancel**.
-
-20. Update the second sensitivity label - **Confidential**
-
-	Select the **Information protection** button on the left hand side navigation panel then select the **Lables** button then select the  **Confidential** label and select the **...** button then select **Edit label** button, follow the wizard with the following information and select **Next** after each step: 
-	
-	a. In the **Name & description** section, enter the following information:
-		- **Name**: Leave unchanged
-		- **Display name**: Confidential
-		- **Description for users**: Leave unchanged
-		- **Description for admins**: Confidential information with all restrictive encryption, marking and sharing settings activated
-
-	b. In the **Scope** section, under the **Define the scope for this label** page select  **Groups &amp; Sites** 
-
-	c. In the **Items** section, select both checkboxes.
-
-	* **Control Access** 
-	* **Apply content marking** 
-	
-	d. In the **Access control** section, 
-
-	* Select **Configure access control settings**
-	* Assign permissions now or let users decide: **Assign permissions now**
-	* User access to content expires: **Never**
-	* Allow offline access: **Never**
-	* Select **Assign permissions**, and select **+ Add all users and groups in your organization**
-	* Scroll down and select **Save** to apply the changes	
+   d. **アクセス制御** セクション:
+      - **アクセス制御設定を構成** を選択
+      - 権限の割り当て: **今すぐ権限を割り当てる**
+      - コンテンツへのユーザー アクセスの有効期限: **なし**
+      - オフライン アクセスを許可: **許可しない**
+      - **権限の割り当て** を選択し、**+ 組織内のすべてのユーザーとグループを追加**
+      - 下にスクロールして **保存** を選択	
  
+   e. **コンテンツ マーキング** ページ:
+      - スライダーをオンにし **透かしを追加** のチェック ボックスをオン
+      - **テキストをカスタマイズ** を選択し **透かしテキスト** に次を入力: **Confidential.**
+      - **保存** を選択
 
-	e. In the **Content marking** page, 
-	* Select the slider and the checkbox **Add a watermark** 
-	* Select **Customize text** and enter the following to the **Watermark text** box: **Confidential.**
-	* Click **Save** to apply the changes 
-
-	f. In the **Auto-labeling for files and emails** page, leave the settings as default.
+   f. **ファイルとメールの自動ラベル付け** ページは既定のまま。
 	
-	g. In the **Groups & sites** section, under the **Define protection settings for groups and sites** page, select both checkboxes. 
-	**Privacy and external user access** and 
-	**External sharing and Conditional Access** 
+   g. **グループとサイト** セクション（**グループとサイトの保護設定を定義** ページ）で次の 2 つにチェック:
+      **プライバシーと外部ユーザー アクセス** および 
+      **外部共有と条件付きアクセス** 
 
+   h. **プライバシーと外部ユーザー アクセスを定義** セクション（**プライバシーと外部ユーザー アクセス設定を定義** ページ）で **非公開** を選択。 
 
-	h. In the **Define privacy & external user access** section, under the **Define privacy and external user access settings** page, select **Private**. 
+   i. **外部共有と条件付きアクセス** セクション（**外部共有と条件付きアクセスの設定を���義** ページ）:
+      - **ラベル付き SharePoint サイトの外部共有を制御** に **組織内のユーザーのみ** を選択。
+      - **ラベル付き SharePoint サイトを保護するために Microsoft Entra の条件付きアクセスを使用する** に **アクセスをブロック** を選択。
 
-	i. In the **External sharing & conditional access** section, under the **Define external sharing and conditional access settings** page: 
-	* Select **Control external sharing from labeled SharePoint sites** and select **Only people in your organization**.
-	* Select **Use Microsoft Entra Conditional Access to protect labeled SharePoint sites** and select **Block access**
+   j. **ラベルを保存** > **完了** を選択。
 
-	j. Click **Save label** > **Done**.
+21. 機密ラベルを公開します。各ステップ後に必要に応じて **次へ** を選択します。
 
+   a. 左側の **情報保護** のメニューに戻り、**ポリシー** > **ラベル公開ポリシー** を選択。
 
-21. Publish sensitivity labels, after performing each step select **Next** (if required).
+   b. **グローバル機密ラベル ポリシー** を選択し、右側に表示されるページで **ポリシーの編集** ボタンを選択。
 
-	a. Navigate back to  **Information protection** dropdown menu item on the left hand side of the page, select **Policies** and then **Label publishing policies**.
+   c. **公開する機密ラベルの選択** ページで、**公開する機密ラベル** セクションの **編集** リンクを選択。
 
-	b. Select the **Global sensitivity label policy** and select the **Edit policy** button when the right side page pops up.
+   d. **公開する機密ラベル** ウィンドウで、すべてのラベルにチェックを入れて **追加** を選択。
 
-	c. In the **Choose sensitivity labels to publish** page, select the **Edit** Link under the **Sensitivity lables to publish** section.
+   e. **管理単位の割り当て** ページはそのまま。
 
-	d. In the **Sensitivity labels to publish** window, check all labels and select **Add**.
+   f. **ユーザーとグループへの公開** ページは既定の設定のまま。 
 
- 	e. In the **Assign admin units** page, leave as is.
+   g. **ポリシー設定** ページは既定の設定のまま。 
 
-	f. In the **Publish to users and groups** page, keep the default settings. 
+   h. **ドキュメントの既定の設定** ページで、**ドキュメントに既定のラベルを適用** に **General/All Employees (unrestricted)** を選択。
 
-	g. In the **Policy Settings** page, keep the default settings. 
+   i. **メールの既定の設定** ページで、**メールに既定のラベルを適用** に **General/All Employees (unrestricted)** を選択。
 
-	h. In the **Default settings for documents** page, select **General/All Employees (unrestricted)** in the dropdown menu under **Apply a default label to documents**.
-
-	i. In the **Default setting for emails** page, select **General/All Employees (unrestricted)** in the dropdown menu under **Apply a default label to emails**.
-
- 	j. In the **Default setting for meetings an calendar events** page, leave as is.
+   j. **会議と予定表イベントの既定の設定** ページはそのまま。
       
-	k. In the **Default settings for sites and groups** page, select **Internal** in the dropdown menu under **Apply a default label to sites and groups**.
+   k. **サイトとグループの既定の設定** ページで、**サイトとグループに既定のラベルを適用** に **Internal** を選択。
 
-	l. In the **Default settings for Fabric and Power BI content** page, select **General/All Employess (unrestricted)** in the dropdown menu under **Apply a default label to Fabric and Power BI content**.	
+   l. **Fabric と Power BI コンテンツの既定の設定** ページで、**Fabric と Power BI コンテンツに既定のラベルを適用** に **General/All Employees (unrestricted)** を選択[...]
 
-	m. In the **Name your policy** page, leave unchanged
+   m. **ポリシーに名前を付ける** ページは変更なし。
 	
-	n. Select **Submit** > **Done**.
+   n. **送信** > **完了** を選択。
 
-In this task, you have created and published three new sensitivity labels available for all users, which can be assigned to new and existing teams.
+このタスクでは、すべてのユーザーが使用できる 3 つの新しい機密ラベルを作成して公開し、新規および既存の Teams に割り当て可能にしました。
 
-#### Task 3 - Assign sensitivity labels to teams
+#### タスク 3 - チームに機密ラベルを割り当てる
 
-Once the sensitivity labels are created and published, users can now assign them to teams. Furthermore, users can modify assigned labels if needed. In this task, you will assign the **Internal** label to the **Teams Rollout** team.
+機密ラベルを作成・公開すると、ユーザーはそれらをチームに割り当てることができます。必要に応じて、割り当て済みラベルの変更も可能です。このタスクでは、**Internal** ラベルを [...]
 
-**Note:** It can take several minutes till the newly created sensitivity labels are available to users.
+**注:** 新しく作成した機密ラベルがユーザーに表示されるまで数分かかることがあります。
 
-1. Connect to the **Client 2 VM** with the credentials that have been provided to you.
+1. 提供された資格情報で **Client 2 VM** に接続します。
 
-2. Open the Teams Desktop client, where you are still signed in as **Alex Wilber**.
+2. **Alex Wilber** としてサインインしたままの **Teams デスクトップ クライアント** を開きます。
 
-3. For Microsoft Teams Classic: On the Teams overview select the **…** on the right side next to the Team "**Teams Rollout,"** then select **Edit team** from the dropdown list.
+3. Microsoft Teams クラシックの場合: Teams の概要で、チーム "**Teams Rollout**" の右側の **…** を選択し、ドロップダウン リストから **チームの編集** を選択します。
 
-4. For the new Microsoft Teams: On the Teams overview select the **Teams and channels** on the right side next to the Team "**Teams Rollout,"** then select **Manage team** from the dropdown list, Thern navigate to the**Settings** tab then select **Edit**.
+4. 新しい Microsoft Teams の場合: Teams の概要で、チーム "**Teams Rollout**" の右側の **Teams とチャネル** を選択し、ドロップダウン リストから **チームの管理** を選択します。[...]
 
-5. On the **Edit “Teams Rollout” team details** window, select the dropdown menu below Sensitivity and select **Internal**.
+5. **“Teams Rollout” のチーム詳細の編集** ウィンドウで、機密度のドロップダウンを選択し **Internal** を選択します。
 
-6. Select **Done** to save the changes.
+6. **完了** を選択して変更を保存します。
 
-You have successfully applied a sensitivity label to an existing team. The configured settings of the Internal label are now applied to the Teams Rollout team. Continue with the next task.
+既存のチームに機密ラベルを適用できました。Internal ラベルに構成した設定が Teams Rollout チームに適用されます。次のタスクに進みます。
 
-#### Task 4 – Test external access with sensitivity labels (optional)
+#### タスク 4 – 機密ラベルによる外部アクセスをテストする（任意）
 
-In this task, you will try to add a guest user to an internal team.
+このタスクでは、内部チームにゲスト ユーザーを追加しようと試みます。
 
-1. Connect to the **Client 2 VM** with the credentials that have been provided to you.
+1. 提供された資格情報で **Client 2 VM** に接続します。
 
-2. Open the Microsoft Teams Desktop Client, where you are signed in as **Alex Wilber**.
+2. **Alex Wilber** としてサインイン中の Microsoft Teams デスクトップ クライアントを開きます。
 
-3. On the Teams overview select **…** right next to the Team "**Teams Rollout"** then select **Add member** from the dropdown list.
+3. Teams の概要で、チーム "**Teams Rollout**" の右側の **…** を選択し、ドロップダウン リストから **メンバーの追加** を選択します。
 
-4. On the **Add members to Teams Rollout** page, enter the name of the guest user you just invited.
+4. **Teams Rollout にメンバーを追加** ページで、先ほど招待したゲスト ユーザーの名前を入力します。
 
-5. You will not be able to find the guest user, because guest users are restricted from this team.
+5. 機密ラベルの制限により、ゲスト ユーザーは見つかりません。
 
-6. Select **Cancel.**
+6. **キャンセル** を選択します。
 
-You have successfully tested the sensitivity labels setting to prevent guest access to a protected team and you can confirm, the labels are working as predicted.
+保護されたチームへのゲスト アクセスを防止する機密ラベルの設定をテストし、期待どおりに機能していることを確認できました。
 
-#### Task 5 - Create a new retention policy to retain content
+#### タスク 5 - コンテンツを保持する新しい保持ポリシーを作成する
 
-Teams retention settings are very important for managing the lifecycle of company data, therefore, the capabilities of retention policies need to be evaluated in the Teams pilot. In this task, you will create a new retention policy that retains the Teams channel messages of the **Sales** team for **7 years** after the last modification.
+Teams の保持設定は会社データのライフサイクル管理に非常に重要であるため、パイロットで保持ポリシーの機能を評価する必要があります。このタスクでは、[...]
 
-1. Connect to the **Client 1 VM** and browse to Microsoft Purview Portal(https://compliance.microsoft.com/) as **MOD Administrator**.
+1. **Client 1 VM** に接続し、**MOD Administrator** として [Microsoft Purview ポータル](https://compliance.microsoft.com/) にアクセスします。
 
-2. In the left navigation of the Microsoft Purview Portal, select **Solutions** and then **Data lifecycle management**.
+2. Microsoft Purview ポータルの左側ナビゲーションで **ソリューション** > **データ ライフサイクル管理** を選択します。
 
-3. On the **Data lifecycle management** page, select **Policies**, then **Retention policies**, and select **+ New retention policy** to create a new retention policy. 
+3. **データ ライフサイクル管理** ページで **ポリシー** > **保持ポリシー** を選択し、**+ 新しい保持ポリシー** を選択して新しい保持ポリシーを作成します。 
 
-4. Follow the **Create retention policy** wizard with the following information:
+4. **保持ポリシーの作成** ウィザードで以下の情報に従います:
 
-	1. In the **Name your retention policy** page, enter the following information 
-		- **Name**: Sales retention policy
-		- **Description**: Retention policy for Sales department that will retain channel messages for 7 years.
-		- select **Next**
+   1. **保持ポリシーに名前を付ける** ページ:
+      - **名前**: Sales retention policy
+      - **説明**: Sales 部門のチャネル メッセージを 7 年間保持する保持ポリシー。
+      - **次へ** を選択
 
-	2. Under the **Policy Scope** page, leave the settings as default. 
+   2. **ポリシーのスコープ** ページは既定のまま。 
 
-	3. In the **Choose the type of retention policy to create** section, select **Static** and select **Next** then configure the following settings:
+   3. **作成する保持ポリシーの種類を選択** セクションで **静的** を選択し **次へ**。次の設定を構成します:
+      - **Exchange メールボックス**: オフ
+      - **SharePoint クラシックおよびコミュニケーション サイト**: オフ
+      - **OneDrive アカウント**: オフ
+      - **Microsoft 365 グループのメールボックスとサイト**: オフ
+      - **Skype for Business**: オフ
+      - **Exchange 公開フォルダー**: オフ
+      - **Teams チャネル メッセージ**: オン
+      - **Teams チャット**: オフ
+      - **Teams プライベート チャネル メッセージ**: オフ
+      - **Yammer コミュニティ メッセージ**: オフ
+      - **Yammer ユーザー メッセージ**: オフ
+      - **Teams チャネル メッセージ** 行の **含まれる対象** 列の **編集**（現在の「すべてのチーム」の選択の下）を選択して右側のペインを開きます。
+      - **Sales** の左のチェック ボックスを選択して **完了**。
 
-		- **Exchange mailboxes**: Off
-		- **SharePoint classic and communication sites**: Off
-		- **OneDrive accounts**: Off
-		- **Microsoft 365 Group mailboxes & sites**: Off
-		- **Skype for Business**: Off
-		- **Exchange public folders**: Off
-		- **Teams channel messages**: On
-		- **Teams chats**: Off
-		- **Teams private channel messages**: Off
-		- **Yammer community messages**: Off
-		- **Yammer user messages**: Off
-		- Select **Edit** in the **Included** column (under the current *All teams* choice) for the **Teams channel messages** line to open the right-side pane.
-		- Select the checkbox left from **Sales** and select **Done**.
+         ![Graphical user interface, text, application Description automatically generated](media/MS-700-lab_M02_ak_image3.png)
 
-			![Graphical user interface, text, application Description automatically generated](media/MS-700-lab_M02_ak_image3.png)
+   4. **保持設定** セクションの **コンテンツを保持、削除、または両方するかを決定** ページはそのままにして **次へ**。
 
-	4. In the **Retention settings** section, under the **Decide if you want to retain content, delete it, or both** page, leave as is and select **Next**.
+5. **レビューして完了** ページで設定を確認し、**送信** を選択します。
 
+6. **完了** を選択。次のタスクのためにブラウザーは開いたままにします。
 
-5. In the ** Review and Finish** page, review your settings and select **Submit**.
+このタスクでは、**Sales retention policy** という名前の新しい保持ポリシーを作成し、**Sales** チームのチャネル メッセージとチャットを **最終変更から 7 年間** 保持するように構成しました[...]
 
-6. Select **Done**. Leave the browser open for the next task.
+#### タスク 6 - コンテンツを削除する新しい保持ポリシーを作成する
 
-In this task, you have successfully created a new retention policy named **Sales retention policy** that retains the channel messages and chat of the **Sales** Team for **7 years after the last modification**.
+データが削除されないように保持ポリシーを構成した後、自動的にコンテンツを削除する保持ポリシーの機能も評価する必要があります。デモ目的で、[...]
 
-#### Task 6 - Create a new retention policy to delete content
+1. **Client 1 VM** に接続し、**MOD Administrator** として [Microsoft Purview ポータル](https://compliance.microsoft.com/) にアクセスします。
 
-After configuring a retention policy to protect data from deletion, you also need to evaluate the capabilities of retention policies to delete content automatically. For demonstration purposes, you will set the deletion threshold to a single day and apply the retention policy to the **Teams Rollout** team, to remove all channel messages older than a day automatically.
+2. Microsoft Purview ポータルの左側ナビゲーションで **ソリューション** > **データ ライフサイクル管理** を選択します。
 
-1. Connect to the **Client 1 VM** and browse to Microsoft Purview Portal (https://compliance.microsoft.com/) as **MOD Administrator**.
+3. **データ ライフサイクル管理** ページの **ポリシー** > **保持ポリシー** で、**+ 新しい保持ポリシー** を選択します。 
 
-2. In the left navigation of the Microsoft Purview Portal, select **Solutions**, **Data lifecycle management**.
+4. **保持ポリシーの作成** ウィザードで以下の情報に従います:
 
-3. On the **Data lifecycle management** page, under **Policies** and then **Retention policies**, select **+New retention policy** to add a new retention policy. 
+   1. **名前** セクション:
+      - **名前**: Teams Rollout deletion policy
+      - **説明**: Teams Rollout チームの 1 日より古いメッセージを削除する保持ポリシー。
+      - **次へ** を選択
 
-4. Follow the **Create retention policy** wizard with the following information:
+   2. **ポリシーのスコープ** ページは既定のまま。 
 
+   3. **種類** セクション（**作成する保持ポリシーの種類を選択** ページ）で **静的** を選択し **次へ**。次を構成:
+      - **Exchange メール**: オフ
+      - **SharePoint クラシックおよびコミュニケーション サイト**: オフ
+      - **OneDrive アカウント**: オフ
+      - **Microsoft 365 グループ**: オフ
+      - **Skype for Business**: オフ
+      - **Exchange 公開フォルダー**: オフ
+      - **Teams チャネル メッセージ**: オン
+      - **Teams チャット**: オフ
+      - **Teams プライベート チャネル メッセージ**: オフ
+      - **Yammer コミュニティ メッセージ**: オフ
+      - **Yammer ユーザー メッセージ**: オフ
+      - **Teams チャネル メッセージ** 行の **含まれる対象** 列の **編集** を選択し右側ペインを開く。
+      - **Teams Rollout** の左のチェック ボックスを選択し **完了**。
 
-	1. In the **Name** section, enter the following information 
-	
-		- **Name**: Teams Rollout deletion policy
-		- **Description**: Retention policy for the Teams Rollout team to delete messages older than a day.
-		- Select **Next**
+         ![Picture 4](media/MS-700-lab_M02_ak_image4.png)
 
-	2. Under the **Policy Scope** page, leave the settings as default. 
+   3. **保持設定** セクション（**コンテンツを保持、削除、または両方するかを決定** ページ）で:
+      - **アイテムが指定の期間に達したときにのみ削除** を選択 
+      - **指定の期間より古いアイテムを削除:** **カスタム** > **1 日**
+      - **コンテンツの削除基準:** **アイテムが作成されたとき**
+      - **次へ** を選択
+         
+         ![Picture 5](media/MS-700-lab_M02_ak_image5.png)
 
-	3. In the **Type** section, under the **Choose the type of retention policy to create** page, select **Static** and select **Next** then configure the following settings:
+6. **レビューして完了** セクションで設定を確認し、**送信** を選択します。
 
-		- **Exchange email**: Off
-		- **SharePoint classic and communication sites**: Off
-		- **OneDrive accounts**: Off
-		- **Microsoft 365 Groups**: Off
-		- **Skype for Business**: Off
-		- **Exchange public folders**: Off
-		- **Teams channel messages**: On
-		- **Teams chats**: Off
-		- **Teams private channel messages**: Off
-		- **Yammer community message**: Off
-		- **Yammer user messages**: Off
-		- Select **Edit** in the **Included** column (under the current *All teams* choice) for the **Teams channel messages** line to open the right-side pane.
-		- Select the checkbox left from **Teams Rollout** and select **Done**.
+7. **完了** を選択。次のタスクのためにブラウザーは開いたままにします。
 
-			![Picture 4](media/MS-700-lab_M02_ak_image4.png)
+このタスクでは、**Teams Rollout** チームのすべての会話メッセージのうち 1 日より古いものをクリーンアップする削除機能のテスト用に 2 つ目の保持ポリシーを作成しました。
 
-	3. In the **Retention settings** section, under the **Decide if you want to retain content, delete it, or both** page,  
-		- Select **Only delete items when they reach a certain age** 
-		- Delete items older than: Select **Custom** > **1 days**
-		- Delete the content based on: **when items were created**
-		- Select **Next**.
-		
-			![Picture 5](media/MS-700-lab_M02_ak_image5.png)
+#### タスク 7 – コンテンツ削除の保持ポリシーをテストする（任意）
 
-6. In the **Review and Finish** section, review your settings and select **Submit**.
+このタスクでは、**Teams Rollout** チームで 1 日後にコンテンツを削除する保持ポリシーをテストします。保持ポリシーが有効になる前に、会話コンテンツを作成する必要があります[...]
 
-7. Select **Done**. Leave the browser open for the next task.
+**注:** 保持ポリシーが削除を実行するまで 24 時間待つ必要があるため、このタスクは任意です。Teams Rollout チームでコンテンツを作成した後、このラボの後半で戻って[...]
 
-You have successfully created a second retention policy for testing the deletion capabilities to clean up the **Teams Rollout** team from all conversation messages older than a day.
+1. 提供された資格情報で **Client 2 VM** に接続します。
 
-#### Task 7 – Test the retention policy for deleting content (optional)
+2. タスクバーから **Teams デスクトップ クライアント** を開き、**Alex Wilber** としてサインインしたままにします。
 
-In this task, you will test the retention policy for deleting content from the **Teams Rollout** team after a day. Before you can see the retention policy taking any effect, you must create some conversation content in the team.
+3. **Teams Rollout** チームの **Teams Rollout** チャネルを選択します。
 
-**Note:** Because you need to wait for 24 hours till the retention policy deletes anything, this task is marked as optional. After creating content in the Teams Rollout team, you need to return to this task after waiting 24 hours to see the retention policy’s effect.
+4. メイン ウィンドウ下部から **投稿を開始** を選択します。
 
-1. Connect to the **Client 2 VM** with the credentials that have been provided to you.
+5. テキスト ボックスに次のテキストを入力します:
 
-2. Open the Teams, desktop client, from the taskbar, where you are still signed in as **Alex Wilber**.
+   - Hello world!
 
-3. Select the **Teams Rollout** team and the **Teams Rollout** channel.
+6. クライアントは開いたままにし、必要に応じて他のコンテンツもチームに追加します。
 
-4. Select **Start a post** from the lower end of the main window.
+7. 24 時間後に戻り、コンテンツが自動的に削除されていることを確認します。
 
-5. Write the following text to the text box:
+��ームに会話メッセージを追加し、削除ポリシーによって 24 時間後に削除されることを確認できました。
 
-- Hello world!
+#### タスク 8 - GDPR（個人情報）コンテンツ向けの DLP ポリシーをテンプレートから作成する
 
-6. Leave the client open and add other content to the team, as you like.
+組織のコンプライアンス要件に基づき、欧州ユーザーの PII データの基本保護を実装する必要があります。**GDPR DLP Policy** という名前の新しい DLP ポリシーをテンプレートから[...]
 
-7. Come back after 24 hours to see, the content has been deleted automatically.
+1. **Client 1 VM** に接続し、**MOD Administrator** として [Microsoft Purview ポータル](https://purview.microsoft.com/) にアクセスします。
 
-You have added a conversation message to a team, which is deleted by the deletion retention policy after 24 hours.
+2. Microsoft Purview ポータルの左側ナビゲーションで **ソリューション** の **データ損失防止** を選択します。
 
-#### Task 8 - Create a DLP policy for GDPR (PII) content from a template
+3. **データ損失防止** ページで **ポリシー** を選択し、**+ ポリシーの作成** を選択します。
 
-According to your organization’s compliance requirements, you need to implement basic protection of PII data for European users. You will create a new DLP Policy named **GDPR DLP Policy** from the template “General Data Protection Regulation (GDPR),” The DLP policy you create will detect if GDPR sensitive content is shared with people outside of your organization. If the policy detects at least one occurrence of the GDPR sensitive information, it will send an email to the **Teams admin - Joni Sherman** and block people from sharing the content and restricting access to shared content. Furthermore, it will display a tip to users who tried to share the sensitive content, and it will allow them to override the policy with business justification. Since you are evaluating the DLP policies, you will create the DLP policy in a test mode with policy tips enabled.
-
-1. Connect to the **Client 1 VM** and browse to Microsoft Purview Portal (https://purview.microsoft.com/) as **MOD Administrator**.
-
-2. In the left navigation of the Microsoft Purview Portal, select  **Data loss prevention** under **Solutions**.
-
-3. On the **Data loss prevention** page, select the **Policies**, then select **+ Create policy**.
-
-4. In the **Choose what type of data to protect** page, keep the default selection and press **Next**.
+4. **保護するデータの種類を選択** ページでは既定の選択のまま **次へ** を押します。
    
-5. In the **Start with a template or create a custom policy** page,
+5. **テンプレートから開始するか、カスタム ポリシーを作成する** ページで、
+   a. **カテゴリ** の **プライバシー** を選択し、**テンプレート** セクションから **General Data Protection Regulation (GDPR) Enhanced** テンプレートを選択。
+   b. **次へ** を選択
 
-	a. Select **Privacy** under **Categories**, then select the **General Data Protection Regulation (GDPR) Enhanced** template from the **Templates** section.
+6. **DLP ポリシーに名前を付ける** ページで次を入力:
+   - **名前**: GDPR DLP Policy
+   - **説明**: Teams における GDPR 規制のためのデータ損失防止ポリシー。
 
-	b. Select **Next**
-
-6. In the **Name your DLP policy** page, enter the following information:
-
-	- **Name**: GDPR DLP Policy
-
-	- **Description**: Data loss prevention policy for GDPR regulations in Teams.
-
-7. In the **Assign admin units** page, leave settings as is.
+7. **管理単位の割り当て** ページはそのまま。
    
-8. In the **Choose where to apply the policy** page, apply the following settings and select **Next**:
+8. **ポリシーを適用する場所の選択** ページで、次を適用して **次へ**:
+   - **Exchange メール**: チェック
+   - **SharePoint サイト**: チェック
+   - **OneDrive アカウント**: チェック
+   - **Teams チャットとチャネル メッセージ**: チェック
+   - **デバイス**: チェック
+   - **オンプレミス リポジトリ**: チェックを外す
+   - **Fabric と Power BI のワークスペース**: チェックを外す
 
-	- **Exchange email**: Select checkbox
+9. **ポリシー設定の定義** ページではテンプレートの既定の選択 **テンプレートの既定の設定をレビューしてカスタマイズ** のまま **次へ**。
 
-	- **SharePoint sites**: Select checkbox
+   1. **保護対象情報** ページは既定のまま **次へ**。
+   2. **保護アクション** ページで次が構成されていることを確認し **次へ**:
+      - **同じ機密情報の種類の特定数が一度に共有されている場合を検出する** のチェック ボックスをオン
+      - **同じ機密情報の種類が少なくとも ___ 件以上** に **1** と入力
+      - **インシデント レポートをメールで送信** のチェック ボックスをオン
+      - **レポートの内容と受信者を選択** を選択して右側ペインを開く
+      - **ユーザーの追加または削除** を選択し、**Joni Sherman** のチェック ボックスをオン
+      - **追加** と **保存** を選択
+      - **DLP ルールに一致した場合にアラートを送信** のチェック ボックスをオン
+      - **Microsoft 365 の場所でのアクセスを制限するか、コンテンツを暗号化する** のチェック ボックスをオン
 
-	- **OneDrive accounts**:Select checkbox
+   3. **アクセスとオーバーライド設定のカスタマイズ** ページで次を構成し **次へ**:
+      - **Microsoft 365 の場所でのアクセスを制限するか、コンテンツを暗号化する** のチェック ボックスをオン
+      - **ユーザーがメールを受信したり、共有された SharePoint、OneDrive、Teams コンテンツにアクセスすることをブロック** を選択
+      - **組織外のユーザーのみをブロック** を選択
+      - **誤検知として報告された場合は自動的にルールをオーバーライド** を選択
 
-	- **Teams chat and channel messages**: Select checkbox
+10. **ポリシー モード** ページで **ポリシ���をすぐにオンにする** を選択し **次へ**。
 
- 	- **Devices**: Select checkbox
+11. **設定のレビュー** ページで設定を確認し、**送信** して **完了**。
+注: **送信** 後に「クライアント エラー: 組織外のユーザーのみをブロックするには、条件 'コンテンツが組織外のユーザーと共有されている' を選択する必要があります [...]」というエラーが表示される場合があります。
 
-	- **On-premises repositories**: Unselect checkbox
+12. **データ損失防止** ページに留まり、ブラウザーを開いたまま **更新** ボタンを押します。
 
-	- **Fabric and Power BI workspaces**: Unselect checkbox
+このタスクを完了すると、テンプレート「General Data Protection Regulation (GDPR)」から DLP ポリシーを作成し、組織外と共有される場合に GDPR の機密コンテンツを検出するように構成されます[...]
 
+#### タスク 9 - ゼロから DLP ポリシーを作成する
 
-9. In the **Define policy settings** page, stay with the default selection from the template - **Review and customize default settings from the template** and select **Next**.
+GDPR 関連データを保護する DLP ポリシーを作成した後、テンプレートを使用せずに別のポリシーを作成します。テンプレートではなく、カスタム ルールとアクションを直接構成します[...]
 
-	1. In the **Info to protect** page, leave the default settings and select **Next**.
+1. **Client 1 VM** に接続し、**MOD Administrator** として [Microsoft Purview ポータル](https://compliance.microsoft.com/) にアクセスします。
 
-	2. In the **Protection actions** page, ensure that the following settings are configured, and then select **Next**:
+2. Microsoft Purview ポータルの左側ナビゲーションで **ソリューション** の **データ損失防止** を選択します。
 
-		- A checkbox is selected for: **Detect when a specific amount of sensitive info is being shared at one time**
-		- In the **At least __ or more instances of the same sensitive info type** box, type: **1**
-		- Select the checkbox **Send incident reports in email**
-		- Select **Choose what to include in the report and who receives it** to open the right-side pane
-		- Select **Add or remove people**, select the checkbox for **Joni Sherman**. 
-		- Select **Add** and **Save**
-		- Select the checkbox **Send alerts if any of the DLP rules match**
-		- Select the checkbox **Restrict access or encrypt the content in Microsoft 365 locations**
+3. **データ損失防止** ページで **ポリシー** を選択し、**+ ポリシーの作成** を選択します。
 
-	3. In the **Customize access and override settings** page, ensure that the following settings are configured, and then select **Next**:
+4. **テンプレートから開始するか、カスタム ポリシーを作成する** セクションで、
+   1. **カテゴリ** の **カスタム** を選択し、**テンプレート** セクションから **カスタム ポリシー** を選択。
+   2. **次へ** を選択
 
-		- A checkbox is selected for: **Restrict access or encrypt the content in Microsoft 365 locations**
-		- Select **Block users from receiving email or accessing shared SharePoint, OneDrive, and Teams content**.
-		- Select **Block only people outside your organization.**.
-		- Select **Override the rule automatically if they report it as false positive**.
+5. **ポリシーに名前を付ける** セクションで次を入力:
+   - **名前**: Credit card data DLP Policy
+   - **説明**: Teams におけるクレジット カード データのデータ損失防止ポリシー。
 
-10. In the **Policy mode** page, select **Turn the policy on immediately** and select **Next**.
+6. **管理単位の割り当て** ページはそのまま。
 
-11. On the Review your settings page, review your settings, select **Submit** then **Done**.
-Note: After pressing Submit you may receive an error which reads "Client error: to block only people outside your organization, you must select the conditions "content is shared with people outside my organization:" Press **OK** to ignore and navigate back to the Data Loss Prevention page by selecting **Cancel** and select **Confirm**.
+7. **ポリシーを適用する場所の選択** セクションで次を適用し **次へ**:
+   - **Exchange メール**: チェック
+   - **SharePoint サイト**: チェック
+   - **OneDrive アカウント**: チェック
+   - **Teams チャットとチャネル メッセージ**: チェック
+   - **デバイス**: チェック
+   - **インスタンス**: チェック
+   - **オンプレミス リポジトリ**: チェックを外す
+   - **Fabric と Power BI のワークスペース**: チェックを外す 
 
-12. Stay on the **Data loss prevention page** and leave the browser opened. Press the **Refresh** button.
+7. **ポリシー設定の定義** セクションは既定の選択のまま **次へ**。
 
-After completing this task, you have created a DLP Policy from the template “General Data Protection Regulation (GDPR)” that detects if GDPR sensitive content is shared with people outside of your organization. The policy is extra sensitive for the configured threshold of **1** rule match and **Joni Sherman** will be notified if a matching occurs.
+   1. **高度な DLP ルールのカスタマイズ** セクションで **+ ルールの作成** を選択し、次を入力:
+      - **名前**: Credit card numbers found
+      - **説明**: Teams で共有されるクレジット カード番号を保護する基本ルール。
 
-#### Task 9 - Create a DLP policy from scratch
+   2. **条件** で:
+      - **+ 条件の追加** > **コンテンツに含まれる** を選択。
+      - **既定** グループのまま **追加** > **機密情報の種類** を選択。
+      - 右側ペインで **クレジット カード番号** の左のチェック ボックスをオンにして **追加**。
+      - **高** 信頼度 と **インスタンス数 (1)** は変更しない。
 
-After creating a DLP Policy for protecting GDPR relevant data, you will create another policy from scratch. Instead of using a template, you will configure rules directly with custom rules and actions.
+         ![Graphical user interface, application Description automatically generated](media/MS-700-lab_M02_ak_image6.png)
 
-1. Connect to the **Client 1 VM** and browse to Microsoft Purview Portal (https://compliance.microsoft.com/) as **MOD Administrator**.
+   3. **アクション** で:
+      - **+ アクションの追加** > **Microsoft 365 の場所でのアクセスを制限するか、コンテンツを暗号化する** を選択。
+      - **Microsoft 365 の場所でのアクセスを制限するか、コンテンツを暗号化する** セクションで **全員をブロック** を選択。
 
-2. In left navigation of the Microsoft Purview Portal, select **Data loss prevention** under **Solutions**.
+         ![Graphical user interface, text, application Description automatically generated](media/MS-700-lab_M02_ak_image8.png)
 
-3. On the **Data loss prevention** page, select  **Policies**, then select **+ Create policy**.
+   4. **ユーザー通知** で:
+      - スライダーを **オン**
+      - **Office 365 サービスでポリシーのヒントを使ってユーザーに通知** を選択。
+      - **コンテンツを送信、共有、または最後に変更したユーザーに通知** を選択。
+      - **ポリシーのヒントのテキストをカスタマイズ** を選択。
+      - テキスト ボックスに次を入力: **Credit card numbers are not allowed to be shared!**
 
-4. In the **Start with a template or create a custom policy** section,
-
-	1. Select **Custom** under **Categories**, then select the **Custom policy** template from the **Templates** section.
-
-	2. Select **Next**
-
-5. In the **Name your policy** section, enter the following information:
-
-	- **Name**: Credit card data DLP Policy
-
-	- **Description**: Data loss prevention policy for credit card data in Teams.
-
-6. In the **Assign admin units** page, leave settings as is.
-
-7. In the **Choose where to apply the policy** section, apply the following settings and select **Next**:
-
-	- **Exchange email**: Select checkbox
-
-	- **SharePoint sites**:  Select checkbox
-
-	- **OneDrive accounts**:  Select checkbox
-
-	- **Teams chat and channel messages**:  Select checkbox
-
-	- **Devices**:  Select checkbox
-
-	- **Instances** :  Select checkbox
-
-	- **On-premises repositories**:  Unselect checkbox
-
-	- **Fabric and Power BI workspaces**:   Unselect checkbox 
-
-7. In the **Define policy settings** section, stay with the default selection and select **Next**.
-
-
-	1. In the **Customize Advanced DLP rules** section, select **+ Create rule** and enter the following information:
-		- **Name**: Credit card numbers found
-		- **Description**: Basic rule for protecting credit card numbers forms being shared in Teams.
-
-	2. Below **Conditions**, 
-		- Select **+ Add condition** and **Content contains**.
-		- Leave the group name of **Default**, select **Add** and **Sensitive info types**.
-		- From the right-side pane, check the box left of **Credit Card Number** and select **Add**.
-		- Leave the high **High confidence** and **Instance count (1)** unchanged.
-
-			![Graphical user interface, application Description automatically generated](media/MS-700-lab_M02_ak_image6.png)
-
-	3. Below **Action**, 
-		- Select **+ Add an action** and **Restrict access or encrypt the content in Microsoft 365 locations**.
-		- In the **Restrict access or encrypt the content in Microsoft 365 locations** section select **Block everyone** 
-
-			![Graphical user interface, text, application Description automatically generated](media/MS-700-lab_M02_ak_image8.png)
-
-	4. Below **User notification**, 
-		- Select the slider to **On**
-		- select **Notify users in Office 365 service with a policy tip**.
-		- Select **Notify the user who sent, shared or last modified the content**.
-		- Select **Customize the policy tip text**.
-		- Enter the following text to the textbox: **Credit card numbers are not allowed to be shared!**
-
-	5. Below **Incident reports**, 
-		- Set the slider **Send an alert to admins when a rule match occurs** to **Off**.
-		- Select **Save**.
+   5. **インシデント レポート** で:
+      - **ルール一致時に管理者へアラートを送信** のスライダーを **オフ**
+      - **保存** を選択。
 	
-	6. Review the rule settings and select **Next**.
+   6. ルール設定を確認し **次へ**。
 
-		
-8. In the **Policy Mode** page, select **Turn the policy on immediately** and select **Next**.
+8. **ポリシー モード** ページで **ポリシーをすぐにオンにする** を選択し **次へ**。
 
-9. On the **Review and finish** page, review your settings, select **Submit** then **Done**.
+9. **レビューして完了** ページで設定を確認し、**送信** して **完了**。
 
-10. Leave the browser open.
+10. ブラウザーは開いたままにします。
 
-You have successfully created a new custom DLP policy for protecting credit card numbers from being shared via Teams conversations.
+このタスクでは、Teams の会話で共有されるクレジット カード番号の共有をブロックする新しいカスタム DLP ポリシーを作成しました。
 
-#### Task 10 – Test the DLP Policies
+#### タスク 10 – DLP ポリシーをテストする
 
-To make sure your configured DLP policies are working as expected, you need to perform some testing with your pilot users.
+構成した DLP ポリシーが期待どおりに動作することを確認するため、パイロット ユーザーでテストを実施します。
 
-**Note:** It can take up to 24 hours till new DLP policies take effect. If the step doesn’t work, continue with the lab, and perform a task at a later point of working through this lab.
+**注:** 新しい DLP ポリシーが有効になるまで最大 24 時間かかる場合があります。手順がうまくいかない場合はラボを続行し、後ほどこのタスクを実施してください。
 
-1. Connect to the **Client 2 VM** with the credentials that have been provided to you.
+1. 提供された資格情報で **Client 2 VM** に接続します。
 
-2. Open the Teams desktop client from the taskbar, where you are still signed in as **Alex Wilber**.
+2. タスクバーから **Teams デスクトップ クライアント** を開き、**Alex Wilber** としてサインインしたままにします。
 
-3. In the left-hand navigation pane, select **Teams**, and then select the **General** channel below **Teams Rollout**.
+3. 左側のナビゲーションで **Teams** を選択し、**Teams Rollout** の **一般** チャネルを選択します。
 
-4. Select **Start a post** from the main window.
+4. メイン ウィンドウで **投稿を開始** を選択します。
 
-5. Enter the following lines to the textbox:
+5. テキスト ボックスに次の行を入力します:
 
-	- MasterCard: 5105105105105100
+   - MasterCard: 5105105105105100
+   - Visa: 4111111111111111
+   - Visa: 4012888888881881
 
-	- Visa: 4111111111111111
+6. 右下の **投稿** を選択してメッセージを送信します。
 
-	- Visa: 4012888888881881
+7. しばらくすると、新しい会話メッセージの上に赤いテキストで「**このメッセージはブロックされました。**」と表示されます。**[対処方法] を表示** を選択して、このメッセージがブロックされた理由を確認します[...]
 
-6. Select **Post** to the right from the lower-right corner below the text box to send the message.
+8. **報告** を選択して、この DLP ポリシー違反を管理者へ通知します。すると、会話エントリの上に「**ブロックされました。** この内容を管理者に報告しました [...]」という別のメッセージが表示されます[...]
 
-7. After a moment, you should see a text in red above your new conversation message that states, “**This message was blocked.**” **Select What can I do?** To see the reason why this message was blocked.
+9. 提供された資格情報で **Client 1 VM** に接続します。
 
-8. Select **Report** to notify the admin about this DLP policy violation. Now you can see a different message above your conversation entry, that states **Blocked.** **You’ve reported this to your admin.**
+10. **Microsoft Purview ポータル** にログインしたままのはずです。そうでない場合は Microsoft Edge を開き、ブラウザーを最大化して **Microsoft Purview ポータル**（[https://compliance.microsoft.com](https://compliance.microsoft.com)）へ移動します。[...]
 
-9. Connect to the **Client 1 VM** with the credentials that have been provided to you.
-
-10. You should still be logged in to the **Microsoft Purview Portal**. If not, open Microsoft Edge, maximize the browser, and navigate to the **Microsoft Purview Portal**: [**https://compliance.microsoft.com**](https://compliance.microsoft.com/).
-
-
-11. Note this step is an optional step and not designed for users to complete in this lab. This step is meant to explain how to see the **DLP Policy Matches**. Previously, you would have been able to see it via the **Reports** page which has now been deprecated.
+11. このステップは任意であり、ラボの受講者が完了することを意図していません。**DLP ポリシー一致** の確認方法を説明するためのステップです。以前は [...]
     
-In order to see the **DLP Policy Matches** users must perform the following:
-- Enable org customization upon logging into the tenant by running *Enable-organizationcustomization*. This takes about 2-3 hour to replicate through the tenant.
--  Run *Set-AdminAuditLogConfig -UnifiedAuditLogIngestionEnabled $true* to enable audit logging.
-- The audit logging takes about 24hours to show as enabled a well.
-    	**Note:** This explanation may require users to have the SPE5 tenant.
+**DLP ポリシー一致** を表示するには、次を実行する必要があります:
+- テナントにログイン後に組織のカスタマイズを有効化するため、`Enable-OrganizationCustomization` を実行します。テナント全体に反映されるまで約 2～3 時間かかります。
+- 監査ログを有効化するために `Set-AdminAuditLogConfig -UnifiedAuditLogIngestionEnabled $true` を実行します。
+- 監査ログが有効と表示されるまで約 24 時間かかります。
+   **注:** この説明には SPE5 テナントが必要な場合があります。
     
-You have successfully tested your DLP policy to block sharing of credit card information via Teams chat and channel conversations.
+Teams のチャットおよびチャネル会話でクレジット カード情報の共有をブロックする DLP ポリシーのテストに成功しました。
 
-### **Exercise 4: Prepare network deployment**
+### **演習 4: ネットワーク展開の準備**
 
-Microsoft Teams provides users with chat, audio, video, and content sharing experience in different network conditions. It includes variable codecs, where media can be negotiated in limited bandwidth environments. However, as a Teams admin, you will need to carefully plan your network bandwidth, because there are other Office 365 services and third-party apps that also need a reliable network connection. Therefore, Teams admins must-have tools that could help to estimate the bandwidth consumption according to specific business requirements and existing network infrastructure and provide the best experience to business users.
+Microsoft Teams は、さまざまなネットワーク状況下でのチャット、音声、ビデオ、コンテンツ共有のエクスペリエンスを提供します。制限された帯域幅でもメディアをネゴシエートできる可変コーデックを含みます。これは [...]
 
-#### Task 1 - Calculate network bandwidth capacity
+#### タスク 1 - ネットワーク帯域幅容量を計算する
 
-In this exercise, you will calculate the network requirements for Microsoft teams, depending on your expected Teams usage business requirements. You must ensure enough bandwidth based on your organization network connectivity that is described in the following table:
+この演習では、期待される Teams の使用状況に基づいて、Microsoft Teams のネットワーク要件を計算します。組織の [...]
 
-| **Location**| **Total number of employees**| **WAN link capacity / audio/video queue size (Mbps)**| **Office 365 connection**| **Internet connection** |
+| **拠点** | **従業員総数** | **WAN リンク容量 / 音声/ビデオ キュー サイズ (Mbps)** | **Office 365 接続** | **インターネット接続** |
 | - | - | - | - | - |
-| New York HQ| 1000 <br/><br/>(100 Specialized calling only employees)| 1000/300/500| ExpressRoute| Local Internet 1000 Mbps |
-| Los Angeles Office| 250<br/><br/>(50 Specialized calling only employees)| 500/100/200| Remote connection through HQ| Remote Internet through HQ |
-| Houston Office| 150<br/><br/>(50 Specialized calling only employees)| 400/50/100| Remote connection through HQ| Remote Internet through HQ |
+| New York HQ | 1000 <br/><br/>(100 Specialized calling only employees) | 1000/300/500 | ExpressRoute | ローカル インターネット 1000 Mbps |
+| Los Angeles Office | 250<br/><br/>(50 Specialized calling only employees) | 500/100/200 | 本社経由のリモート接続 | 本社経由のリモート インターネット |
+| Houston Office | 150<br/><br/>(50 Specialized calling only employees) | 400/50/100 | 本社経由のリモート接続 | 本社経由のリモート インターネット |
 
+次に、現在の帯域幅使用量を分析し、Microsoft Teams へのネットワーク品質と接続をテストします。音声品質の潜在的な問題のトラブルシューティングも必要です。
 
-Next, you will analyze your current bandwidth usage and test your network quality and connection to Microsoft Teams. You will also need to troubleshoot potential voice quality issues.
+1. 提供された資格情報で **Client 1 VM** に接続します。
 
-1. Connect to the **Client 1 VM** with the credentials that have been provided to you.
+2. **Joni Sherman**（JoniS@&lt;YourTenant&gt;.onmicrosoft.com）として [**Teams 管理センター**](https://admin.teams.microsoft.com/) にサインインします。
 
-2. Sign in to the **Teams admin center** ([**https://admin.teams.microsoft.com**](https://admin.teams.microsoft.com/)) using **Joni Sherman** (JoniS@&lt;YourTenant&gt;.onmicrosoft.com).
+3. ネットワーク プランを作成します
+   1. 左側ナビゲーションで **計画** を展開し、**ネットワーク プランナー** を選択。
+   2. **ネットワーク プランナー** ページの **ネットワーク プラン** タブで **追加** を選択し、次の情報でネットワーク プランを作成。
+      - ネットワーク プラン名: **Contoso plan**
+      - 説明: **Contoso Teams Network plan**
+      - **適用** を選択。
 
-3. Create a network plan
+4. カスタム ペルソナを作成します
+   1. **ネットワーク プランナー** ページで **ペルソナ** タブを選択し、**+ 追加** を選択。 
+   2. **ペルソナの追加** ページで次の情報のカスタム ペルソナを作成。
+      - ペルソナ名: **Calling only**
+      - 説明: **Specialized calling only employees**
+      - 権限: **音声** をオン
+      - **適用** を選択。
+   3. Microsoft によって推奨される既定のペルソナに注目します。
 	
-	1. On the left-hand navigation pane, expand **Planning**, and select **Network Planner**.
+5. ネットワーク サイトを作成します。
+   1. **ネットワーク プラン** タブを選択し、**Contoso plan** を選択。
+   2. **ネットワーク サイト** タブで **+ ネットワーク サイトの追加** を選択。 
+   3. **New York HQ** のネットワーク サイトを次の情報で作成。
+      - ネットワーク サイト名: **New York HQ site**
+      - 説明: **New York HQ site network infrastructure**
+      - ネットワーク ユーザー数: **1000**
+      - ネットワーク設定 - サブネット: **172.16.0.0**
+      - ネットワーク設定 - ネットワーク範囲: **16**
+      - **ExpressRoute** を **オン**
+      - インターネット リンク容量: **1000**
+      - PSTN エグレス: **VoIP のみを使用**
+      - **保存** を選択。
 
-	2. On the **Network planner** page, under **Network plans** tab, select **Add** and create a network plan with the following information.
+   4. 同様に **Los Angeles office** のネットワーク サイトを次の情報で作成。
+      - ネットワーク サイト名: **Los Angeles site**
+      - 説明: **Los Angeles site network infrastructure**
+      - ネットワーク ユーザー数: **250**
+      - ネットワーク設定 - サブネット: **192.168.10.0**
+      - ネットワーク設定 - ネットワーク範囲: **24**
+      - **ExpressRoute** は **オフ** のまま。
+      - **WAN に接続** を **オン**
+      - WAN リンク容量: **500**
+      - WAN 音声キュー サイズ: **100**
+      - WAN ビデオ キュー サイズ: **200**
+      - PSTN エグレス: **VoIP のみを使用**
+      - **保存** を選択。
 
-		- Network plan name: **Contoso plan**
-		- Description: **Contoso Teams Network plan**
-		- Select **Apply**.
+   5. 同様に **Houston office** のネットワーク サイトを次の情報で作成。
+      - ネットワーク サイト名: **Houston site**
+      - 説明: **Houston site network infrastructure**
+      - ネットワーク ユーザー数: **150**
+      - ネットワーク設定 - サブネット: **192.168.20.0**
+      - ネットワーク設定 - ネットワーク範囲: **24**
+      - **ExpressRoute** は **オフ** のまま。
+      - **WAN に接続** を **オン**
+      - WAN リンク容量: **400**
+      - WAN 音声キュー サイズ: **50**
+      - WAN ビデオ キュー サイズ: **100**
+      - PSTN エグレス: **VoIP のみを使用**
+      - **保存** を選択。
 
-4. Create a custom personas
+6. レポートを作成します
+   1. **Contoso plan** ページで **レポート** タブを選択し **レポートの開始** を選択。
+   2. 次の情報でレポートを作成。
+      - レポート名: **Contoso report**
+      - 説明: **Contoso network estimation report**
+      - **計算** セクションで **ペルソナ** と **ネットワーク ユーザー** を次のとおり指定。
 
-	1. On the **Network planner** page, select **Personas** tab, and then select **+ Add**. 
+         | **ネットワーク サイト** | **ペルソナとネットワーク ユーザー** | 
+         | - | - | 
+         | New York HQ | Office Worker: 900 <br/><br/>Calling only: 100 |
+         | Los Angeles Office | Office Worker: 200 <br/><br/>Calling only: 50 |
+         | Houston Office | Office Worker: 100 <br/><br/>Calling only: 50 |
 
-	2. On the **Add persona** page, create a custom personas with the following information.
+   3. **レポートの生成** を選択。
 
-		- Persona name: **Calling only**
-		- Description: **Specialized calling only employees**
-		- Permissions: Turn on **Audio**
-		- Select **Apply**.
+7. **Microsoft Teams の想定影響** セクションで、レポート結果に基づき音声、[...] の帯域幅必要量を分析して、Contoso のネットワーク インフラへの Teams の影響をレビューします。
 
-	3. Note the default personas recommended by Microsoft.
-	
-5. Create network sites.
+8. レポート ページの右上で **グラフ表示** を選択して、結果を別の表示で確認します。
 
-	1. Select the **Networks plans** tab, then select **Contoso plan**.
-	2. Under **Network sites** tab, select **+ Add network site**. 
-	3. Create a network site for **New York HQ** with the following information.
+レポートを生成すると、必要な帯域幅の推奨値が表示されます。許可された帯域幅は、リアルタイム通信に予約される全体トラフィック量を示します。[...]
 
-		- Network site name: **New York HQ site**
-		- Description: **New York HQ site network infrastructure**
-		- Network users: **1000**
-		- Network settings - Subnet: **172.16.0.0**
-		- Network settings - Network range: **16**
-		- Turn **On** the **Express Route** button.
-		- Internet link capacity: **1000**
-		- PSTN egress: choose **Use VoIP only**
-		- Select **Save**.
+このラボでは、ネットワーク プランナーを使用して、ネットワーク インフラにおける Microsoft Teams の帯域幅への影響を見積もりました。
 
-	4. Repeat the same steps to create a network site for **Los Angeles office** with the following information.
+#### タスク 2 - Microsoft 365 ネットワーク接続テスト ツールを使用する
 
-		- Network site name: **Los Angeles site**
-		- Description: **Los Angeles site network infrastructure**
-		- Network users: **250**
-		- Network settings - Subnet: **192.168.10.0**
-		- Network settings - Network range: **24**
-		- Ensure **Express Route** button is **Off**.
-		- Turn **On** the **Connected to WAN** button.
-		- WAN link capacity: **500**
-		- WAN audio queue size: **100**
-		- WAN video queue size: **200**
-		- PSTN egress: choose **Use VoIP only**
-		- Select **Save**.
+あなたは Microsoft Teams の導入計画段階にいます。組織で Microsoft Teams を導入する前に、ネットワーク品質と Microsoft Teams への接続をテストしたいと考えています。完了後、[...]
 
-	5. Repeat the same steps to create a network site for **Houston office** with the following information.
+1. **Client 1 VM** に接続し、**MOD Administrator** として [Microsoft 365 ネットワーク接続テスト ツール](https://connectivity.office.com?azure-portal=true) にアクセスします。
 
-		- Network site name: **Houston site**
-		- Description: **Houston site network infrastructure**
-		- Network users: **150**
-		- Network settings - Subnet: **192.168.20.0**
-		- Network settings - Network range: **24**
-		- Ensure **Express Route** button is **Off**.
-		- Turn **On** the **Connected to WAN** button.
-		- WAN link capacity: **400**
-		- WAN audio queue size: **50**
-		- WAN video queue size: **100**
-		- PSTN egress: choose **Use VoIP only**
-		- Select **Save**.
+2. 右上の **サインイン** を選択します。
 
-6. Create a report
-	
-	1. On the **Contoso plan** page, select **Report** tab and then select **Start a report**.
+3. 場所を指定し、**場所を追加** を選択します。
 
-	2. Create a report with the following information.
+   ブラウザーから検出するか、市区町村、州、国を入力できます。その後 **テストの実行** を押します。
 
-		- Report name: **Contoso report**
-		- Description: **Contoso network estimation report**
-		- Under the **Calculation** section, specify the **Persona** and **Network users** with the following information.
+4. 高度なクライアント テスト アプリケーションのダウンロード後にプロンプトが表示されたら **ファイルを開く** を選択します。
 
-			| **Network site**| **Persona** and **Network users**| 
-			| - | - | 
-			| New York HQ| Office Worker: 900 <br/><br/>Calling only: 100|
-			| Los Angeles Office|Office Worker: 200 <br/><br/>Calling only: 50|
-			| Houston Office|Office Worker: 100 <br/><br/>Calling only: 50|
+   **注:** このアプリケーションには .NET Core が必要です。インストールのプロンプトが表示された場合は **はい** を選択します。**デスクトップ アプリを実行** セクションから **x64 をダウンロード** を選択し、インストール手順に従います[...]
 
-	3. Select **Generate report**.
+5. 高度なテスト クライアント アプリケーション **Office 365 Network Onboarding Advanced Tests** を開始します。
+   - アプリケーションをダウンロード
+   - ダウンロード フォルダーに移動し、クライアント アプリケーションを実行
 
-7. Under the **Projected impact of Microsoft Teams** section, review the impact of Microsoft Teams on the Contoso network infrastructure by analyzing the report results on bandwidth needed for audio, video, screen sharing, Microsoft 365 traffic, and PSTN.
+6. クライアント アプリケーションが起動すると、Web ページの結果が更新されます。
 
-8. On the report page, select the **Chart view** at the upper-right hand corner to display report results in different views.
+7. **詳細** タブで結果を確認します。
 
-Once you generate the report, you’ll see the recommendation of your bandwidth requirements. The allowed bandwidth shows how much of your overall traffic is reserved for real-time communications. Thirty percent is the recommended threshold. By changing this value and selecting **Run report**, you can see the different impacts on the bandwidth for your network. Any areas that need more bandwidth will be highlighted in red. Work with your instructor to modify the parameters in the Network Planner and verify different results based on the input data.
-
-In this lab, you have used Network Planner to estimate the Microsoft Teams impact on the bandwidth in your network infrastructure.
-
-#### Task 2 - Use Microsoft 365 network connectivity test tool
-
-You are in the planning phase of a Microsoft Teams deployment. Before deploying Microsoft Teams in your organization, you want to test your network quality and connection to Microsoft Teams. After completing the test, you will interpret the results and gain insights into potential network issues.
-
-1. Connect to the **Client 1 VM** and browse to the [Microsoft 365 network connectivity test tool(https://connectivity.office.com)](https://connectivity.office.com?azure-portal=true) as **MOD Administrator**. 
-
-2. Select **Sign in** at the top-right corner.
-
-3. Specify the location and select **Add your location**.
-
-    You can type in your location by city, state, and country or you can have it detected from the web browser. Then press **Run test**.
-
-4. Select **Open file** when prompted after downloading the advanced client test application.
-
-	**Note**: The application requires .NET Core installed. Select **Yes** if you get prompted to install .NET Core. Select **Download x64** under **Run desktop apps** section then follow the installation instruction. 
-
-5. Start the advanced tests client application - **Office 365 Network Onboarding Advanced Tests**.
-
-	- Download the application
-	- Navigate to downloads folder and run the client application
-
-6. Once the client application starts, the web page will update to show this result.
-
-7. Review the result under **Details** tab.
-
-In this task, you have used Microsoft 365 network connectivity test tool to test the connectivity and connection quality of your network infrastructure for Microsoft Teams.
+このタスクでは、Microsoft 365 ネットワーク接続テスト ツールを使用して、ネットワーク インフラの Teams への接続と接続品質をテストしました。
 
 END OF LAB
-
- 
