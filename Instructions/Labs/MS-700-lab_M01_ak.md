@@ -1,315 +1,312 @@
+# **ラボ 01: Microsoft Teams でのコラボレーションとコミュニケーションの管理**
 
+# **受講生ラボ解答キー**
 
-# **Lab 01: Manage collaboration and communiction with Microsoft Teams**
+## **Microsoft 365 ユーザーインターフェイス**
 
-# **Student lab answer key**
+Microsoft クラウドツールの動的な性質により、このトレーニングコンテンツの開発後に行われたユーザーインターフェイス (UI) の変更が発生する可能性があります。これは UI の変更として現れます。
 
-## **Microsoft 365 user interface**
+Microsoft World-Wide Learning チームは、そのような変更が通知され次第、このトレーニングコースを更新します。ただし、クラウドの更新の動的な性質により、このトレーニングコンテンツの更新前に UI の変更が発生する可能性があります。
 
-Given the dynamic nature of Microsoft cloud tools, you may experience user interface (UI) changes that were made following the development of this training content. This will manifest itself in UI changes that do not match up with the detailed instructions presented in this lab manual.
+## **ラボシナリオ**
 
-The Microsoft World-Wide Learning team will update this training course as soon as any such changes are brought to our attention. However, given the dynamic nature of cloud updates, you may run into UI changes before this training content is updated. **If this occurs, you will have to adapt to the changes and work through them in the lab exercises as needed.**
+このコースのラボでは、Contoso Ltd. の Teams 管理者である Joni Sherman の役割を担います。パイロットチームメンバーに必要な Teams 管理者ロールが割り当てられていることを確認するよう求められます。
 
-## **Lab Scenario**
+パイロットプロジェクトを開始したばかりで、Teams デスクトップクライアントがプレインストールされた 2 台の仮想マシンと、さまざまなユーザーを持つテナントがあります:
 
-In the labs, of this course, you will assume the role of Joni Sherman, a Teams Administrator for Contoso Ltd. You are asked to ensure the required Teams admin roles are assigned to your pilot team members and check license assignment to users. As part of the Microsoft Teams rollout in Contoso, you need to make sure the pilot team members are well versed with the usage of Teams admin center, its menus and PowerShell cmdlets to handle day to day administrative tasks. You have implemented Microsoft 365 in a virtualized lab environment already and were commissioned to test the creation Microsoft 365 Groups from the M365 admin center and new teams using Teams desktop and web clients. You will also enable access to explore Teams Preview features using Teams update policy. Once the pilot team completes exploring and testing the features in Teams admin center and Microsoft 365 admin center, you need to guide them to follow best practices in creating and configuring naming and expiration policies for the groups and teams while enforcing the restriction on the creation of teams. 
+- Joni Sherman (JoniS@&lt;YourTenant&gt;.OnMicrosoft.com) **Teams 管理者**
 
-You have just started the pilot project, and you’ve already got two virtual machines with preinstalled Teams Desktop clients and a tenant with different users:
+- Patti Fernandez (PattiF@&lt;YourTenant&gt;.OnMicrosoft.com) **Teams デバイス管理者**
 
-- Joni Sherman (JoniS@&lt;YourTenant&gt;.OnMicrosoft.com) **Teams administrator**
+- Allan Deyoung (AllanD@&lt;YourTenant&gt;.OnMicrosoft.com) **Teams コミュニケーションサポートエンジニア**
 
-- Patti Fernandez (PattiF@&lt;YourTenant&gt;.OnMicrosoft.com) **Teams device administrator**
+- Alex Wilber (AlexW@&lt;YourTenant&gt;.OnMicrosoft.com) **カナダからの通常のパイロットユーザー**
 
-- Allan Deyoung (AllanD@&lt;YourTenant&gt;.OnMicrosoft.com) **Teams communication support engineer**
+- Lynne Robbins (LynneR@&lt;YourTenant&gt;.OnMicrosoft.com) **通常のパイロットユーザー**
 
-- Alex Wilber (AlexW@&lt;YourTenant&gt;.OnMicrosoft.com) **Regular pilot user from Canada**
+- Diego Siciliani (DiegoS@&lt;YourTenant&gt;.OnMicrosoft.com) **通常のパイロットユーザー**
 
-- Lynne Robbins (LynneR@&lt;YourTenant&gt;.OnMicrosoft.com) **Regular pilot user**
+## **目標**
 
-- Diego Siciliani (DiegoS@&lt;YourTenant&gt;.OnMicrosoft.com) **Regular pilot user**
+このラボを完了すると、次のことができるようになります:
 
-## **Objectives**
+- ユーザーに Teams 管理者ロールを割り当てる
 
-After you complete this lab, you will be able to:
+- ユーザーのライセンス割り当てを確認する
 
-- Assign Teams admin roles to users
+- Teams 管理センターとそのメニューを理解する
 
-- Check license assignment for users
+- Teams PowerShell モジュールをインストールし、そのコマンドレットを調べる
 
-- Understand the Teams admin center and its menus
+- M365 管理センターから Microsoft 365 グループを作成する
 
-- Install the Teams PowerShell module and explore its cmdlets
+- Teams デスクトップクライアントを使用して新しいチームを作成する
 
-- Create Microsoft 365 Groups from the M365 admin center
+- Teams Web クライアントを使用して新しいチームを作成する
 
-- Create new teams using the Teams desktop client
+- 有効期限ポリシーを構成する
 
-- Create new teams using the Teams web client
+- 新しいチームの作成をセキュリティグループのメンバーに制限する
 
-- Configure expiration policies
+- 名前付けポリシーを作成する
 
-- Restrict creation of new teams to members of a security group
+- Teams プレビュー機能へのアクセスを有効にする
 
-- Create naming policies
+## **ラボのセットアップ**
 
-- Enable access to Teams Preview features
+- **推定時間:** 100 分
 
-## **Lab Setup**
+## **手順**
 
-- **Estimated Time:** 100 minutes.
+### **開始する前に**
 
-## **Instructions**
+このコースのラボは、Contoso Ltd. Corporation での Microsoft Teams 展開用に準備されています。Contoso は、Microsoft 365 クラウド専用の展開を実行しています。ラボ環境は特別に設計されています。
 
-### **Before you start**
+#### **1. ラボ仮想マシンにサインインする**
 
-The labs in this course have been prepared for a Microsoft Teams deployment at Contoso Ltd. Corporation. Contoso is running a Microsoft 365 cloud-only deployment. The lab environments have been specifically designed in this manner to give you experience managing Microsoft Teams in a Microsoft 365 deployment. You will be provided with two virtual machines and a Microsoft 365 tenant to complete the lab steps.
+このコースのラボでは、2 台の仮想マシンを使用します:
 
-#### **1. Sign in to the lab virtual machines**
+- Client 1 VM: Microsoft Teams がプレインストールされたスタンドアロンの Windows 10 クライアント仮想マシン
 
-The labs in this course will use two virtual machines:
+- Client 2 VM: Microsoft Teams がプレインストールされたスタンドアロンの Windows 10 クライアント仮想マシン
 
-- Client 1 VM: a stand-alone Windows 10 client virtual machine with Microsoft Teams pre-installed.
+**注:** ラボ仮想マシンのサインイン手順は、インストラクターから提供されます。
 
-- Client 2 VM: a stand-alone Windows 10 client virtual machine with Microsoft Teams pre-installed.
+**重要:** MS-700 ラボの演習は、クラウド専用の展開です。クライアント VM にはローカル管理者アカウントが作成されています。ドメインアカウントではなく、ローカル管理者として VM にログインします。
 
-**Note:** Lab virtual machine sign-in instructions will be provided to you by your instructor.
+#### **2. インストールされたアプリケーションを確認する**
 
-**Important:** The exercises in the MS-700 labs are cloud-only deployments. A local administrator account has been created on the client VMs. You will log into the VMs as a local administrator instead of a domain account. Following your login, the desktop will indicate that you are logged in as either **CLIENT1 or CLIENT2**, depending on which machine you are on.
-
-#### **2. Review installed applications**
-
-Once you signed in to the VM, observe the start menu, and verify following applications have been installed:
+VM にサインインしたら、スタートメニューを確認し、次のアプリケーションがインストールされていることを確認します:
 
 - Microsoft Teams
 
-#### **3. Review Microsoft 365 tenant**
+#### **3. Microsoft 365 テナントを確認する**
 
-Besides two VMs, you will also be provided with a Microsoft 365 tenant with the following highlights:
+2 台の VM に加えて、次のハイライトを持つ Microsoft 365 テナントも提供されます:
 
-- Office 365 E5 with Enterprise Mobility + Security E5.
+- Enterprise Mobility + Security E5 を含む Office 365 E5
 
-- 15 licenses in total with 5 available of 15(10 used).
+- 合計 15 ライセンス、15 のうち 5 つが利用可能（10 使用中）
 
-- One Global Administrator (MOD Administrator) and 9 standard users have been pre-created.
+- 1 人のグローバル管理者（MOD Administrator）と 9 人の標準ユーザーが事前に作成されています
 
-- **Note:** Microsoft 365 sign-in instructions will be provided to you by your instructor.
+- **注:** Microsoft 365 サインイン手順は、インストラクターから提供されます
 
-- The username of the Global Administrator (MOD Administrator) is **admin@&lt;YourTenant&gt;.onmicrosoft.com**.
+- グローバル管理者（MOD Administrator）のユーザー名は **admin@&lt;YourTenant&gt;.onmicrosoft.com** です
 
-- **&lt;YourTenant&gt;.onmicrosoft.com** - This is the domain associated with the Microsoft 365 tenant that was provided by the lab hosting provider. The first part of this domain name (&lt;YourTenant&gt;) is the unique tenant ID provided by the lab hosting provider. The &lt;YourTenant&gt; portion of the tenant ID, which is the tenant suffix ID, will be unique for each student.
+- **&lt;YourTenant&gt;.onmicrosoft.com** - これは、ラボホスティングプロバイダーによって提供された Microsoft 365 テナントに関連付けられたドメインです。このドメイン名の最初の部分（&lt;YourTenant&gt;）は、ラボホスティングプロバイダーによって割り当てられた一意のテナント ID です
 
-- **IMPORTANT:** This is critical because, throughout this lab, you will be asked to enter the **&lt;YourTenant&gt;.onmicrosoft.com** domain name when signing into apps with a given username (for example, JoniS@&lt;YourTenant&gt;.onmicrosoft.com). When doing so, you must enter the unique tenant suffix ID that is assigned to your tenant ID in place of the **&lt;YourTenant&gt;**.
+- **重要:** このラボ全体を通して、特定のユーザー名でアプリにサインインするときに **&lt;YourTenant&gt;.onmicrosoft.com** ドメイン名を入力するように求められるため、これは重要です
 
-- For example, if your Tenant Email is **admin@contosolab.onmicrosoft.com**, the unique tenant suffix ID (&lt;YourTenant&gt;) is **contosolab**. When signing in as Joni when entering this domain, you would replace &lt;YourTenant&gt; with contosolab (for example, JoniS@contosolab.onmicrosoft.com).
+- たとえば、テナントメールが **admin@contosolab.onmicrosoft.com** の場合、一意のテナントサフィックス ID（&lt;YourTenant&gt;）は **contosolab** です。このドメインを入力する際に Joni としてサインインする場合、JoniS@contosolab.onmicrosoft.com と入力します
 
-- **RECOMMENDATION:** You should write down your unique tenant suffix, mentioned as &lt;YourTenant&gt; in this lab and provided by your training provider. After a while, you will have this name or number memorized as you move through the labs in this course.
+- **推奨事項:** このラボで &lt;YourTenant&gt; として言及され、トレーニングプロバイダーから提供される一意のテナントサフィックスを書き留めておく必要があります。しばらくすると、この名前または番号を記憶するようになります
 
-- **WWL Tenants - Terms of Use**
+- **WWL テナント - 利用規約**
 
-    If you are being provided with a tenant as a part of an instructor-led training delivery, please note that the tenant is made available for the purpose of supporting the hands-on labs in the instructor-led training. 
+    インストラクター主導のトレーニング提供の一環としてテナントが提供されている場合、テナントはインストラクター主導のトレーニングでのハンズオンラボをサポートする目的で利用可能であることに注意してください。
 
-    Tenants should not be shared or used for purposes outside of hands-on labs. The tenant used in this course is a trial tenant and cannot be used or accessed after the class is over and are not eligible for extension. 
+    テナントは、ハンズオンラボ以外の目的で共有または使用しないでください。このコースで使用されるテナントはトライアルテナントであり、クラス終了後に使用またはアクセスすることはできず、拡張の対象にもなりません。
 
-    Tenants must not be converted to a paid subscription. Tenants obtained as a part of this course remain the property of Microsoft Corporation and we reserve the right to obtain access and repossess at any time. 
+    テナントを有料サブスクリプションに変換してはなりません。このコースの一環として取得されたテナントは Microsoft Corporation の所有物であり、当社はいつでもアクセスして再取得する権利を留保します。
 
 
-### **Exercise 1: Prepare Teams admin roles and licenses**
+### **演習 1: Teams 管理者ロールとライセンスを準備する**
 
-In the first exercise, you will assign required administrative roles to users and check license assignments for the Teams license. To perform these tasks, you will use default tenant global admin.
+最初の演習では、必要な管理者ロールをユーザーに割り当て、Teams ライセンスのライセンス割り当てを確認します。これらのタスクを実行するには、既定のテナントグローバル管理者を使用します。
 
-#### **Task 1 - Assign Teams admin roles to users**
+#### **タスク 1 - ユーザーに Teams 管理者ロールを割り当てる**
 
-In this task, you will use the default global admin to sign in to the Microsoft 365 admin center and assign several Teams admin roles to different users. This task is crucial for later tasks and exercises as you will perform most of the tasks in the context of Joni Sherman’s account.
+このタスクでは、既定のグローバル管理者を使用して Microsoft 365 管理センターにサインインし、複数の Teams 管理者ロールをさまざまなユーザーに割り当てます。このタスクは、後のタスクと演習にとって重要です。
 
-1. Browse to Microsoft 365 admin center (https://admin.microsoft.com/) as **MOD Administrator**.
+1. **MOD Administrator** として Microsoft 365 管理センター (https://admin.microsoft.com/) を参照します。
 
-	- Connect to the **Client 1 VM** with the credentials that have been provided to you.
+	- 提供された資格情報を使用して **Client 1 VM** に接続します。
 
-	- Open **Microsoft Edge** and browse to the **Microsoft 365 admin center** at [**https://admin.microsoft.com/**](https://admin.microsoft.com/) with the Global admin credential ( **MOD Administrator** : admin@&lt;YourTenant&gt;.onmicrosoft.com).
+	- **Microsoft Edge** を開き、グローバル管理者資格情報（**MOD Administrator**）を使用して [**https://admin.microsoft.com/**](https://admin.microsoft.com/) の **Microsoft 365 管理センター**を参照します。
 
-2. To assign **Teams admin** role to **Joni Sherman**
+2. **Joni Sherman** に **Teams 管理者**ロールを割り当てる
 
-	- Select the navigation menu in the upper-left and select **Users** and **Active users** from below it.
+	- 左上のナビゲーションメニューを選択し、その下の **ユーザー**と **アクティブなユーザー**を選択します。
 
-	- In the Active user’s list, search and select **Joni Sherman**, to open the right-side settings pane.
+	- アクティブなユーザーのリストで、**Joni Sherman** を検索して選択し、右側の設定ペインを開きます。
 
-	- In the settings below the Account tab, select **Manage roles**.
+	- [アカウント] タブの下の設定で、**ロールの管理**を選択します。
 
-	- On the **Manage admin roles** pane, select **Admin center access** and scroll down to expand **Show all by category** to reveal all available roles.
+	- **管理者ロールの管理**ペインで、**管理センターへのアクセス**を選択し、下にスクロールして **カテゴリ別にすべて表示**を展開し、使用可能なすべてのロールを表示します。
 
-	- Select **Teams Administrator** checkbox then select **Save changes**. You will see the message **Admin roles updated** on the upper part of the pane to confirm the update. Close the **Manage admin roles** pane by selecting the X button on the top right side of the pane.
+	- **Teams 管理者**チェックボックスを選択してから、**変更の保存**を選択します。ペインの上部に「**管理者ロールが更新されました**」というメッセージが表示され、更新が確認されます。**管理者ロールの管理**ペインを閉じます。
 
-3. To assign **Teams device admin** role to **Patti Fernandez**
+3. **Patti Fernandez** に **Teams デバイス管理者**ロールを割り当てる
 
-	- Repeat the same steps as above, in the **Active users list**, search and select **Patti Fernandez** and assign **Teams Device Administrator** role to **Patti Fernandez**.
+	- 上記と同じ手順を繰り返し、**アクティブ���ユーザー**リストで **Patti Fernandez** を検索して選択し、**Patti Fernandez** に **Teams デバイス管理者**ロールを割り当てます。
 
-4. To assign **Teams communication Support engineer** role to **Allan Deyoung**
+4. **Allan Deyoung** に **Teams コミュニケーションサポートエンジニア**ロールを割り当てる
 
-	- Repeat the same steps as above and assign **Teams communication support engineer** role to **Allan Deyoung**.
+	- 上記と同じ手順を繰り返し、**Allan Deyoung** に **Teams コミュニケーションサポートエンジニア**ロールを割り当てます。
 
-You have now successfully assigned the Teams admin roles.
+これで、Teams 管理者ロールが正常に割り当てられました。
 
-- Teams Administrator: Joni Sherman
+- Teams 管理者: Joni Sherman
 
-- Teams Device Administrator: Patti Fernandez
+- Teams デバイス管理者: Patti Fernandez
 
-- Teams communication support engineer: Allan Deyoung
+- Teams コミュニケーションサポートエンジニア: Allan Deyoung
 
-Proceed to the next task.
+次のタスクに進みます。
 
-#### **Task 2 – Check license assignment of your users**
+#### **タスク 2 – ユーザーのライセンス割り当てを確認する**
 
-In this task, you will check the license assignment of all users participating in the pilot. At the end of the task, you will confirm that all pilot users are licensed correctly and Alex Wilber’s location is updated to Canada as preparation for a later task.
+このタスクでは、パイロットに参加しているすべてのユーザーのライセンス割り当てを確認します。タスクの最後に、すべてのパイロットユーザーが正しくライセンスされていることを確認し、Alex Wilber の場所をカナダに変更します。
 
-1. Connect to the **Client 1 VM** and browse to Microsoft 365 admin center (https://admin.microsoft.com/) as **MOD Administrator**.
+1. **Client 1 VM** に接続し、**MOD Administrator** として Microsoft 365 管理センター (https://admin.microsoft.com/) を参照します。
 
-2. Update **Alex Wilber’s** location to **Canada**
+2. **Alex Wilber の**場所を**カナダ**に更新する
 
-	- On the **Users** > **Active users** page, select the name of **Alex Wilber**.
+	- **ユーザー** > **アクティブなユーザー**ページで、**Alex Wilber** の名前を選択します。
 
-	- Select **Licenses and Apps** tab.
+	- **ライセンスとアプリ**タブを選択します。
 
-	- Select the dropdown menu under **Select location**, and update to **Canada**.
+	- **場所の選択**の下のドロップダウンメニューを選択し、**カナダ**に更新します。
 
-	- Select **Save changes**.
+	- **変更の保存**を選択します。
 
-3. Check **Alex Wilber’s** licenses
+3. **Alex Wilber の**ライセンスを確認する
 
-	- On the same tab, under **Licenses** section, verify that **Microsoft 365 E5 ** is selected.
+	- 同じタブの **ライセンス**セクションで、**Microsoft 365 E5** が選択されていることを確認します。
 
-	- Select **Apps** to expand All licenses.
+	- **アプリ**を選択してすべてのライセンスを展開します。
 
-	- Scroll down the list of all apps, and verify **Microsoft Teams** is selected.
+	- すべてのアプリのリストを下にスクロールし、**Microsoft Teams** が選択されていることを確認します。
 
-4. You can repeat the same steps to check other users’ licenses. Do not change their locations.
+4. 同じ手順を繰り返して、他のユーザーのライセンスを確認できます。場所は変更しないでください。
 
-You have successfully validated that all Users participating in the pilot own Teams licenses and are ready to start working with Teams. You have also changed the location of Alex Wilber to Canada, as a preparation for a later task. Continue with the next task.
+パイロットに参加しているすべてのユーザーが Teams ライセンスを所有しており、Teams の使用を開始する準備ができていることを正常に検証しました。また、Alex Wilber の場所をカナダに変更しました。これは、後の演習でカナダの呼び出しプランをテストするために必要です。
 
-You have finished the first exercise, and you can continue with the next one.
+最初の演習が完了しました。次の演習に進むことができます。
 
-### **Exercise 2: Explore Teams management tools**
+### **演習 2: Teams 管理ツールを調べる**
 
-In this exercise, you will explore the Teams admin center and install the Teams PowerShell module, required to manage teams, policy packages, calling features, and all other settings for Teams in your tenant. You can perform most of the tasks possible from the Teams admin center and the PowerShell. You can create scripts for automation and even access several settings not available in the GUI.
+この演習では、Teams 管理センターを調べ、Teams PowerShell モジュールをインストールします。これは、テナントでチーム、ポリシーパッケージ、通話機能、その他すべての Teams 設定を管理するために必要です。
 
-To perform these tasks, you will use Joni Sherman’s account (JoniS@_&lt;YourTenant&gt;_.onmicrosoft.com).
+これらのタスクを実行するには、Joni Sherman のアカウント (JoniS@_&lt;YourTenant&gt;_.onmicrosoft.com) を使用します。
 
-#### **Task 1 - Explore Teams admin center**
+#### **タスク 1 - Teams 管理センターを調べる**
 
-You will review the available settings for managing Teams in the Teams admin center.
+Teams 管理センターで Teams を管理するための使用可能な設定を確認します。
 
-1. Connect to the **Client 1 VM** and browse to Teams admin center (https://admin.teams.microsoft.com) as **Joni Sherman** (JoniS@&lt;YourTenant&gt;.onmicrosoft.com).
+1. **Client 1 VM** に接続し、**Joni Sherman** (JoniS@&lt;YourTenant&gt;.onmicrosoft.com) として Teams 管理センター (https://admin.teams.microsoft.com) を参照します。
 
-	**Note:** You can use **InPrivate window** of Microsoft Edge for logging in with different credentials.
+	**注:** 別の資格情報でログインするには、Microsoft Edge の **InPrivate ウィンドウ**を使用できます。
 
-2. In left navigation of the Teams admin center, select **Teams** > **Manage teams**. You will see the teams in your organization once created.
+2. Teams 管理センターの左側のナビゲーションで、**Teams** > **チームを管理**を選択します。作成されると、組織内のチームが表示されます。
 
-3. In left navigation of the Teams admin center, select **Teams** > **Teams policies**. You can see the default Teams policy named **Global (Org-wide default)**.
+3. Teams 管理センターの左側のナビゲーションで、**Teams** > **Teams ポリシー**を選択します。**グローバル（組織全体の既定）**という名前の既定の Teams ポリシーが表示されます。
 
-You can explore other settings to familiarize various controls in the Teams admin center.
+他の設定を調べて、Teams 管理センターのさまざまなコントロールに慣れることができます。
 
-You have successfully explored several available menus from the Teams admin center for managing teams and configuring policies in your tenant.
+テナントでチームを管理し、ポリシーを構成するために、Teams 管理センターから使用可能ないくつかのメニューを正常に調べました。
 
-#### **Task 2 - Install and explore Teams PowerShell module**
+#### **タスク 2 - Teams PowerShell モジュールをインストールして調べる**
 
-In this task, you will install and connect with the Teams PowerShell module to your tenant and explore the available cmdlets and functions to manage your tenant. You can install the Teams PowerShell module from the available repositories preconfigured in your Windows 10 operating system and do not need to download any executables via the browser.
+このタスクでは、Teams PowerShell モジュールをインストールしてテナントに接続し、使用可能なコマンドレットと機能を調べてテナントを管理します。Teams PowerShell モジュールは、クライアント PC にインストールできます。
 
-**Please note:** Microsoft PowerShell is soon to be deprecated and Microsoft Graph PowerShell will now be used. Therefore, both PowerShell and Microsoft Graph PowerShell commands are provided to complete this task. Users will be able to use either the PowerShell or Microsoft Graph PowerShell commands. Once PowerShell has been deprecated, please switch to using the Microsoft Graph PowerShell commands. 
+**注意してください:** Microsoft PowerShell は間もなく非推奨となり、Microsoft Graph PowerShell が使用されるようになります。したがって、このタスクを完了するために、PowerShell と Microsoft Graph PowerShell の両方のコマンドが提供されています。
 
-The Microsoft Graph PowerShell commands for this task are provided after the Microsoft PowerShell commands.
+このタスクの Microsoft Graph PowerShell コマンドは、Microsoft PowerShell コマンドの後に記載されています。
 
-1. Connect to the **Client 1 VM** with the VM credential that has been provided to you.
+1. 提供された VM 資格情報を使用して **Client 1 VM** に接続します。
 
-2. Open **Windows PowerShell** and run as Administrator.
+2. 管理者として **Windows PowerShell** を開きます。
 
-	- Select **Start** and search for **Windows PowerShell (Admin)**, then right select **Run as administrator**. Note: You maybe prompted to input the passwrod for 
-          **Client 1VM**
+	- **スタート**を選択し、**Windows PowerShell (Admin)** を検索して、右クリックして **管理者として実行**を選択します。注: **Client 1VM** のパスワードを入力するよう求められる場合があります
 
-	- Confirm the **User Account Control** window with **Yes**.
+	- **ユーザーアカウント制御**ウィンドウを **はい**で確認します。
 
-3. Install **Microsoft Teams PowerShell module**
+3. **Microsoft Teams PowerShell モジュール**をインストールする
 
-	- In the PowerShell window, enter the following cmdlet and press **Enter:**
+	- PowerShell ウィンドウで、次のコマンドレットを入力して **Enter** キーを押します:
 
 		- Microsoft PowerShell: Install-Module -Name MicrosoftTeams
-		- Microsoft Graph PowerShell: Install-Module -Name Microsoft.Graph and Install-Module -Name Microsoft.Graph.Beta
+		- Microsoft Graph PowerShell: Install-Module -Name Microsoft.Graph および Install-Module -Name Microsoft.Graph.Beta
 
-	- Enter **Y** and press **Enter** twice to confirm the installation of the NuGet provider and Untrusted repository.
+	- **Y** を入力して **Enter** キーを 2 回押し、NuGet プロバイダーと信頼されていないリポジトリのインストールを確認します。
 
-4. Connect to your tenant.
+4. テナントに接続します。
 
-	- Enter the following cmdlet in the PowerShell window and press **Enter**:
+	- PowerShell ウィンドウで次のコマンドレットを入力し、**Enter** キーを押します:
 
 		- Microsoft PowerShell: Connect-MicrosoftTeams
 		- Microsoft Graph PowerShell: Connect-MgGraph
 
-	- In the Sign-in window, sign in as the Teams admin - Joni Sherman (JoniS@&lt;YourTenant&gt;.onmicrosoft.com).
+	- サインインウィンドウで、Teams 管理者 - Joni Sherman (JoniS@&lt;YourTenant&gt;.onmicrosoft.com) としてサインインします。
 
-	- When the sign-in was successful, several information about the signed-in user and the tenant are displayed.
+	- サインインが成功すると、サインインしたユーザーとテナントに関するいくつかの情報が表示されます。
 
-5. Explore **Microsoft Teams PowerShell module**
+5. **Microsoft Teams PowerShell モジュール**を調べる
 
-	- To confirm the MicrosoftTeams module is loaded correctly, enter the following cmdlet and press **Enter** to view all available PowerShell modules:
+	- MicrosoftTeams モジュールが正しく読み込まれていることを確認するには、次のコマンドレットを入力して **Enter** キーを押し、使用可能なすべての PowerShell モジュールを表示します:
 
 		- Microsoft PowerShell - ```Get-Module```
-		-Microsoft Graph PowerShell - ```Get-Module -Name Microsoft.Graph -ListAvailable``` or ```Get-Module -Name MicrosoftTeams```
+		-Microsoft Graph PowerShell - ```Get-Module -Name Microsoft.Graph -ListAvailable``` または ```Get-Module -Name MicrosoftTeams```
 
-		**Note**: To the left of the **Name** column, the version of the PowerShell module is displayed.
+		**注**: **Name** 列の左側に、PowerShell モジュールのバージョンが表示されます。
 
-	- To get an overview of the available Teams PowerShell cmdlets from the MicrosoftTeams module, enter the following cmdlet and then press **Enter**:
+	- MicrosoftTeams モジュールから使用可能な Teams PowerShell コマンドレットの概要を取得するには、次のコマンドレットを入力して **Enter** キーを押します:
 
 		-Microsoft PowerShell - ```Get-Command -Module MicrosoftTeams```
    		-Microsoft Graph PowerShell - ```Get-Command -Module Microsoft.Graph.Teams```
 
-	- The Get-Help cmdlet is used to explore the available cmdlets. For example, to get more information about how to create a team with PowerShell, enter the following cmdlet and press **Enter**:
+	- Get-Help コマンドレットは、使用可能なコマンドレットを調べるために使用されます。たとえば、PowerShell でチームを作成する方法の詳細を取得するには、次のコマンドレットを入力して **Enter** キーを押します:
 
 		```Get-Help New-Team```
 
-		**Note**: If you receive a message to update the help libraries, type **Y** for yes.
+		**注**: ヘルプライブラリを更新するメッセージが表示された場合は、**Y** を入力してください。
 
-	- Disconnect from the Microsoft Teams environment.
+	- Microsoft Teams 環境から切断します。
 
 		- Microsoft PowerShell - ```Disconnect-MicrosoftTeams```
 		-Microsoft Graph PowerShell - ```Disconnect-MgGraph```
 
-6. Close the PowerShell window and continue to the next task.
+6. PowerShell ウィンドウを閉じて、次のタスクに進みます。
 
-You have successfully used the Microsoft Teams PowerShell module to connect to Teams and explored available cmdlets.
+Microsoft Teams PowerShell モジュールを使用して Teams に接続し、使用可能なコマンドレットを調べることに成功しました。
 
-### **Exercise 3: Create groups and teams**
+### **演習 3: グループとチームを作成する**
 
-In this exercise, you will create a Microsoft 365 group from the Microsoft 365 admin center and create a team from the Teams desktop client and the web client.
+この演習では、Microsoft 365 管理センターから Microsoft 365 グループを作成し、Teams デスクトップクライアントと Web クライアントからチームを作成します。
 
-#### **Task 1 - Create a Microsoft 365 Group**
+#### **タスク 1 - Microsoft 365 グループを作成する**
 
-You will create a new Microsoft 365 Group named “IT-Department,” and then add the pilot members serving as a basis for your future teams and licensing.
+「IT-Department」という名前の新しい Microsoft 365 グループを作成し、パイロットメンバーを追加して、将来のチームとライセンスの基盤として機能させます。
 
-1. Connect to the **Client 1 VM** and browse to the **Microsoft 365 admin center** (https://admin.microsoft.com/) as **Joni Sherman** (JoniS@&lt;YourTenant&gt;.onmicrosoft.com).
+1. **Client 1 VM** に接続し、**Joni Sherman** (JoniS@&lt;YourTenant&gt;.onmicrosoft.com) として **Microsoft 365 管理センター** (https://admin.microsoft.com/) を参照します。
 
-2. In the Microsoft 365 admin center, select **Teams &amp; groups** > **Active teams &amp; groups**.
+2. Microsoft 365 管理センターで、**Teams とグループ** > **アクティブなチームとグループ**を選択します。
 
-3. On the **Active teams and groups** page, select **+ Add a Microsoft 365 group**.
+3. **アクティブなチームとグループ**ページで、**+ Microsoft 365 グループを追加**を選択します。
 
-4. Follow the **Add a group** wizard with the following information:
+4. 次の情報を使用して**グループの追加**ウィザードに従います:
 
-	- Basics:
+	- 基本:
 
-		- Name: **IT-Department**
+		- 名前: **IT-Department**
 
-		- Description: **All staff of the IT-Department**
+		- 説明: **IT 部門のすべてのスタッフ**
 
-		- Select **Next**
+		- **次へ**を選択
 
-	- Owners:
+	- 所有者:
 
-		- Select **+ Assign owners**
+		- **+ 所有者の割り当て**を選択
 
-		- Search and select **Joni Sherman**
+		- **Joni Sherman** を検索して選択
 
-		- Select **Add(1)**, and then select **Next**.
+		- **追加(1)** を選択してから、**次へ**を選択します。
 
-	- Members:
+	- メンバー:
 
-		- Select **+ Add Members**, and add the following users:
+		- **+ メンバーを追加**を選択し、次のユーザーを追加します:
 
 			- Patti Fernandez
 
@@ -317,52 +314,52 @@ You will create a new Microsoft 365 Group named “IT-Department,” and then ad
 
 			- MOD Administrator
 
-		- Select **Add(3)**, and then select **Next**.
+		- **追加(3)** を選択してから、**次へ**を選択します。
 
-	- Settings:
+	- 設定:
 
-		- Enter **IT-Department** for Group email address.
+		- グループのメールアドレスに **IT-Department** を入力します。
 
-		- Privacy: **Private**
+		- プライバシー: **プライベート**
 
-   		- Sensitivity: **None**
+   		- 秘密度: **なし**
 
-		- Uncheck **Create a team for this group**.
+		- **このグループのチームを作成する**のチェックを外します。
 
-		- Select **Next**
+		- **次へ**を選択
 
-6. Press the **Create Group** button, then press **Close**.
+6. **グループの作成**ボタンを押してから、**閉じる**を押します。
    
-7. Wait a moment and select **Refresh** until the group is visible. You will see there is no Teams icon in the **Teams status** column.
+7. しばらく待ってから **更新**を選択し、グループが表示されるまで待ちます。**Teams の状態**列に Teams アイコンがないことがわかります。
 
-8. Select the **IT-Department** group to review the settings and members.
+8. **IT-Department** グループを選択して、設定とメンバーを確認します。
 
-The new Microsoft 365 Group with the name “IT-Department” was successfully created. Close the browser window and continue to the next task.
+「IT-Department」という名前の新しい Microsoft 365 グループが正常に作成されました。ブラウザーウィンドウを閉じて、次のタスクに進みます。
 
-#### **Task 2 - Create a new team by using the desktop client**
+#### **タスク 2 - デスクトップクライアントを使用して新しいチームを作成する**
 
-To test the self-service capabilities of Teams, in this task, **Alex Wilber** will sign in to the Teams Desktop client, create a new team with the name **Teams Rollout** and add all members participating in the Teams evaluation project.
+Teams のセルフサービス機能をテストするために、このタスクでは、**Alex Wilber** が Teams デスクトップクライアントにサインインし、**Teams Rollout** という名前の新しいチームを作成し、パイロットに参加しているすべてのメンバーを追加します。
 
-1. Connect to the **Client 2 VM** with the credentials that have been provided to you.
+1. 提供された資格情報を使用して **Client 2 VM** に接続します。
 
-2. Select the **Teams** icon on the taskbar to start the Teams, desktop client.
+2. タスクバーの **Teams** アイコンを選択して、Teams デスクトップクライアントを起動します。
 
-3. Select on **"Sign in"** and Sign in as **Alex Wilber** (AlexW@&lt;YourTenant&gt;.onmicrosoft.com). At the ‘Stay signed in to all your apps’ window, select **No, sign in to this app only**.
+3. **「サインイン」** を選択し、**Alex Wilber** (AlexW@&lt;YourTenant&gt;.onmicrosoft.com) としてサインインします。「すべてのアプリにサインインしたままにする」ウィンドウで、**いいえ、このアプリのみにサインインします**を選択します。
 
-	**Note**: If you don’t have Alex's password, you can reset Alex's password with the following steps:
+	**注**: Alex のパスワードがない場合は、次の手順で Alex のパスワードをリセットできます:
 	
-	1. Login to **Microsoft 365 Admin Center** as **MOD Administrator**. 
-	2. On the **Users &gt; Active users** page, select the name of **Alex Wilber**. 
-	3. Select **Reset password** from the top, then select **Automatically create a password** and uncheck **Require this user to change their password when they first sign in** and **Reset password**. 
-	4. Use the password under column Password to login.
+	1. **MOD Administrator** として **Microsoft 365 管理センター**にログインします。
+	2. **ユーザー &gt; アクティブなユーザー**ページで、**Alex Wilber** の名前を選択します。
+	3. 上部から **パスワードのリセット**を選択し、**パスワードを自動的に作成する**を選択し、**ユーザーが最初にサインインするときにパスワードを変更する必要がある**のチェックを外して、**パスワードのリセット**を選択します。
+	4. パスワード列の下のパスワードを使用してログインします。
 
-	**Note**: You might need to download and install the latest Teams, desktop client. If so, select **Update Teams** and follow the installation guideline - Select **Download for desktop** > **Download Teams** **Run**.
+	**注**: 最新の Teams デスクトップクライアントをダウンロードしてインストールする必要がある場合があります。その場合は、**Teams を更新**を選択してインストールガイドラインに従います - **デスクトップ用にダウンロード** > **Teams をダウンロード** > **ダウンロードしたファイルを開いてインストール**を選択します。
 
-4. In the Teams desktop client, select **Teams** from the left menu.
+4. Teams デスクトップクライアントで、左側のメニューから **Teams** を選択します。
 
-5. Select **Create team** > **From Scratch** > Enter the team name **Teams Rollout** > Enter anything you want for **Description** > Set Team type to**Public** > Type **Teams Rollout** for Name the first channel. Select  **Create**.
+5. **チームを作成** > **最初から** > チーム名 **Teams Rollout** を入力 > **説明**に何でも入力 > チームタイプを**パブリック**に設定 > 最初のチャネルに名前を付けるために **Teams Rollout** と入力 > **作成**を選択します。
 
-6. On the **Add members to Teams Rollout** window, enter the following names and select **Add**.
+6. **Teams Rollout にメンバーを追加**ウィンドウで、次の名前を入力して **追加**を選択します。
 
 	- Joni Sherman
 
@@ -370,375 +367,374 @@ To test the self-service capabilities of Teams, in this task, **Alex Wilber** wi
 
 	- Diego Siciliani
 
-7. Select **Teams** from left ahnd corner and click the **...** button next to **Teams Rollout** > **Manage Team**.
+7. 左隅から **Teams** を選択し、**Teams Rollout** の横にある **...** ボタンをクリック > **チームを管理**します。
 
-8. Select the **Members** tab and select the dropdown for **Members an guests** and scroll to Joni Sherman and switch from **Member** to **Owner**.
+8. **メンバー**タブを選択し、**メンバーとゲスト**のドロップダウンを選択し、Joni Sherman までスクロールして、**メンバー**から **所有者**に切り替えます。
 
-You have successfully created a new team from the Teams desktop client added the project team members, and you have made Joni Sherman a team owner.
+Teams デスクトップクライアントから新しいチームを正常に作成し、プロジェクトチームメンバーを追加し、Joni Sherman をチーム所有者にしました。
 
-#### **Task 3 - Create a new team by using the web client**
+#### **タスク 3 - Web クライアントを使用して新しいチームを作成する**
 
-In this task, **Lynne Robbins** will continue testing the self-service capabilities of Teams by using the Teams web client to create another team with the name **Sales**. She will also add **Alex Wilber** as a member.
+このタスクでは、**Lynne Robbins** が Teams Web クライアントを使用して **Sales** という名前の別のチームを作成することで、Teams のセルフサービス機能のテストを続けます。彼女はまた、**Alex Wilber** を新しいチームのメンバーとして追加します。
 
-1. Connect to the **Client 2 VM** with the credentials that have been provided to you.
+1. 提供された資格情報を使用して **Client 2 VM** に接続します。
 
-2. Browse to the **Microsoft Teams web client** at [**https://teams.microsoft.com**](https://teams.microsoft.com/) and sign in as **Lynne Robbins** (LynneR@&lt;YourTenant&gt;.onmicrosoft.com).
+2. [**https://teams.microsoft.com**](https://teams.microsoft.com/) の **Microsoft Teams Web クライアント**を参照し、**Lynne Robbins** (LynneR@&lt;YourTenant&gt;.onmicrosoft.com) としてサインインします。
 
-3. Select **Use the Web app instead** if prompted to download the Teams Desktop app. At the ‘Stay signed in to all your apps’ window, select **No, sign in to this app only**.
+3. Teams デスクトップアプリをダウンロードするよう求められた場合は、**代わりに Web アプリを使用する**を選択します。「すべてのアプリにサインインしたままにする」ウィンドウで、**いいえ、このアプリのみにサインインします**を選択します。
 
-4. Select **Teams** from the navigation menu to the left.
+4. 左側のナビゲーションメニューから **Teams** を選択します。
 
-5. Select **+** at the top left >  **Create team** >Enter the team name **Sales** > Enter anything you want for **Description** > Select Team type to **Private** > Enter **Sales** in Name the first channel. Select **Create**.
+5. 左上の **+** を選択 >  **チームを作成** >チーム名 **Sales** を入力 > **説明**に何でも入力 > チームタイプを **プライベート**に選択 > 最初のチャネルに名前を付けるために **Sales** を入力 > **作成**を選択します。
 
-6. On the **Add members to Sales** window, enter the following names and select **Add** > **Close**.
+6. **Sales にメンバーを追加**ウィンドウで、次の名前を入力して **追加** > **閉じる**を選択します。
 
 	- Alex Wilber
 
-The newly created team is displayed in the list of your teams. You have successfully created a new team with the Teams web client.
+新しく作成されたチームがチームのリストに表示されます。Teams Web クライアントで新しいチームを正常に作成しました。
 
-### **Exercise 4: Implement lifecycle management and governance for Microsoft Teams**
+### **演習 4: Microsoft Teams のライフサイクル管理とガバナンスを実装する**
 
-Your organization has started the planning process for Microsoft 365 services adoption. You are assigned a Teams admin role to plan Teams governance. Since Teams relies on Microsoft 365 groups, you need to plan governance procedures for Microsoft 365 groups, including creating **Microsoft 365 groups expiration policies**, configuring **Microsoft 365 Group creation policy permissions**, configuring and testing **Microsoft 365 Groups naming policies**.
+組織は、Microsoft 365 サービスの採用計画プロセスを開始しました。Teams ガバナンスを計画するために、Teams 管理者ロールが割り当てられています。Teams は Microsoft 365 グループに依存しているため、最初に Microsoft 365 グループのガバナンスを計画する必要があります。
 
-#### Task 1 - Create and assign an expiration policy
+#### タスク 1 - 有効期限ポリシーを作成して割り当てる
 
-Based on the organization’s requirement, unneeded groups should be deleted automatically after 90 days. To evaluate the expiration feature for Teams, you will configure a group expiration policy that will expire the **Teams Rollout** group after 90 days.
+組織の要件に基づいて、不要なグループは 90 日後に自動的に削除される必要があります。Teams の有効期限機能を評価するには、90 日後にグループが削除され、所有者がいない場合は Joni Sherman に通知されるグループ有効期限ポリシーを構成します。
 
-1. Connect to the Client1 VM and browse to Entra admin center (https://entra.microsoft.com/) as **MOD Administrator**. 
+1. Client1 VM に接続し、**MOD Administrator** として Entra 管理センター (https://entra.microsoft.com/) を参照します。
 
-2. On the main page under Contoso, select  **View Groups** > **All groups**.
+2. Contoso の下のメインページで、**グループの表示** > **すべてのグループ**を選択します。
 
-3. On the **Groups | All groups** page, select **Expiration** in the left hand side of the navigation menu under Settings.
+3. **グループ | すべてのグループ**ページで、ナビゲーションメニューの左側の設定の下にある **有効期限**を選択します。
 
-4. On the **Groups | Expiration** page, configure the following settings:
+4. **グループ | 有効期限**ページで、次の設定を構成します:
 
-	- In the dropdown menu of **Group lifetime (in days)**, select **Custom** and enter **90** to the text box.
+	- **グループの有効期間（日数）**のドロップダウンメニューで、**カスタム**を選択し、テキストボックスに **90** と入力します。
 
-	- In the text box right from **Email contact for groups with no owners**, enter (JoniS@&lt;YourTenant&gt;.onmicrosoft.com).
+	- **所有者がいないグループのメール連絡先**の右側のテキストボックスに (JoniS@&lt;YourTenant&gt;.onmicrosoft.com) と入力します。
 
-	- Right from **Enable expiration for the Office 365 groups**, select **Selected**.
+	- **Office 365 グループの有効期限を有効にする**の右側で、**選択済み**を選択します。
 
-	- Select **+ Add** to open the **Select groups** page.
+	- **+ 追加**を選択して、**グループの選択**ページを開きます。
 
-	- In the **Select groups** page, type **Teams Rollout** into the textbox and select the group.
+	- **グループの選択**ページで、テキストボックスに **Teams Rollout** と入力し、グループを選択します。
 
-	- Use the **Select** button on the lower end of the right-side pane to apply the policy to the **Selected group**.
+	- 右側のペインの下部にある **選択**ボタンを使用して、**選択したグループ**にポリシーを適用します。
 
-	- Back on the **Groups | Expiration** page, select **Save**.
+	- **グループ | 有効期限**ページに戻り、**保存**を選択します。
 
-You have successfully created a new expiration policy and configured the **Teams Rollout** team to expire after 90 days. If the team doesn’t have an owner after 90 days, Joni Sherman will be notified about the expiration.
+新しい有効期限ポリシーを正常に作成し、**Teams Rollout** チームが 90 日後に期限切れになるように構成しました。90 日後にチームに所有者がいない場合、Joni Sherman に通知されます。
 
-#### Task 2 - Configure a group creation policy
+#### タスク 2 - グループ作成ポリシーを構成する
 
-You are an administrator for your Team’s organization. You need to limit which users can create Microsoft 365 groups. You will create a security group named **GroupCreators** which only the members of the group can create Microsoft 365 groups.
+あなたは Teams 組織の管理者です。どのユーザーが Microsoft 365 グループを作成できるかを制限する必要があります。**GroupCreators** という名前のセキュリティグループを作成し、そのグループのメンバーのみが新しい Microsoft 365 グループを作成できるようにします。
 
-1. Connect to the **Client 1 VM** and browse to the **Microsoft 365 admin center** (https://admin.microsoft.com/) as the Global admin - MOD Administrator(admin@&lt;YourTenant&gt;.onmicrosoft.com).
+1. **Client 1 VM** に接続し、グローバル管理者 - MOD Administrator(admin@&lt;YourTenant&gt;.onmicrosoft.com) として **Microsoft 365 管理センター** (https://admin.microsoft.com/) を参照します。
 
-2. In the Microsoft 365 admin center, select **Teams &amp; groups** > **Active teams &amp; groups**.
+2. Microsoft 365 管理センターで、**Teams とグループ** > **アクティブなチームとグループ**を選択します。
 
-3. On the **Active teams and groups** page,  create a security group. 
+3. **アクティブなチームとグループ**ページで、セキュリティグループを作成します。
 
-	- Navigate to the **Security groups** tab.
-        - Select the **+ Add a security group** button.
+	- **セキュリティグループ**タブに移動します。
+        - **+ セキュリティグループの追加**ボタンを選択します。
           
-- Fill out the following information:
-	- Basics:
+- 次の情報を入力します:
+	- 基本:
 
-		- Name: **GroupCreators**
-		- Description: **Users who can create Microsoft 365 Groups for new teams**
-		- Select **Next**
+		- 名前: **GroupCreators**
+		- 説明: **新しいチームの Microsoft 365 グループを作成できるユーザー**
+		- **次へ**を選択
     
-       - Settings:
-                - Select **Next**
+       - 設定:
+                - **次へ**を選択
 
-	- Finish: Select **Create Group** and then select **Close**
+	- 完了: **グループの作成**を選択してから、**閉じる**を選択します
 
-	- Back to **Active teams &amp; group** page, select **Security groups** tab and Select on the security group **GroupCreators** you just created.
+	- **アクティブなチームとグループ**ページに戻り、**セキュリティグループ**タブを選択し、作成したばかりのセキュリティグループ **GroupCreators** を選択します。
 
-	- Select **Members** tab to configure the **Owners** and **Members**.
+	- **メンバー**タブを選択して、**所有者**と**メンバー**を構成します。
 
-		- Owners: Select **View all and manage owners** and select **+ Add owners.** Select **MOD Administrator**.
+		- 所有者: **すべての所有者を表示して管理**を選択し、**+ 所有者を追加**を選択します。**MOD Administrator** を選択します。
 
-		- Members: Select **View all and manage members** > **+ Add members**, and add the following users:
+		- メンバー: **すべてのメンバーを表示して管理** > **+ メンバーを追加**を選択し、次のユーザーを追加します:
 
 			- Joni Sherman
 			- Alex Wilber
 
-Restrict the Microsoft 365 groups creation to the security group.
+セキュリティグループへの Microsoft 365 グループの作成を制限します。
    
-Please note: Microsoft PowerShell is soon to be deprecated and Microsoft Graph PowerShell will now be used. Therefore, both PowerShell and Microsoft Graph PowerShell commands are provided to complete this task. Users will be able to use either the PowerShell or Microsoft Graph PowerShell commands. Once PowerShell has been deprecated, please switch to using the Microsoft Graph PowerShell commands. 
+注意してください: Microsoft PowerShell は間もなく非推奨となり、Microsoft Graph PowerShell が使用されるようになります。したがって、このタスクを完了するために、PowerShell と Microsoft Graph PowerShell の両方のコマンドが提供されています。
 
-Please note: The Microsoft Graph PowerShell commands WILL BE ADDED IN THENEAR FUTURE. You can still use the Powershell commands forthe steps listed below. 
+注意してください: Microsoft Graph PowerShell コマンドは近い将来追加されます。以下にリストされている手順では、引き続き Powershell コマンドを使用できます。
 
-4. Open **Windows PowerShell** and run as Administrator.
+4. 管理者として **Windows PowerShell** を開きます。
 
-5. Install **Azure AD Preview module**
-	In the PowerShell window, enter the following cmdlet and press **Enter**. Enter **Y** and press **Enter** to confirm the installation of an untrusted repository.
+5. **Azure AD Preview モジュール**をインストールする
+	PowerShell ウィンドウで、次のコマンドレットを入力して **Enter** キーを押します。信頼されていないリポジトリのインストールを確認するために **Y** を入力して **Enter** キーを押します。
 
--  Microsoft Powershell command:
+-  Microsoft Powershell コマンド:
   ```Install-Module -Name AzureADPreview```
  
-- Microsoft Graph Powershell command:
+- Microsoft Graph Powershell コマンド:
 ```Install-Module Microsoft.Graph.Beta```
 
-6. Connect to your AAD tenant.
- Enter the following cmdlet in the PowerShell window and press **Enter**. In the Sign-in window, sign in as the Global admin - MOD Administrator(admin@&lt;YourTenant&gt;.onmicrosoft.com).
+6. AAD テナントに接続します。
+ PowerShell ウィンドウで次のコマンドレットを入力し、**Enter** キーを押します。サインインウィンドウで、グローバル管理者 - MOD Administrator(admin@&lt;YourTenant&gt;.onmicrosoft.com) としてサインインします。
 	   
--  Microsoft Powershell command:
+-  Microsoft Powershell コマンド:
  ```Connect-AzureAD```
 
-- Microsoft Graph Powershell command:
+- Microsoft Graph Powershell コマンド:
 ```Connect-MgGraph```
 	
-7. Load the Azure AD unified group template, by using the following cmdlet:
+7. 次のコマンドレットを使用して、Azure AD 統合グループテンプレートを読み込みます:
           
--	Microsoft Powershell command:
+-	Microsoft Powershell コマンド:
   ```$Template = Get-AzureADDirectorySettingTemplate | Where {$_.DisplayName -eq "Group.Unified"}```
 	
-8. Check if an Azure AD setting is already existing and load it, if yes. If not, create a blank Azure AD setting object. Run the following cmdlet to populate the "$Setting" variable:
+8. Azure AD 設定が既に存在するかどうかを確認し、存在する場合は読み込みます。存在しない場合は、空白の Azure AD 設定オブジェクトを作成します。次のコマンドレットを実行して、"$Setting" 変数に値を設定します:
    
-- Microsoft Powershell command:
+- Microsoft Powershell コマンド:
    ```if(!($Setting = Get-AzureADDirectorySetting | Where {$_.TemplateId -eq $Template.Id})) {$Setting = $Template.CreateDirectorySetting()}```
 
-9. Run the following cmdlet to modify the group creation setting for your tenant with the "EnableGroupCreation" attribute:
+9. 次のコマンドレットを実行して、"EnableGroupCreation" 属性でテナントのグループ作成設定を変更します:
 
--  Microsoft Powershell command:
+-  Microsoft Powershell コマンド:
   ```$Setting["EnableGroupCreation"] = "False"```
    
--  Microsoft Graph Powershell command:
+-  Microsoft Graph Powershell コマンド:
   ```Update-MgDirectorySetting -DirectorySettingId $Setting.Id -Values @{ "EnableGroupCreation" = "False" }```
 	
-10. Run the following cmdlet to add the just created security group **GroupCreators** as a permitted group to create groups, by their ObjectID:
+10. 次のコマンドレットを実行して、ObjectID によって、作成したばかりのセキュリティグループ **GroupCreators** をグループを作成できる許可されたグループとして追加します:
 
--  Microsoft Powershell command:
+-  Microsoft Powershell コマンド:
   ```$Setting["GroupCreationAllowedGroupId"] = (Get-AzureADGroup -SearchString "GroupCreators").objectid```
 
-11. Review the changes you have just configured with the following command:
+11. 次のコマンドで構成した変更を確認します:
 
-- Microsoft Powershell command and Microsoft Graph Powershell command:
+- Microsoft Powershell コマンドおよび Microsoft Graph Powershell コマンド:
 ```$Setting.Values```
 
-11. Save the changes and apply the setting:
+11. 変更を保存し、設定を適用します:
 
--  Microsoft Powershell command:
+-  Microsoft Powershell コマンド:
   ```New-AzureADDirectorySetting -DirectorySetting $Setting```
        
-    **Note:** Since this is a new tenant, there’s no directory settings object in the tenant yet. You need to use ```New-AzureADDirectorySetting``` to create a directory settings object for the first time.
+    **注:** これは新しいテナントであるため、テナントにはまだディレクトリ設定オブジェクトがありません。最初にディレクトリ設定オブジェクトを作成するには、```New-AzureADDirectorySetting``` を使用する必要があります。
 	
-12. Test the newly configured settings.
+12. 新しく構成された設定をテストします。
 
-    1. Connect to the **Client 2 VM** with the credentials that have been provided to you.
+    1. 提供された資格情報を使用して **Client 2 VM** に接続します。
 
-    2. Test as **Alex Willber** from Teams desktop client, navigate to **Teams and channels** > **...** > **Your Teams and channels** >  notice when select the dropdown button next 
-    to **Create team**, there are options for **Create team** and **Join a team**.     
+    2. Teams デスクトップクライアントから **Alex Willber** としてテストし、**Teams とチャネル** > **...** > **Teams とチャネル** に移動し、**チームの作成**の横のドロップダウンボタンを選択すると、**チームの作成**と**チームに参加**のオプションがあることに注意してください。
 
-    3. Test as **Lynne Robbins** from Teams web client, follow the same steps as the steps above, notice only one option **Join a team** is available.
+    3. Teams Web クライアントから **Lynne Robbins** としてテストし、上記と同じ手順に従うと、**チームに参加**オプションのみが利用可能であることに注意してください。
 
-        **Note:** When you are still able to create a new team, wait several minutes for the new configuration to take effect on your users.
+        **注:** 新しいチームを作成できる場合は、新しい構成がユーザーに反映されるまで数分待ってください。
 
 
-13. Revert the change for enabling users to create new teams.
+13. ユーザーが新しいチームを作成できるようにするための変更を元に戻します。
 
-14. Connect to the **Client 1 VM** where you have **Windows PowerShell** opened.  
+14. **Windows PowerShell** を開いている **Client 1 VM** に接続します。
     
-15. Load the Azure AD unified group template, by using the following cmdlet:
+15. 次のコマンドレットを使用して、Azure AD 統合グループテンプレートを読み込みます:
 
-- Microsoft Powershell command:
+- Microsoft Powershell コマンド:
   ```$Template = Get-AzureADDirectorySettingTemplate | Where {$_.DisplayName -eq "Group.Unified"}```
  
-16.	Create a blank Azure AD tenant settings object:
+16.	空白の Azure AD テナント設定オブジェクトを作成します:
 
--  Microsoft Powershell command:
+-  Microsoft Powershell コマンド:
   ```$Setting = $Template.CreateDirectorySetting()```
       
-17. Apply the configured settings, to revert previous changes:
+17. 構成された設定を適用して、以前の変更を元に戻します:
 
--  Microsoft Powershell command:
+-  Microsoft Powershell コマンド:
    ```Set-AzureADDirectorySetting -Id (Get-AzureADDirectorySetting | where {$_.DisplayName -eq "Group.Unified"}).id -DirectorySetting $Setting```
 
-18.   In the PowerShell window, enter the following cmdlet to disconnect the current session from your Azure Active Directory tenant.
--  Microsoft Powershell command:
+18.   PowerShell ウィンドウで、次のコマンドレットを入力して、Azure Active Directory テナントから現在のセッションを切断します。
+-  Microsoft Powershell コマンド:
 ```Disconnect-AzureAD```
 	
-20. Close the PowerShell window and continue to the next task.
+20. PowerShell ウィンドウを閉じて、次のタスクに進みます。
 	
 	
-In this task, you have successfully created a new security group and configured Azure AD settings to restrict the creation of new groups to members of this group only. At the end of the task, you have successfully tested the new group creation restrictions.
+このタスクでは、新しいセキュリティグループを正常に作成し、このグループのメンバーのみに新しいグループの作成を制限するように Azure AD 設定を構成しました。タスクの最後に、後の演習でユーザーがチームを作成できるように、構成を元に戻しました。
 
-#### Task 3 - Configure a new naming policy
+#### タスク 3 - 新しい名前付けポリシーを構成する
 
-As part of your Teams planning project, you will configure the naming policy where each new Microsoft 365 group or team needs to comply with the organization’s regulations on naming objects. Each group name should start with the letters **Group** and end with the **Country** attribute of the owners’ location. Furthermore, there is an internal regulation that forbids using the following specific keywords in Teams names: **CEO**, **Payroll**, and **HR**.
+Teams 計画プロジェクトの一環として、各新しい Microsoft 365 グループまたはチームがオブジェクトの命名に関する組織の規制に準拠する必要がある名前付けポリシーを構成します。各グループ名は、**Group_** というプレフィックスで始まり、グループを作成したユーザーの**国または地域**というサフィックスで終わる必要があります。
 
-1. Connect to the Client1 VM and browse to Entra admin center (https://entra.microsoft.com/) as **MOD Administrator**. 
+1. Client1 VM に接続し、**MOD Administrator** として Entra 管理センター (https://entra.microsoft.com/) を参照します。
 
-2. On the main page under **Contoso**, select **View groups** > **All Groups**.
+2. **Contoso** の下のメインページで、**グループの表示** > **すべてのグループ**を選択します。
 
-3. On the **Groups** page, select **Naming policy** from the left hand side menu under Settings.
+3. **グループ**ページで、設定の下の左側のメニューから **名前付けポリシー**を選択します。
 
-4. Configure **Blocked words**
+4. **ブロックされた単語**を構成する
 
-    1. Under the **Blocked words** tab on the **Groups | Naming policy** page, select **Download** to download a sample file. 
+    1. **グループ | 名前付けポリシー**ページの **ブロックされた単語**タブで、**ダウンロード**を選択してサンプルファイルをダウンロードします。
     
-    2. Navigate and right-select the downloaded file **BlockedWords.csv** and select **Open with** > **Notepad**.
+    2. ダウンロードしたファイル **BlockedWords.csv** に移動して右クリックし、**プログラムから開く** > **メモ帳**を選択します。
 
-    3. Type **CEO,Payroll,HR** replacing the empty quotes in the Notepad window, and saving the file. 
+    3. メモ帳ウィンドウの空の引用符を置き換えて **CEO,Payroll,HR** と入力し、ファイルを保存します。
     
-    4. Back to the **Groups | Naming policy** page, upload the saved .csv file under **3. Upload your .csv file** by selecting **Select a file** box or the folder icon.
+    4. **グループ | 名前付けポリシー**ページに戻り、**3. .csv ファイルをアップロードする**の下で **ファイルを選択**ボックスまたはフォルダーアイコンを選択して、保存した .csv ファイルをアップロードします。
 
-    5. Select **Save** to apply the new blocked words setting.
+    5. **保存**を選択して、新しいブロックされた単語の設定を適用します。
 
-5. Configure **Group naming policy**
+5. **グループ名前付けポリシー**を構成する
     
-    1. On the **Groups | Naming policy** page, select the **Group naming policy** tab.
+    1. **グループ | 名前付けポリシー**ページで、**グループ名前付けポリシー**タブを選択します。
 
-    2. Add **Group_** string as prefix 
+    2. **Group_** 文字列をプレフィックスとして追加する
         
-        1. Select the dropdown menu of **Select the type of prefix** and choose **String**.
-        2.  Select the checkbox **Add prefix**. 
-        3. Enter **Group_** to the text box.
+        1. **プレフィックスのタイプを選択**のドロップダウンメニューを選択し、**文字列**を選択します。
+        2. **プレフィックスを追加**チェックボックスをオンにします。
+        3. テキストボックスに **Group_** と入力します。
 
-    3. Add **Country or region** string as the suffix 
+    3. **国または地域**文字列をサフィックスとして追加する
         
-        1. Select the dropdown menu of **Select the type of suffix**, choose **String**, and enter **_** to the text box. 
-	2. Select the checkbox **Add suffix**. 
-        3. Select the dropdown menu of **Select another suffix**, choose **Attribute**, and Select **Country or region** from the dropdown menu. 
+        1. **サフィックスのタイプを選択**のドロップダウンメニューを選択し、**文字列**を選択して、テキストボックスに **_** と入力します。
+	2. **サフィックスを追加**チェックボックスをオンにします。
+        3. **別のサフィックスを選択**のドロップダウンメニューを選択し、**属性**を選択して、ドロップダウンメニューから **国または地域**を選択します。
         
-    4. Select **Save** to apply the new blocked words setting.
+    4. **保存**を選択して、新しいブロックされた単語の設定を適用します。
 
 
-In this task, you have configured a naming policy that will block specific words to be used in a Microsoft 365 group name, as well as you have configured a new naming policy for the names of Microsoft 365 groups and teams.
+このタスクでは、Microsoft 365 グループ名で使用される特定の単語をブロックする名前付けポリシーを構成し、Microsoft 365 グループの名前に新しい名前付けポリシーを構成しました。
 
-#### Task 4 - Test the new naming policy
+#### タスク 4 - 新しい名前付けポリシーをテストする
 
-You need to test the newly created naming policy to see its effects in your pilot environment. In the following task, you will try to create a new team and see the configured naming policy template completing the configured name for your new team.
+パイロット環境での効果を確認するために、新しく作成された名前付けポリシーをテストする必要があります。次のタスクでは、新しいチームを作成しようとし、構成された名前付けポリシーテンプレートがグループ名とエイリアスに適用されることを確認します。
 
-**Note:** It can take up to 24 hours till the blocked words setting will take effect. Therefore, you will only test the configured naming policy, which takes effect immediately.
+**注:** ブロックされた単語の設定が有効になるまでに最大 24 時間かかる場合があります。したがって、すぐに有効になる構成された名前付けポリシーのみをテストします。
 
-1. Connect to the **Client 2 VM** and open the **Teams desktop client** (https://teams.microsoft.com/) as **Alex Wilber** (AlexW@&lt;YourTenant&gt;.onmicrosoft.com)
+1. **Client 2 VM** に接続し、**Alex Wilber** (AlexW@&lt;YourTenant&gt;.onmicrosoft.com) として **Teams デスクトップクライアント** (https://teams.microsoft.com/) を開きます
 
-2. In the Teams desktop client, select **Teams and channels** from the left menu > **...** > **Your Teams and channels**.
+2. Teams デスクトップクライアントで、左側のメニューから **Teams とチャネル**を選択 > **...** > **Teams とチャネル**を選択します。
 
-3. Select **Create team** in the upper left hand corner to create and join teams and channels.
+3. 左上隅の **チームの作成**を選択して、チームとチャネルを作成して参加します。
 
-4. Select **Create team** >Enter **Afterwork** for the **Team name** > Enter anything you want for **Description** > set Team type to **Public** > Enter **Afterwork** for Name the first channel.
+4. **チームの作成**を選択 >**チーム名**に **Afterwork** を入力 > **説明**に何でも入力 > チームタイプを **パブリック**に設定 > 最初のチャネルに名前を付けるために **Afterwork** を入力します。
    
-	Below the entered name, you can see the configured prefix and suffix for new teams.
+	入力した名前の下に、新しいチーム用に構成されたプレフィックスとサフィックスが表示されます。
 
-5. Select **Create** to create the new team.
+5. **作成**を選択して新しいチームを作成します。
 
-6. Add **Lynne Robbins** to the team member.
+6. チームメンバーに **Lynne Robbins** を追加します。
 
-7. Review the name of the newly created team.
+7. 新しく作成されたチームの名前を確認します。
 
-You have successfully tested the naming policy for managing the prefix and suffixes of user-created teams.
+ユーザーが作成したチームのプレフィックスとサフィックスを管理するための名前付けポリシーを正常にテストしました。
 
-#### Task 5 - Delete the naming policy
+#### タスク 5 - 名前付けポリシーを削除する
 
-You can remove the naming policy after the test. In the following task, you will remove the naming policy you just created.
+テスト後に名前付けポリシーを削除できます。次のタスクでは、作成したばかりの名前付けポリシーを削除します。
 
-1. Connect to the Client1 VM and browse to Entra admin center (https://entra.microsoft.com/) as **MOD Administrator**.
+1. Client1 VM に接続し、**MOD Administrator** として Entra 管理センター (https://entra.microsoft.com/) を参照します。
 
-2. On the main page under **Contoso**, select **View groups** > **All Groups**.
+2. **Contoso** の下のメインページで、**グループの表示** > **すべてのグループ**を選択します。
 
-3. Navigate to the **Group naming policy** tab.
+3. **グループ名前付けポリシー**タブに移動します。
 
-5. Select **Delete policy** at the top ribbon > **Yes**.
+5. 上部のリボンで **ポリシーの削除**を選択 > **はい**を選択します。
 
-#### Task 6 – Manage policy packages
+#### タスク 6 – ポリシーパッケージを管理する
 
-To avoid administrative overhead with managing large numbers of policies individually for groups of different users, you need to evaluate using policy packages to group policies into logical units. In this task, you need to review the default policy packages and change a default policy package for first-line workers.
+さまざまなユーザーグループの多数のポリシーを個別に管理する管理オーバーヘッドを回避するために、ポリシーパッケージを使用してポリシーを論理単位にグループ化することを評価する必要があります。このタスクでは、既存のポリシーパッケージを変更してユーザーに割り当てます。
 
-1. Connect to the **Client 1 VM** and browse to Teams admin center (https://admin.teams.microsoft.com) as **Joni Sherman** (JoniS@&lt;YourTenant&gt;.onmicrosoft.com).
+1. **Client 1 VM** に接続し、**Joni Sherman** (JoniS@&lt;YourTenant&gt;.onmicrosoft.com) として Teams 管理センター (https://admin.teams.microsoft.com) を参照します。
 
-2. In the left navigation of the Teams admin center, select **Policy packages**.
+2. Teams 管理センターの左側のナビゲーションで、**ポリシーパッケージ**を選択します。
 
-3. On the **Policy packages** page, select **Frontline worker (default)** policy package.
+3. **ポリシーパッケージ**ページで、**Frontline worker (default)** ポリシーパッケージを選択します。
 
 	![Table Description automatically generated](media/MS-700-lab_M03_ak_image7.png)
 
-4. Check the box next to **Frontline Worker (Default)** and select **Manage Users** from the navigation ribbon.
+4. **Frontline Worker (Default)** の横のボックスをチェックし、ナビゲーションリボンから **ユーザーの管理**を選択します。
    
-5. Search **“Joni”** and select **Add** from the drop down. Then select **Apply** at the bottom.
+5. **"Joni"** を検索し、ドロップダウンから **追加**を選択します。次に、下部の **適用**を選択します。
    
-6. On the left Navigation, select **Users** and then **Manage Users**.
+6. 左側のナビゲーションで、**ユーザー**を選択してから **ユーザーの管理**を選択します。
    
-7. From the list of users select **Joni Sherman**.
+7. ユーザーのリストから **Joni Sherman** を選択します。
    
-8. Navigate to the **Policies Tab** and Select **Frontline_Worker** next to **Messaging Policies**.
+8. **ポリシー タブ**に移動し、**メッセージングポリシー**の横にある **Frontline_Worker** を選択します。
 
-9. Turn on the setting - **Send urgent messages using priotiy notifications** and select **Save**, if this setting is not already turned on.
+9. **優先度通知を使用して緊急メッセージを送信する**設定をオンにして **保存**を選択します（この設定がまだオンになっていない場合）。
 
-10. Press **Confirm**.
+10. **確認**を押します。
 
-12. Update Calling policy in **Frontline worker** policy package.
+12. **Frontline worker** ポリシーパッケージで通話ポリシーを更新します。
 
-	1. Back to **Policy packages** page.
-	2. Select **Frontline worker (default)** from the list again. 
-	3. Select **Frontline_worker** right from **Calling policy**.
-	4. Turn **On** the setting - **Prevent toll bypass and send calls through the PSTN**.
-	5. Update **Busy on busy when in a call** to **On**.
-	6. Select **Save**.
-    	7. Select **Confirm**.
+	1. **ポリシーパッケージ**ページに戻ります。
+	2. リストから再度 **Frontline worker (default)** を選択します。
+	3. **通話ポリシー**の右側にある **Frontline_worker** を選択します。
+	4. **通話料金のバイパスを防ぎ、PSTN 経由で通話を送信する**設定を**オン**にします。
+	5. **通話中にビジー**を **オン**に更新します。
+	6. **保存**を選択します。
+    	7. **確認**を選択します。
 
-13. Navigate to **Policy Packages** from the left navigation pane.
+13. 左側のナビゲーションペインから **ポリシーパッケージ**に移動します。
 
-14. Make sure **Frontline worker** policy package is checked.
+14. **Frontline worker** ポリシーパッケージがチェックされていることを確認します。
 
-15. Select **Manage users** from the top menu.
+15. 上部のメニューから **ユーザーの管理**を選択します。
 
-16. Type **Allan** into the search box, select **Add** right from **Allan Deyoung** and **Apply**.
+16. 検索ボックスに **Allan** と入力し、**Allan Deyoung** の右側の **追加**を選択して **適用**します。
 
-17. Check the policy assignment.
+17. ポリシーの割り当てを確認します。
 
-	1. Select **Users** > **Manage users** from the left-side pane.
+	1. 左側のペインから **ユーザー** > **ユーザーの管理**を選択します。
 
-	2. Select **Allan Deyoung** and select **Policies** tab.
+	2. **Allan Deyoung** を選択し、**ポリシー**タブを選択します。
 
-	3. You can see the **Frontline worker (Direct)** under policy package section.
+	3. ポリシーパッケージセクションの下に **Frontline worker (Direct)** が表示されます。
 
-You have successfully modified included policies from an existing policy package and assigned the package to a single user. This will help you assign the same set of policies to a group of users working in the same role or requiring the same access.
+既存のポリシーパッケージに含まれるポリシーを正常に変更し、パッケージを単一のユーザーに割り当てました。これにより、同じ役割で働くユーザーのグループに同じポリシーセットを割り当てることができます。
  
 
-### **Exercise 5: Enable access to Teams public preview features using Teams update policies**
+### **演習 5: Teams 更新ポリシーを使用して Teams パブリックプレビュー機能へのアクセスを有効にする**
 
-In this exercise, you will configure users to explore and evaluate upcoming features using Teams update policies. Public preview is enabled on a per-user basis, and Update policies are used to manage Teams and Office preview users who will see pre-release or preview features in the Teams app.
+この演習では、Teams 更新ポリシーを使用して、今後の機能を調査および評価するようにユーザーを構成します。パブリックプレビューはユーザーごとに有効にされ、更新ポリシーは Teams で Teams プレビューとリリース前の機能を表示するユーザーを管理するために使用されます。
 
-#### Task 1 - Create a custom Update policy
+#### タスク 1 - カスタム更新ポリシーを作成する
 
-1. Connect to the **CLIENT1 VM** and browse to **Teams Admin Center** [https://admin.teams.microsoft.com](https://admin.teams.microsoft.com) as **Joni Sherman** ([JoniS@&lt;YourTenant&gt;.onmicrosoft.com](mailto:JoniS@&lt;YourTenant&gt;.onmicrosoft.com))
+1. **CLIENT1 VM** に接続し、**Joni Sherman** ([JoniS@&lt;YourTenant&gt;.onmicrosoft.com](mailto:JoniS@M365x19242873.onmicrosoft.com)) として **Teams 管理センター** [https://admin.teams.microsoft.com](https://admin.teams.microsoft.com) を参照します。
 
-	**Note**: You can use **InPrivate window** of Microsoft Edge for logging in with different credentials.
+	**注:** 別の資格情報でログインするには、Microsoft Edge の **InPrivate ウィンドウ**を使用できます。
 
-2. In left navigation of the Teams admin center, select **Teams** > **Teams update policies**. 
+2. Teams 管理センターの左側のナビゲーションで、**Teams** > **Teams 更新ポリシー**を選択します。
 
-3. Select **...** > **+ Add**
+3. **...** > **+ 追加**を選択します
 
-4. Enter the following information:
+4. 次の情報を入力します:
 
-	- Name: **Enable Preview features**
-	- Description: **Enable Teams public preview**
-	- Show preview features: select **On for everyone** 
-	- Select **Apply** 
+	- 名前: **プレビュー機能を有効にする**
+	- 説明: **Teams パブリックプレビューを有効にする**
+	- プレビュー機能を表示: **すべてのユーザーに対してオン**を選択
+	- **適用**を選択
 
-You now completed creating a custom **Teams Update policy.**
+これで、カスタム **Teams 更新ポリシー**の作成が完了しました。
  
 
-#### Task 2 - Assign the custom Update policy to users
+#### タスク 2 - カスタム更新ポリシーをユーザーに割り当てる
 
-Now you need to assign the custom Update policy to specific users because it doesn’t over-write the global policy.
+グローバルポリシーを上書きしないため、カスタム更新ポリシーを特定のユーザーに割り当てる必要があります。
 
-1. Go to **Teams admin center** > **Teams** > **Teams update policies**.
+1. **Teams 管理センター** > **Teams** > **Teams 更新ポリシー**に移動します。
 
-2. Select the custom Update policy **Enable Preview features**.
+2. カスタム更新ポリシー **プレビュー機能を有効にする**を選択します。
 
-3. Select **Assign users**.
+3. **ユーザーの割り当て**を選択します。
 
-4. Search and select **Add** next to the following pilot users:
+4. 次のパイロットユーザーを検索して、**追加**を選択します:
 
 	* Alex Wilber 
 	* Lynne Robbins 
 	* Diego Siciliani 
 
-5. Select **Apply** then **Confirm** to assign the custom update policy created in task 1.
+5. **適用**を選択してから **確認**を選択して、タスク 1 で作成したカスタム更新ポリシーを割り当てます。
 
-END OF LAB
+ラボの終了
