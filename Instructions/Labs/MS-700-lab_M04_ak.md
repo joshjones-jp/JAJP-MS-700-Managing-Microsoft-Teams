@@ -1,672 +1,569 @@
+# **ラボ 04: Teams の会議と通話エクスペリエンスを管理する**
 
+# **受講者用ラボ解答**
 
-# **Lab 04: - Manage Teams meetings and calling experiences**
+## **ラボ シナリオ**
 
-# **Student lab answer key**
+このコースのラボでは、Contoso Ltd. の Teams 管理者 Joni Sherman と、そのパイロット チームの役割を担い、テスト環境で Microsoft Teams の機能を評価します。組織では [...]
 
-## **Lab Scenario**
+組織は複数の Teams デバイスの購入と展開も計画しています。デバイス プロファイルの評価、プロファイル設定の構成、デバイス展開プロセスの準備が必要です[...]
 
-In the labs of this course, you will assume the role of Joni Sherman, a Teams Administrator for Contoso Ltd., and her pilot team that shall evaluate the capabilities of Microsoft Teams in a testing environment. Teams admins need to configure conferencing functionalities, such as meetings and live event features that will provide the best user experience during collaboration and communication.
+さらに、Contoso のレガシ PBX ソリューションを置き換え、ユーザーに Teams 通話機能を提供するための音声機能を構成します。
 
-Your organization is also planning to purchase and deploy multiple Team devices. You will need to evaluate different devices profiles and configure profile settings for the devices and the process of creating Microsoft Teams room, where multiple Teams’ rooms will be purchased in your organization. 
+## **目標**
 
-Furthermore, you will replace Contoso legacy PBX solution and configure voice features that will provide users with Teams calling capabilities.
+このラボを完了すると、次のことができるようになります。
 
-## **Objectives**
+- 会議ポリシーを管理する
+- 会議の設定を構成する
+- ライブ イベント ポリシーを作成する
+- ウェビナーを作成する
+- デバイスの構成プロファイルを作成する
+- 新しい Microsoft Teams Rooms を構成する
+- 通話プランをセットアップする
+- 電話番号を発注して割り当てる
+- 緊急所在地を構成する
+- 通話ポリシーを作成する
+- リソース アカウントと通話キューを構成する
+- リソース アカウントと自動応答を作成する
+- 通話分析と CQD ダッシュボードにアクセスして操作する
 
-After you complete this lab, you will be able to:
+## **ラボ セットアップ**
 
-- Manage meeting policies
+- **推定時間:** 180 分
 
-- Configure meeting settings
+## **手順**
 
-- Create live event policies
+### **演習 1: ライブ イベントと会議エクスペリエンスを管理す��**
 
-- Create a webinar
+Contoso 組織は Microsoft 365 を展開し、業務要件を満たすためのコラボレーションとコミュニケーションのシナリオでパイロットをテストしています。Teams 管理者は、会議ポリシーを構成し[...]
 
-- Create configuration profiles for devices
+#### タスク 1 - 既定の会議ポリシーを編集し、会議の録画機能をすべて制限する
 
-- Configure a new Microsoft Teams Room
+組織のイベントと会議のセットアップに関するパイロットの一環として、Teams のすべての会議で録画を禁止する要件を満たす必要があります。次の手順で構成します[...]
 
-- Set up a Calling Plan
+1. **Client 1 VM** に接続し、**Joni Sherman**（JoniS@&lt;YourTenant&gt;.onmicrosoft.com）として Teams 管理センター（https://admin.teams.microsoft.com）にアクセスします。
 
-- Order and Assign phone numbers
+2. Teams 管理センターの左ナビゲーションで、**会議** > **会議ポリシー** を選択します。
 
-- Configure emergency addresses
+3. **ポリシーの管理** の下で、**Global (組織全体の既定)** ポリシーを選択します。
 
-- Create calling policies
+4. **録画と文字起こし** セクションの **会議の録画** 設定を **オフ** に切り替えます。
 
-- Configure resource accounts and calling queues
+5. **保存** を選択し、**確認** します。
 
-- Create resource accounts and auto attendants
+Global (組織全体の既定) の会議ポリシーを変更し、会議の録画機能を無効にしました。変更がユーザーに適用されるまでには時間がかかるため、[...]
 
-- Access and navigate through call analytics ad CQD dashoards
+#### タスク 2 – 録画を制限する会議ポリシーをテストする
 
-## **Lab Setup**
+このタスクでは、2 台目のクライアントにサインインしてユーザーと会議を作成します。構成されたポリシーにより、ユーザーが会議を録画できないことを確認します。
 
-- **Estimated Time:** 180 minutes.
+1. **Client 2 VM** に接続し、**Lynne Robbins**（LynneR@&lt;YourTenant&gt;.onmicr[...]）として [**Microsoft Teams Web クライアント (https://teams.microsoft.com/)**](https://teams.microsoft.com/) にアクセスします。
 
-## **Instructions**
+2. 左側のナビゲーションで **カレンダー** を選択します。
 
-### **Exercise 1: Manage Live event and meetings experiences**
+3. 右上で **今すぐ会議** > **会議を開始** を選択します。
 
-Contoso organization has deployed Microsoft 365 and is testing pilot projects on collaboration and communication scenarios to meet business requirements. The Teams admin will configure meeting policies and schedule an initial webinar for testing purposes.
+4. **今すぐ参加** を選択して会議を開始します。
 
-#### Task 1 - Edit the default meeting policy and restrict all recording features for meetings
+5. プロンプトが表示されたら、右上の **X** で **他のユーザーを招待** ウィンドウを閉じます。
 
-As part of your pilot project for setting up the events and meetings in your organization, you need to fulfill the requirement for all meetings in Teams, including prohibiting meeting recording. You will edit the default meeting policy to ensure that this requirement is met.
+6. 会議ウィンドウで、**…（その他の操作）** を選択します。
 
-1. Connect to the **Client 1 VM** and browse to Teams admin center (https://admin.teams.microsoft.com) as **Joni Sherman** (JoniS@&lt;YourTenant&gt;.onmicrosoft.com).
+7. **録画を開始** を選択できないことを確認します。
 
-2. In left navigation of the Teams admin center, select **Meetings** > **Meeting policies**.
+8. 会議を終了します。
 
-3. Select the **Global (Org-wide default)** policy under **Manage policies**.
+#### タスク 3 - 会議の設定を構成し、匿名ユーザーの参加を制限する
 
-4. Turn **Off** the **Meeting recording** setting under the **Recording & transcription** section.
+Contoso Ltd. は外部パートナーと協業しており、ユーザーはプロジェクトの協業のため外部パートナーとの会議を頻繁にスケジュールします。ただし社内規定により、外部パートナーの匿名での参加は許可されていません。次の手順で設定します[...]
 
-5. Select **Save** and **Confirm**.
+1. **Client 1 VM** に接続し、**Joni Sherman** として Teams 管理センター（https://admin.teams.microsoft.com）にアクセスします。
 
-You have successfully modified the Global (Org-wide default) meeting policy and disabled the recording functionality for meetings. It will take some time for the changes to be applied to the users, so you will continue with the next task and test the configured settings at the end of this lab.
+2. 左ナビゲーションで **会議** > **会議の設定** を選択します。
 
-#### Task 2 – Test the meeting policy for restricting recording
+3. **会議の設定** ページの参加者セクションで、**匿名ユーザーが会議に参加できる** を **オフ** にします。
 
-In this task, you need to sign in to the second client and create a meeting with a user. You will see how the configured policy works and users won’t be able to record a meeting.
+4. **保存** を選択し、**確認** します。
 
-1. Connect to the **Client 2 VM** and browse to the [**Microsoft Teams web client (https://teams.microsoft.com/)**](https://teams.microsoft.com/) as **Lynne Robbins** (LynneR@&lt;YourTenant&gt;.onmicrosoft.com).
+テナントのすべてのユーザーに対して会議の設定を変更し、会議への匿名アクセスを無効にできました。変更が適用されるまで時間がかかるため、[...]
 
-2. Select **Calendar** from the left navigation pane.
+#### タスク 4 - 新しいライブ イベント ポリシーを作成し、録画機能を制限する
 
-3. Select **Meet Now** > **Start meeting** from the upper right corner.
+Contoso Ltd. は大規模なオンライン視聴者に対してビデオや会議コンテンツを配信したいと考えています。Teams 管理者として、ライブ イベントの作成や構成を含むライブ イベント機能を評価します[...]
 
-4. Select **Join now** to start the meeting.
+1. **Client 1 VM** に接続し、**Joni Sherman**（JoniS@&lt;YourTenant[...]）として **[Microsoft Teams 管理センター (https://admin.teams.microsoft.com)](https://admin.teams.microsoft.com)** にアクセスします。
 
-5. Close **Invite people to join your window** by selecting **X** on the upper right corner, if prompted.
+2. 左ナビゲーションで **会議** > **ライブ イベント ポリシー** を選択します。
 
-6. In the meeting window, select … for **More actions**.
+3. **ポリシーの管理** タブで **+ 追加** を選択します。
 
-7. Notice that you can’t select **Start recording**.
+4. **ライブ イベント ポリシー\追加** ページで次を入力します:
 
-8. End the meeting.
+   - ライブ イベント ポリシー名: **Management Live Events**
+   - 説明: **マネージャーが主催するライブ イベントの録画制限**
+   - ライブ イベントのスケジュール: **オン**
+   - 出席者向けの文字起こし: **オフ**
+   - スケジュールされたライブ イベントに参加できるユーザー: **組織内のすべてのユーザー**
+   - イベントを録画できるユーザー: **主催者のみ録画可能**
 
-#### Task 3 - Configure meeting settings and restrict anonymous users from joining meetings
+5. **保存** を選択します。
 
-Contoso Ltd. works with several external partners, and users often schedule meetings with external partners for projects collaboration. However, according to the company regulations, external partners need to identify themselves with a valid account, and anonymous access needs to be forbidden. You need to configure Microsoft Teams to disable anonymous access to meetings.
+6. **ライブ イベント ポリシー** ページに戻り、**Management Live Events** ポリシーを選択して **ユーザーの管理** > **ユーザーの割り当て** を選択します。
 
-1. Connect to the **Client 1 VM** and browse to Teams admin center (https://admin.teams.microsoft.com) as **Joni Sherman** (JoniS@&lt;YourTenant&gt;.onmicrosoft.com).
+7. **ユーザーの管理** ペインで **Lynne Robbins** を検索して追加します。
 
-2. In left navigation of the Teams admin center, select **Meetings** > **Meetings settings**.
+8. **適用** を選択し、**確認** してユーザーにポリシーを割り当てます。
 
-3. On the **Meetings settings** page, turn **Off** the option **Anonymous users can join a meeting** in the participants section.
+カスタムのライブ イベント ポリシーを作成し、ユーザーに割り当てることができました。
 
-4. Select **Save** and **Confirm**.
+#### タスク 5 – ウェビナーを作成する
 
-You have successfully modified the meeting settings for all users in your tenant and disabled anonymous access to any meetings. It will take some time for the changes to be applied to the users, so you will continue with the next task and test the configured settings at the end of this lab.
+IT 部門は、新しいレポート システムに関する従業員からの質問に答えるため、全社向けの会議を開催したいと考えています。Teams 管理者として、参加者からの質問を受け付けられるウェビナーを作成します[...]
 
-#### Task 4 - Create a new live event policy and restrict recording capabilities
+1. **Client 1 VM** に接続し、**Joni Sherman**（JoniS@&lt;YourTenant[...]）として **[Microsoft Teams Web クライアント (https://teams.microsoft.com/)](https://teams.microsoft.com/)** にアクセスします。
 
-Contoso Ltd. wants to broadcast video and meeting content to large online audiences. As a Teams admin, you need to evaluate live events functionalities, including creating live events and configuring live event policies. According to Contoso Ltd. business requirements, you will need to restrict the recording options for participants of meetings and only allow recording options to manage users. Only the organizer of a live event should be able to record his meetings.
+2. Teams のカレンダーで、**新しい会議** のドロップダウンから **ウェビナー** を選択します。**新しいウェビナー | Microsoft Teams** タブが開きます。
 
-1. Connect to the **Client 1 VM** and browse to the **[Microsoft Teams admin center (https://admin.teams.microsoft.com)](https://admin.teams.microsoft.com)** as **Joni Sherman** (JoniS@&lt;YourTenant&gt;.onmicrosoft.com).
+3. **基本情報** を入力し、**保存して招待を送信** を選択します:
 
-2. In the left navigation of the Teams admin center, select **Meetings** > **Live events policies**.
+   - **ウェビナーのタイトル**: IT Office Hours
+   - **開始/終了**: 現在時刻に近い時間を選択
+   - **ウェビナーの説明**: 新しいレポート システムに関する質問に回答する全社ミーティング。
+   - **発表者**: Patti Fernandez、Allan Deyoung
+   - **共同主催者**: Diego Siciliani
+   - **イベントのアクセス**: 組織内
 
-3. Select **+Add** under **Manage Policies** tab.
+   **注:** 保存すると、発表者と共同主催者に自動で招待が送信されます。 
 
-4. On the **Live events policies\Add** page, enter the following information:
+4. 左のナビゲーションで **会議のオプション** を選択して確認します。プロンプトが出たら先に **保存** します。
 
-	- Add live events policy Name: **Management Live Events**
+5. 登録サイトの構成を完了します。**IT Office Hours | Microsoft Teams** タブ左側で **登録** を展開し、**構成** を選択。次を入力/設定して **保存**:
 
-	- Description: **Recording Restriction for live events organized by managers**
+   - **定員**: 1000
+   - **フォーム** で **+ フィールドを追加** > **カスタムの質問** > **テキスト入力** を選び、**カスタムの質問** の下のテキスト ボックスに次を入力:
+     - *新しいレポート システムについての質問は何ですか?*
 
-	- Live events scheduling: **On**
+6. **下書きを表示** を選択して登録サイトをプレビューします。新しいタブでプレビューが開きます。確認後、タブを閉じます。
 
-	- Transcription for attendees: **Off**
+7. 登録サイトを公開し、リンクを共有します:
 
-	- Who can join scheduled live events: **Everyone in the organization**
-
-	- Who can record an event: **Organizer can record**
-
-5. Select **Save**.
-
-6. Back on the **Live events policies** page, select **Management Live Events** policy and select **Manage Users** select **Assign users** from the top menu.
-
-7. In the **Manage users** pane, search and add **Lynne Robbins**.
-
-8. Select **Apply** then **Confirm** to assign the policy to the selected user.
-
-You have successfully created a custom Live event policy and assigned it to a user.
-
-#### Task 5 – Create a webinar
-
-The IT department wants to host a company-wide meeting to answer employees’ questions regarding the new reporting system. As a Teams admin, you will create a webinar allowing employees to submit their questions before the meeting.
-
-1. Connect to the **Client 1 VM** and browse to **[Microsoft Teams web client (https://teams.microsoft.com/)](https://teams.microsoft.com/)** as **Joni Sherman**  (JoniS@&lt;YourTenant&gt;.onmicrosoft.com).
-
-2. In the Teams Calendar, select the dropdown menu **New meeting** and select **Webinar**. The **New webinar | Microsoft Teams** tab will open.
-
-3. Enter the **Basic info** and then select **Save and send invites**:
-
-	- **webinar title**: IT Office Hours
-	- **Start/End**: Select a time close to your current time 
-	- **Give your webinar a description**: Company-wide meeting to answer questions regarding the new reporting system.
-	- **Presenters**: Patti Fernandez, Allan Deyoung
-	- **Co-organizers**: Diego Siciliani
-	- **Event access**: Your organization
-
-	**Note**: When you save the event, invites will be sent to presenters and co-organizers automatically. 
-
-4. Review the **Meeting options** by selecting the options on the left hand side navigation. Press **Save** if prompted first.
-
-5. Complete the Registration site configuration. On the **IT Office Hours | Microsoft Teams** tab, at the left, expand **Registration** and select **Configuration**. Enter the following information and then select **Save**: 
-
-	- **Capacity**: 1000
-	- Under **Form** select **+ Add field** > **Custom question** > **Text input** and enter the following in the textbox below **Custom question**:
-
-		*What is your question about the new reporting system?*
-		 
-
-6. Preview the registration site by selecting **View draft**. The preview of the registration page opens in a new tab. After reviewing the site, close the tab.
-
-7. Publish the Registration site and share the link:
-
-	1. On the **IT Office Hours | Microsoft Teams** tab, select **Publish site** and then selet **Publish** to activate the Webinar registration site.
-
-	2. Copy the **Share link**, close the **All set and ready to share** window and the **IT Office Hours | Microsoft Teams** tab.
-
-	3. Navigate back to **Teams** on the left hand side navigation. 
-	
-	4. On the left navigation pane, select **General** under the **IT-Department**. Select **Start a post** and paste the copied registration link in the new conversation text box and select send.
-
-	5. Sign out and close all browser windows.
+   1. **IT Office Hours | Microsoft Teams** タブで **サイトを公開** を選び、**公開** してウェビナー登録サイトを有効化します。
+   2. **リンクを共有** をコピーし、**準備が整いました** ウィンドウと **IT Office Hours | Microsoft Teams** タブを閉じます。
+   3. 左側のナビゲーションから **Teams** に戻ります。
+   4. 左ペインで **IT-Department** の **一般** を選択し、**投稿を開始** を選んでコピーした登録リンクを貼り付けて送信します。
+   5. サインアウトしてすべてのブラウザー ウィンドウを閉じます。
 		
-8. Test the meeting registration. 
+8. 会議の登録をテストします。 
 
-	1. Stay in the **Client 1 VM** and browse to **[Microsoft Teams web client (https://teams.microsoft.com/)](https://teams.microsoft.com/)** as **MOD Administrator**.
+   1. **Client 1 VM** に留まり、**MOD Administrator** として **[Microsoft Teams Web クライアント (https://teams.microsoft.com/)](https://teams.microsoft.com/)** にアクセスします。
+   2. **IT-Department** チームの **一般** チャネルに移動し、投稿した登録リンクを選択します。
+   3. 登録ページで **登録** を選択し、MOD Administrator の氏名とメールが入っていることを確認、**Microsoft イベントの規約** のチェック ボックスをオンにして [...] を選択します。
+   4. 新しいタブで **[MOD Administrator のメール (https://outlook.office.com/mail/)](https://outlook.office.com/mail/)** を開き、件名 **You're registered for IT[...]** のメールを確認します。
+   5. サインアウトしてすべてのブラウザー ウィンドウを閉じます。
 
-	2. Go to the **General** channel of the **IT Department** team and select the registration link that you posted.
+カスタム登録フォーム付きのウェビナーを作成できました。
 
-	3. On the registration page select **Register**, verify that the MOD Administrator's name and email have been entered, select the **Microsoft Event Terms and Conditions** check box, and then select **Register**.
+### **演習 2: Teams デバイス プロファイルを展開する**
 
-	4. Open a new browser tab and browse to **[MOD Administrator's mail (https://outlook.office.com/mail/)](https://outlook.office.com/mail/)** and view the email with subject: **You're registered for IT Office Hours**.
-	
-	5. Sign out and close all browser windows.
+Teams 管理者として、組織内の Teams デバイスの設定と機能を管理するための構成プロファイルを作成します。構成プロファイルを作成/アップロードして、設定を含めることができます[...]
 
+組織では、会議室で HD ビデオ、音声、コンテンツ共有を提供する Microsoft Teams Rooms の購入を検討できます。展開の準備が必要です[...]
 
-You have successfully created a webinar with a custom registration form.
+#### タスク 1 - 構成プロファイルを作成する
 
-### **Exercise 2: Deploy Teams device profiles**
+組織の Teams 電話デバイスの計画段階で、Teams 管理センターの構成プロファイルを使って適用できる設定を評価したいと考えています。次を作成します[...]
 
-As a Teams administrator, you will create configuration profiles to manage settings and features for Teams devices in your organization. You can create or upload configuration profiles to include settings and features you want to enable or disable and then assign a profile to a device or groups of devices.
+1. **Client 1 VM** に接続し、Teams デバイス管理者 **Patti Fernandez**（PattiF@&lt;YourTenant&gt;.onmicrosoft.co[...]）として Teams 管理センター（https://admin.teams.microsoft.com）にアクセスします。
 
-Your organization could purchase Microsoft Teams Rooms that provide a complete meeting experience with HD video, audio, and content sharing in conference rooms. You will need to prepare the deployment prerequisites by defining Microsoft Teams Rooms service account in Office 365.
+2. **Teams 管理センター** の左ナビゲーションで、**Teams デバイス** の **電話** を選択します。
 
-#### Task 1 - Create configuration profiles
+3. **電話** ページで **構成プロファイル** タブを選択し、**+ 追加** を選択します。
 
-During the planning phase of Teams Phones devices in your organization, you want to evaluate settings that can be applied to Teams devices by using configuration profiles in Teams admin center. You will create a configuration profile for Teams device and analyze settings that will include in the configuration profile. Once devices are deployed into your organization, you will be ready to apply configuration profiles to those devices.
+4. 新しい構成プロファイルに次を入力します:
 
-1. Connect to the **Client 1 VM** and browse to Teams admin center (https://admin.teams.microsoft.com) as the Teams device administrator - **Patti Fernandez** (PattiF@&lt;YourTenant&gt;.onmicrosoft.com).
+   - 構成プロファイル名: **New York Teams Desk Phones**
+   - 説明: **New York 本社の Teams デスク電話向け構成プロファイル**
 
-2. In **Teams admin center**, on the left navigation pane, select **Phones** under **Teams devices**.
+5. **全般** セクションで次を構成します:
 
-3. On the **Phones** page, select **Configuration profiles** tab, and then select **+ Add**.
+   - デバイス ロック: **オン**
+   - タイムアウト: **30 秒**
+   - PIN: **123456**
+   - 言語: 英語 **(米国)**
+   - タイム ゾーン: **(UTC-5:00) 東部標準時 (米国およびカナダ)**
+   - 日付形式: **MM/DD/YYYY**
+   - 時刻形式: **12 時間 (AM/PM)**
 
-4. Enter the following information for the new configuration profile:
+6. **デバイスの設定** で次を構成します:
 
-	- Configuration profile Name: **New York Teams Desk Phones**
+   - スクリーン セーバーの表示: **オン、タイムアウト 1 分**
+   - ハイ コントラストの表示: **オン**
+   - 勤務時間: **08:00-17:00**
+   - 省電力: **オン**
 
-	- Description: **Configuration profile for Teams Desk Phones in New York HQ**
+7. **ネットワーク設定** で次を構成します:
 
-5. Under **General** section, configure following settings:
+   - DHCP を有効にする: **オン**
+   - ログ記録を有効にする: **オフ**
+   - デバイスの管理者パスワード: **Pass@word1**
 
-	- Device lock: **On**
+8. 構成プロファイルの設定を完了したら **保存** を選択します。
 
-	- Timeout: **30 seconds**
+9. サインアウトしてブラウザーをすべて閉じます。
 
-	- PIN: **123456**
+Microsoft Teams デバイスに適用できる構成プロファイルを作成できました。
 
-	- Language: English **(United States)**
+#### タスク 2 - Teams Rooms 用のリソース アカウントを構成する
 
-	- Timezone: **(UTC-5:00) Eastern Time (US and Canada)**
+組織では Microsoft Teams Rooms 用のデバイスを注文しました。その間に、機器の設置に必要な前提条件がすべて満たされていることを確認する必���があります。前提条件の 1 つは [...]
 
-	- Date format: **MM/DD/YYYY**
+**注:** Exchange Online PowerShell を使用してこのタスクを完了することもできますが、その場合は新しい Exchange PowerShell モジュールのインストールが必要です。
 
-	- Time format: **12 Hours (AM/PM)**
+1. **Client 1 VM** に接続し、**MOD Administrator** として Microsoft 365 管理センター（https://admin.microsoft.com/）にアクセスします。
 
-6. Under **Device settings** configure following settings:
+2. Microsoft Teams Rooms 用の Microsoft 365 リソース アカウントを作成します。
+   1. Microsoft 365 管理センターの左ナビゲーションで **すべて表示** > **リソース** > **会議室と設備** を選択します。**リソース** が見つからない場合は、上部の検索で **会議室と設備** を検索します[...]
+   2. 会議室と設備の画面で、**+ リソースの追加** を選択します。 
+   3. **リソースの追加** ページで次のとおりウィザードに従います。 
+      - リソースの種類: **部屋**
+      - 名前: **NY-TeamsRoom1** 
+      - 電子メール: **NY-TeamsRoom1** と入力し、ドメインに自分のテナント ID が表示されることを確認
+   4. **保存** を選択します。
+   5. **予約オプションの編集** を選択し、次の既定の設定が有効であることを確認します。
+      - 繰り返しの会議を許可する
+      - 制限外の会議は自動的に拒否する
+      - 会議の出席依頼を自動承諾する
 
-	- Display screen saver: **On, Timeout 1 minute**
+3. Teams Rooms アカウントにライセンスを割り当てます。
+   1. **Microsoft 365 管理センター** の左ナビゲーションで **ユーザー** > **アクティブなユーザー** を選択します。
+   2. NY-TeamsRoom1@&lt;YourTenant&gt;.onmicrosoft.com アカウントを選択し、**ライセンスとアプリ** タブを選択します。
+   3. 当該ページの **ライセンスとアプリ** で **Microsoft Teams Rooms Pro** を選択し、**変更の保存** を選択します。
 
-	- Display high contrast: **On**
+4. サインアウトし、すべてのウィンドウを閉じます。
 
-	- Office hours: **08:00-17:00**
-
-	- Power Saving: **On**
-
-7. Under **Network settings**, configure following settings:
-
-	- DHCP enabled: **On**
-
-	- Logging enabled: **Off**
-
-	- Device’s admin password: **Pass@word1**
-
-8. Once you complete with the configuration profile settings, select **Save**.
-
-9. Sign out and close all browser windows.
-
-In this task, you have successfully created a configuration profile that can be applied to Microsoft Teams devices.
-
-#### Task 2 - Configure a resource account for Teams Room
-
-Your organization has ordered devices for Microsoft Teams room. In the meantime, you need to ensure that all prerequisites for the equipment installation are being completed. One of the prerequisites for Microsoft Teams Room deployment is adding a device account and assigning Office 365 license for that account.
-
-**Note:** You may choose to use the Exchange Online PowerShell to complete this task, however, you will need to first install the new Exchange PowerShell module.
-
-1. Connect to the **Client 1 VM** and browse to Microsoft 365 admin center (https://admin.microsoft.com/) as **MOD Administrator**.
-
-2. Create a Microsoft 365 resource account for Teams Rooms.
-	1. In left navigation of the Microsoft 365 admin center, select **Show all** > **Resources** > **Rooms & equipment**. If you don't find **Resources**, search for **Rooms & equipment** from the top search bar and select.
-
-	2. On the Rooms & equipment screen, select the **+ Add resource** option to add a new resource account. 
-
-	3. On the **Add resource** page, follow the wizard with the following information. 
-
-		* Resource type: **Room**.
-		* Name: **NY-TeamsRoom1** 
-		* Email: Enter **NY-TeamsRoom1** inside the Email text box and verify your tenant id in the domains
-
-	4. Select **Save**.
-	5. Select **Edit booking options**, keep the default settings with the following checked.
-
-		* Allow repeating meetings
-		* Automatically decline meetings outside of the limits
-		* auto-accept meeting requests
-
-3. Assign the license to the Teams Rooms account.
-
-	1. In the **Microsoft 365 admin center** from the left navigation pane, select **Users**, and then choose **Active Users**.
-
-	2. Select the NY-TeamsRoom1@&lt;YourTenant&gt;.onmicrosoft.com account, and then select the **Licenses and Apps** tab.
-
-	3. In the NY-TeamsRoom1@&lt;YourTenant&gt;.onmicrosoft.com page, under the **Licenses and Apps** tab, select **Microsoft Teams Rooms Pro** and then select **Save changes**.
-
-4. Sign out and close all open windows.
-
-You have successfully created, configured, and licensed a Microsoft Teams Room service account, which is a prerequisite for deploying a Microsoft Teams Room system.
+Microsoft Teams Rooms の展開に必要なサービス アカウントを作成・構成・ライセンス付与できました。
  
 
-### **Exercise 3: Set up a Calling Plan (Optional)**
+### **演習 3: 通話プランをセットアップする（任意）**
 
-In this exercise, you will set up one of your users with a Calling Plan Trial. You will need to start the trial, order a phone number from Microsoft as your provider and enable your user to use this phone number when making outgoing calls.
+この演習では、ユーザー 1 名に通話プランの試用版をセットアップします。試用を開始し、プロバイダーとして Microsoft から電話番号を発注し、このプランをユーザーが使えるように有効化します[...]
 
-**Note:** The availability of Calling Plans varies based on different countries and regions. Please go to the link below to check the availability of your location. The following instruction is based on the location of the United States.
+**注:** 通話プランの提供可否は国/地域によって異なります。以下のリンクでお住まいの場所の可用性を確認してください。以下の手順は [...] に基づいています。
 
-[https://docs.microsoft.com/en-us/microsoftteams/country-and-region-availability-for-audio-conferencing-and-calling-plans/country-and-region-availability-for-audio-conferencing-and-calling-plans](https://docs.microsoft.com/en-us/microsoftteams/country-and-region-availability-for-audio-conferencing-and-calling-plans/country-and-region-availability-for-audio-conferencing-and-calling-plans)
+[https://docs.microsoft.com/en-us/microsoftteams/country-and-region-availability-for-audio-conferencing-and-calling-plans/country-and-region-availability-for-audio-conferencing-and-calling-plans](http[...]
 
-#### Task 1 - Add a new emergency address
+#### タスク 1 - 新しい緊急所在地を追加する
 
-In this task, you will add a new emergency address “One Microsoft Way, Redmond, WA 98052, USA” for users in the United States. It is used to route emergency calls to the appropriate dispatch authorities and to assist in locating the emergency caller.
+このタスクでは、米国ユーザー向けに新しい緊急所在地「One Microsoft Way, Redmond, WA 98052, USA」を追加します。これは緊急通話を適切な管轄機関にルーティングするために使用されます[...]
 
-1. Connect to the **Client 1 VM** and browse to the **Teams admin center** at [**https://admin.teams.microsoft.com/**](https://admin.teams.microsoft.com/) as **Joni Sherman** (JoniS@&lt;YourTenant&gt;.onmicrosoft.com).
+1. **Client 1 VM** に接続し、**Joni Sherman**（JoniS@&lt;YourTenant[...]）として [**Teams 管理センター**](https://admin.teams.microsoft.com/) にアクセスします。
 
-2. On the left navigation pane select **Locations** > **Emergency addresses**.
+2. 左ナビゲーションで **場所** > **緊急所在地** を選択します。
 
-3. Select **+ Add** from the top pane to create a new emergency address.
+3. 上部ペインの **+ 追加** を選択して、新しい緊急所在地を作成します。
 
-4. On the **Emergency addresses\New emergency address** page, enter the following information:
+4. **緊急所在地\新しい緊急所在地** ページで次を入力します:
 
-	- Put in a name for your location: **Contoso Emergency Address**
+   - 場所の名前: **Contoso Emergency Address**
+   - 国または地域: **United States**
+   - 住所: **1 Microsoft Way, Redmond, WA 98052**  
+     （**住所を手動で入力** を有効にし、手動入力��ても構いません）
 
-	- Country or region: **United States**
+5. 緊急通話の免責事項に同意します。情報ページが開くので、**印刷** または **キャンセル** を選んで次へ進みます。
 
-	- Address: **1 Microsoft Way, Redmond, WA 98052**
+6. **保存** を選択します。
 
-		(You can enable **Input address manually**, and enter the address manually)
+7. サインアウトしてブラウザーを閉じます。
 
-5. Acknowledge the emergency calling disclaimer. An information page opens, either **Print** or **Cancel** the page and continue to the next task.
+電話番号で使用できる緊急所在地を作成できました。
 
-6. Select **Save**.
+#### タスク 2 – ユーザーに通話プラン ライセンスを割り当てる
 
-7. Sign out and close the browser.
+このタスクでは、PSTN（公衆交換電話網）を介した国内通話を可能にするために、ユーザーに通話プラン ライセンスを割り当てます。
 
-You have successfully created an emergency address that can be used for phone numbers.
+1. **Client 1 VM** に接続し、提供された資格情報でサインインします。
 
-#### Task 2 – Assign a Calling Plan license to a user
+2. **Microsoft 365 管理センター** で **MOD Administrator**（Admin@&lt;YourTenant&gt;.onmicrosoft.com）としてサインインしているはずです。
 
-In this task, you will assign the calling plan license to a user to allow them to make domestic calls via the public switched telephone network.
+3. 左上のナビゲーション メニューを開き、**ユーザー** を選択します。
 
-1. Connect to the **Client 1 VM** and sign in with the Credentials that have been provided to you.
+4. **アクティブなユーザー** を選択します。
 
-2. You should still be in the **Microsoft 365 admin center** and signed in as **MOD Administrator** (Admin@&lt;YourTenant&gt;.onmicrosoft.com).
+5. **Lynne Robbins** を検索し、名前を選択して詳細設定を開きます。
 
-3. Open the Navigation Menu in the upper left corner and select **Users**.
+6. **ライセンスとアプリ** を選択します。
 
-4. Select **Active users**.
+7. **ライセンス** の下で **Microsoft Teams Domestic Calling Plan** にチェックを入れます。
 
-5. Search for **Lynne Robbins** and open the additional settings by selecting her name.
+8. **変更の保存** を選択してライセンスを割り当て、サインアウトしてすべてのウィンドウを閉じます。
 
-6. Select **Licenses and apps**.
+ユーザーに通話プランのライセンスを割り当てました。ライセンスが割り当てられると、ユーザーは通話プラン機能を使用し、電話番号を取得できます。
 
-7. Under **Licenses** select **Microsoft Teams Domestic Calling Plan** by setting the checkmark in front of it.
+#### タスク 3 – ユーザーの電話番号を発注する（手順説明のみ - 実施しない）
 
-8. Select **Save Changes** to assign the license and then sign out and close all open windows.
+このタスクでは、通話プラン ライセンスが割り当てられたユーザー向けに電話番号を発注する方法を学びます。現在は事業上の正当性なしに番号を発注できないため、以下は学習目的の手順です[...]
 
-You have assigned the Calling Plan license to a user. With this license assigned your users can use the Calling Plan features and receive a phone number.
+1. **Client 1 VM** に接続し、提供された資格情報でサインインします。
 
-#### Task 3 – Order a phone number for your user (Instructional steps only - do not complete)
+2. **Microsoft Teams クライアント** で **Joni Sherman**（JoniS@&lt;YourTenant&gt;.onmicrosoft.com）としてサインインします。
 
-In this task, you will learn how to order a phone number for a user with an assigned Calling Plan license. Please note, that you can no longer order a phone number without a business justification so the set of steps below are meant to educate. Please do not follow these steps within your lab environments. These steps are designed to educate the user on how to execute the task.
+3. **Teams 管理センター**（[**https://admin.teams.microsoft.com/**](https://admin.teams.microsoft.com/)）に **Joni Sherman** としてアクセスします。
 
-1. Connect to the **Client 1 VM** and sign in with the Credentials that have been provided to you.
+4. 左ナビゲーションで **音声** > **電話番号** を選択します。
 
-2. In the **Microsoft Teams client** sign in as **Joni Sherman** (JoniS@&lt;YourTenant&gt;.onmicrosoft.com) and sign in with the provided credentials.
+5. 右ペインで **+ 追加** を選択します。
 
-3. Navigate to the **Teams admin center** at [**https://admin.teams.microsoft.com/**](https://admin.teams.microsoft.com/), as Joni Sherman.
+6. **注文名** に **Phone number order** と入力します。
 
-4. On the left navigation pane, select **Voice**, and then **Phone numbers** below.
+7. 説明に **Number for Lynne Robbins during the Calling Plan trial** と入力します。
 
-5. Select **+ Add** in the right pane.
+8. **国または地域** のドロップダウンで **United States** を選択します。
 
-6. Type **Phone number order** as the **Order Name**.
+9. **番号の種類** は **ユーザー (加入者)** を選択します。
 
-7. Fill out the description as **Number for Lynne Robbins during the Calling Plan trial**.
+10. **オペレーター** は **Microsoft** を選択します。
 
-8. In the dropdown menu of **Country or region**, select **United States**.
+11. **数量** は **1** と入力します。
 
-9. For **Number Type** select **User (Subscriber)**.
+12. **新しい番号の検索** セクションで、次のいずれかの方法で番号を検索します:
 
-10. For the **Operator**, pick **Microsoft**.
+   - 市区町村名で検索
+     - **市区町村名で検索** を選択。
+     - **Redmond** を検索し、先ほど作成した **Contoso Emergency Address**（場所）を選択。
+     - 市外局番を選択。
+     - **次へ** を選択。
+   - 市外局番で検索
+     - **市外局番で検索** を選択。
+     - 米国内の市外局番を入力。
+     - **次へ** を選択。
 
-11. For **Quantity** type **1**.
+   **注:** 次のメッセージが表示された場合は、別の市外局番を試すか、**市区町村名で検索** の横にある **場所を追加** を選択して別の場所を作成してください。遷移先で [...]
+   - 「選択した住所に対する電話番号が見つかりませんでした。」
 
-12. In the **Search for new numbers** section, you can use one of the following approaches to find new numbers:
+13. 電話番号の予約に成功したら、**注文** > **完了** を選択します。
 
-	- Search by city name
+**注:** 電話番号が表示されるまでに時間がかかる場合があります。**注文履歴** タブで確認できます。
 
-		- Select **Search by city name**.
+ユーザー用の電話番号を発注する方法を学びました。通話キューなど他の Microsoft Teams サービスの番号を発注する場合も同じ手順です。
 
-		- Search **Redmond** and select **Contoso Emergency Address**, which is the location you just created.
+#### タスク 4 – ユーザーに電話番号を割り当てる（手順説明のみ - 実施しない）
 
-		- Select Area code available.
+このタスクでは、既存の電話番号をユーザーに割り当てる方法を学びます。現在は事業上の正当性なしに番号を発注できないため、以下は学習目的の手順です[...]
 
-		- Select **Next**.
+1. **Client 1 VM** に接続し、提供された資格情報でサインインします。
 
-	- Search by area code
+2. **Teams 管理センター** で **Joni Sherman**（JoniS@&lt;YourTenant&gt;.onmicrosoft.com）としてサインインしているはずです。
 
-		- Select **Search by area code**.
+3. 左ナビゲーションで **音声** > **電話番号** を選択します。
 
-		- Enter an area code in United States.
+4. 割り当てたい電話番号を選択し、**編集** を選びます。
 
-		- Select **Next**.
+5. **割り当て先** で **Lynne Robbins** を検索し、**割り当て** を選択します。
 
-	**Note**: If you received the following message, please try other area codes or create another location by selecting **Add a location** which is next to the **Search by city name**. It will navigate to the **New emergency address** pane, enter the new name for the emergency address, then in the **Country or region** select **United States** and enter the new address manually in the **Address** field by enabling the slider **Input address manually** and select **Save**. It takes back to the **Get Phone numbers** page and continues the city search with the newly created emergency address to acquire the phone number.
+6. **緊急所在地** で **場所の説明で検索** を選択します。
 
-	*We can’t find any phone numbers for the address you selected.*
+7. **Contoso** と入力して、先ほど作成した緊急所在地を検索します。
 
-13. Once you reserved a phone number successfully, you can proceed by selecting **Place order**, then **Finish**.
+8. **適用** を選択して電話番号をユーザーに割り当てます。
 
-**Note:** It might take some time for the phone numbers to show up. You can check your order from the **Order history** tab.
+### **演習 4: Teams Phone を管理する** 
 
-You just ordered a phone number for a User in Microsoft Teams. This is the same process you use to order numbers for all other Microsoft Teams services such as Call Queues.
+Contoso 組織はレガシ PBX システムを使用しています。Microsoft Teams の導入に伴い、レガシ電話システムを Microsoft Teams Phone に移行します。Teams 管理者は [...]
 
-#### Task 4 – Assign a phone number to your user (Instructional steps only - do not complete)
+#### タスク 1 - 通話ポリシーを作成する
 
-In this Task, you will learn how to assign an existing phone number to a user. Please note, that you can no longer order a phone number without a business justification so the set of steps below are meant to educate. Please do not follow these steps within your lab environments. These steps are designed to educate the user on how to execute the task.
+Microsoft Teams の通話機能に関するパイロットの一環として、パイロット ユーザー全員がボイスメール機能にアクセスできるようにする要件があります。新しい通話ポリシーを作成し、割り当てます[...]
 
-1. Connect to the **Client 1 VM** and sign in with the Credentials that have been provided to you.
+1. **Client 1 VM** に接続し、提供された資格情報でサインインします。
 
-2. You should still be in the **Teams admin center** and signed in as **Joni Sherman** (JoniS@&lt;YourTenant&gt;.onmicrosoft.com).
+2. **Teams 管理センター** で **Joni Sherman**（JoniS@&lt;YourTenant&gt;.onmicrosoft.com）としてサインインしているはずです。
 
-3. On the left navigation pane, select **Voice**, and then **Phone numbers** below.
+3. 左ナビゲーションで **音声** > **通話ポリシー** を選択します。
 
-4. Select the phone number you want to assign and select **edit** to open the options.
+4. 既定設定を編集するため、**Global (組織全体の既定)** ポリシーを選択します。
 
-5. Under **Assigned to** search for **Lynne Robbins** and select **assign**.
+5. **通話ポリシー\Global** で、**着信のボイスメール** の右側のドロップダウンを **オフ** に変更し、**保存** > **確認** を選択します。
 
-6. Under **Emergency Location** select **Search by the location description**.
+6. **通話ポリシー** ページに戻り、上部ペインの **+ 追加** を選択して新しいポリシーを作成します。
 
-7. Type **Contoso** to search for the emergency location you created earlier.
+7. 次を入力します:
 
-8. Select **Apply** to assign the phone number to the user.
+   - 新しい通話ポリシー: **Voicemail enabled pilot users**
+   - 説明: **選択したパイロット ユーザーにボイスメールを許可する通話ポリシー**
+   - 着信のボイスメール: **オン**
 
-### **Exercise 4: Manage Teams Phone** 
+8. **保存** を選択して新しいポリシーを作成します。
 
-Contoso organization is using the legacy PBX system. With the introduction of Microsoft Teams, Contoso will migrate their legacy telephony system to Microsoft Teams Phone. Teams admins are responsible for evaluating and testing Microsoft Teams voice functionalities.
+9. **通話ポリシー** ページに戻り、**Voicemail enabled pilot users** ポリシーの左のチェック ボックスをオンにし、**ユーザーの管理** > **ユーザーの割り当て** を選択します。
 
-#### Task 1 - Create a calling policy
+10. 右ペインの検索フィールドに **Megan** と入力して **追加** を選択します。**Alex、Joni、Lynne** についても同様に追加します。
 
-As part of your pilot project for calling functionalities with Microsoft Teams, you have the requirement that all pilot users receive access to the voicemail functionalities. You create and assign a new calling policy and configure the settings. However, all other users should not receive voicemail functionalities during the testing period. Therefore, you will edit the default policy to ensure that voicemail is disabled for all other users.
+11. **適用** を選択してポリシーを割り当て、**確認** します。
 
-1. Connect to the **Client 1 VM** and sign in with the Credentials that have been provided to you.
+このタスクでは、組織全体のボイスメールを無効にした後、複数ユーザーに対してボイスメールを有効にする通話ポリシーを作成・割り当てました。
 
-2. You should still be in the **Teams admin center** and signed in as **Joni Sherman** (JoniS@&lt;YourTenant&gt;.onmicrosoft.com).
+#### タスク 2 - 通話キューを作成する
 
-3. On the left navigation pane, select **Voice**, and then **Calling policies** below.
+Contoso Ltd. は組織全体で Microsoft Teams の音声機能を展開しました。着信サポート コールの自動化のため、通話キュー機能をテストします。通話キューでは次を設定できます[...]
 
-4. Select the **Global (Org-wide default)** policy to edit the default settings.
+- あいさつメッセージ
+- 保留中の音楽
+- メール対応の配布リストやセキュリティ グループのコール エージェントに転送
 
-5. In **Calling policies\Global**, use the dropdown menu to the right of **Voicemail for inbound calls** and select **Off**. Then select **Save** and **Confirm**.
+Teams 管理者として、通話キューの作成と、最大キュー サイズ、タイムアウト、通話処理オプションなどのパラメーターの構成を担当します。
 
-6. Back on the **Calling policies** page, select **+ Add** on the top pane, to create a new policy.
+1. **Client 1 VM** に接続し、提供された資格情報でサインインします。
 
-7. Enter the following information:
+2. **Teams 管理センター** で **Joni Sherman** としてサインインしているはずです。
 
-	- Add new calling policy: **Voicemail enabled pilot users**
+3. 左ナビゲーションで **音声** > **リソース アカウント** を選択し、リソース アカウントを作成します。
 
-	- Description: **Calling policy that allows voicemail for selected pilot users**.
+4. **リソース アカウント** ページで、上部ペインの **+ 追加** を選択します。
 
-	- Voicemail for inbound calls: **On**
+5. 右ペインで次を入力します:
 
-8. Select **Save** to create the new policy.
+   - 表示名: **Contoso Call Queue Resource Account**
+   - ユーザー名: **pilot_callqueue1**
+   - リソース アカウントの種類: **通話キュー**
 
-9. Back on the **Calling policies** page, use the checkbox left to the **Voicemail enabled pilot users** policy and then select **Manage Users** then **Assign users** from the top pane.
+6. **保存** を選択します。
 
-10. In the right-side pane, type into the search field **Megan** then select **add**. Repeat the same steps for **Alex, Joni and Lynne**.
+7. 次のリンクから **Alarm03.wav** をダウンロードし、ダウンロード フォルダーに保存します。  
+   [https://github.com/MicrosoftLearning/MS-700-Managing-Microsoft-Teams/blob/master/Instructions/Labs/media/Alarm03.wav](https://github.com/MicrosoftLearning/MS-700-Managing-Microsoft-Teams/blob/mast[...]
 
-11. Select **Apply** to assign the policy to the selected users, then **Confirm**.
+8. 左ナビゲーションで **音声** > **通話キュー** を選択し、通話キューを作成します。
 
-In this task, you have disabled voicemail for all users in the organizations, and then you have created a calling policy that will enable voicemail for several users.
+9. 上部ペインの **+ 追加** を選択します。
 
-#### Task 2 - Create a call queue
+10. 次を入力します:
 
-Contoso Ltd. has deployed Microsoft Teams voice functionalities throughout the organization. To deploy some automation for incoming support calls, the calling queue functionalities need to be tested before being rolled out. The following settings shall be configured for customers calling in:
+   - 通話キュー名: **Contoso Call Queue Resource Account**
+   - まだリソース アカウントが追加されていません: **追加** を選択。右ペインで **Contoso** を検索し、**Contoso Call Queue** の **追加** を選んでから **追加** を選択。
+   - 言語: **英語 (米国)** を選択し、**次へ**。
+   - あいさつ: **音声ファイルを再生** を選び、**ファイルのアップロード** を選択。
+   - **開く** ウィンドウでダウンロード フォルダーに移動し、**Alarm03.wav** を選択して **開く**。
+   - 保留音楽: **既定の音楽を再生** を選び、**次へ**。
+   - 着信応答: **ユーザーとグループを選択** を選び、**グループの追加** を選択。右ペインで **Sales** を検索し、**Sales** の **追加** を選んでから下部の **追加** を選択[...]
+   - ルーティング方法: **ラウンド ロビン**
+   - プレゼンス ベースのルーティング: **オフ**
+   - 通話の受け取りをオプトアウトを許可: **オン**
+   - エージェントへのアラート時間: **30 秒**、**次へ** を選択。
+   - **例外処理** ページで **通話のあふれ** を展開し、キュー内の最大通話数: **50**
+   - 最大数に達したとき: **切断**
+   - **通話のタイムアウト** を展開し、最大待ち時間: **5 分**
+   - 通話がタイムアウトしたとき: **切断**
 
-- A greeting message.
+11. **送信** を選択して新しい通話キューを作成します。
 
-- Music while people are waiting on hold.
+新しい通話キューの作成には時間がかかることがありますが、テナント内のリソース アカウントに基づくカスタム通話キューを作成できました。
 
-- Redirecting calls to call agents in mail-enabled distribution lists and security groups.
+**注:** この通話キューではカスタムのあいさつが必要なため、デモでは wav ファイルをアップロードします。実運用では、あらかじめ録音した音声ファイルを用意します[...]
 
-As Teams admin, you are responsible for creating the call queue and configuring different parameters, such as maximum queue size, timeout, and call handling options.
+#### タスク 3 - 自動応答を作成する
 
-1. Connect to the **Client 1 VM** and sign in with the Credentials that have been provided to you.
+Teams 管理者として、営業時間外に顧客へ応答する、書き起こし付きのウェルカム メッセージを持つ自動応答の作成を依頼されています。従業員は異なるタイム ゾーンで勤務しているため[...]
 
-2. You should still be in the **Teams admin center** and signed in as **Joni Sherman** (JoniS@&lt;YourTenant&gt;.onmicrosoft.com).
+1. **Client 1 VM** に接続し、提供された資格情報でサインインします。
 
-3. On the left navigation pane, select **Voice**, and then choose **Resource accounts,** to create a resource account.
+2. **Teams 管理センター** で **Joni Sherman** としてサインインしているはずです。
 
-4. On the **Resource accounts** page, select **+ Add** from the top pane.
+3. 左ナビゲーションで **音声** > **リソース アカウント** を選択し、最初にリソース アカウントを作成します。
 
-5. On the right pane, enter the following information:
+4. **リソース アカウント** ページで **+ 追加** を選択します。
 
-	- Display name: **Contoso Call Queue Resource Account**
+5. 右ペインで次を入力します:
 
-	- Username: **pilot_callqueue1**
+   - 表示名: **Contoso Auto Attendant**
+   - ユーザー名: **pilot_autoattendant1**
+   - リソース アカウントの種類: **自動応答**
 
-	- Resource Account Type: **Call queue**
+6. **保存** を選択します。
 
-6. Select **Save**.
+7. 左ナビゲーションで **音声** > **自動応答** を選択します。
 
-7. Download the file **Alarm03.wav** from the following link and save to the Downloads folder.
+8. 上部ペインの **+ 追加** を選択し、新しい自動応答を作成します。
 
-   [https://github.com/MicrosoftLearning/MS-700-Managing-Microsoft-Teams/blob/master/Instructions/Labs/media/Alarm03.wav](https://github.com/MicrosoftLearning/MS-700-Managing-Microsoft-Teams/blob/master/Instructions/Labs/media/Alarm03.wav)
+9. 次を入力します:
 
-8. On the left navigation pane, select **Voice** and **Call queues**, to create a call queue.
+   - 自動応答の名前: **Contoso Auto attendant**
+   - オペレータ��: **音声アプリ**
+   - リソース アカウントで検索: **Contoso Call Queue Resource Account**
+   - タイム ゾーン: **(UTC-08:00) 太平洋標準時 (米国およびカナダ)**
+   - 言語: **英語 (米国)**
+   - 音声入力を有効にする: **オフ**
 
-9. Select **+ Add** from the top pane.
+10. **次へ** を選択します。
 
-10. Enter the following information:
+11. **通話フロー** ページで次を構成します:
 
-	- Call queue name: **Contoso Call Queue Resource Account**
+   - 最初にあいさつメッセージを再生: **あいさつメッセージを追加**
+   - 次を入力: **Welcome. The person you called is currently on vacation, your call will be redirected to an operator.**
+   - 通話ルーティング オプションで **通話を転送** を選択
+   - 転送先: **音声アプリ**
+   - リソース アカウントで検索: **Contoso Call Queue Resource Account**
 
-	- You haven’t added any resource accounts yet: Select **Add**. On the right-side pane, search for **Contoso**, select **Add** from **Contoso Call Queue**, and then select **Add**.
-	
-	- Language: **English (United States)**, then select **Next**.
+12. **次へ** を選択します。
 
-	- Greeting: select **Play an audio file**, and then select **Upload file**.
+13. **営業時間と時間外** ページで次を構成します:
 
-	- In **Open** window, navigate to the Downloads folder, select **Alarm03.wav** and select **Open**.
+   - **月曜日** から **金曜日** の **08:00 AM** 〜 **04:00 PM** を営業時間として構成
+   - **土曜日** と **日曜日** は空欄のまま
+   - あいさつオプション: **あいさつメッセージを追加**
+   - 次を入力: **Thank you for your call, our business hours are Monday to Friday, 08:00 AM to 04:00 PM.**
+   - 通話ルーティング オプション: **切断**
 
-	- Music on hold: **Play default music**, then select **Next**.
+14. **次へ** を選択します。
 
-	- Call answering: Select **Choose users and groups** then select **Add groups** and on the right-side pane, search for **Sales**, select **Add** for **Sales** and then select **Add** at the bottom of the **Add call agents** pane. Select **Next**.
+15. **休暇日の通話設定** ページで **次へ**。
 
-	- Routing method: **Round robin**
+16. **ダイヤル スコープ** ページで **次へ**。
 
-	- Presence-based routing: **Off**
+17. **リソース アカウント** ページで **追加** を選択。右ペインで **Contoso auto attendant** と入力し、**追加** を 2 回選択します。
 
-	- Call agents can opt out of taking calls: **On**
+18. **送信** を選択して自動応答の作成を完了します。
 
-	- Call agent alert time: **30 seconds**, select **Next**.
+19. すべてのブラウザー ウィンドウを閉じます。
 
-	- Under the **Exception handling** page, expand **Call overflow** and et Maximum calls in the queue: **50**
+自動応答用のリソース アカウントを作成し、その構成を完了しました。
 
-	- When the maximum number of calls is reached: **Disconnect**
+### **演習 5: Microsoft Teams の通話品質レポートを確認する**
 
-	-  Expand **Call timeout** and set Maximum wait time: **5 minutes**
+ユーザーに通話の問題が発生した場合、組織の Teams 管理者は迅速に診断して対処する必要があります。Teams クライアント、ネットワーク、Microsoft 365 内の各種構成などが影響します[...]
 
-	- When call times out: **Disconnect**
+この演習では、Teams 管理センターで利用できる監視とトラブルシューティング ツール（通話分析および通話品質ダッシュボード）を確認し、音声の問題を調査します。
 
-11. Select **Submit** to create the new call queue.
+注: この環境では通話を実施していないため、レポートは空または不完全です。 
 
-Creating the new call queue may take some time, but you have successfully created a new custom call queue based on a resource account in your tenant.
+#### タスク 1 – ユーザー/通話/会議の通話分析を確認する
 
-**Note:** Because this call queue shall have a custom greeting, you need to upload some wav files for demonstration purposes. In a real-world scenario, you would record and prepare a greeting audio file and upload the audio file as shown in this task.
+1. **Client 1 VM** に接続し、**Joni Sherman**（[JoniS@&lt;YourTenant&gt;.onmicrosoft.[...]）として Teams 管理センター（[https://admin.teams.microsoft.com](https://admin.teams.microsoft.com/)）にアクセスします。
 
-#### Task 3 - Create an auto attendant
+2. 左ナビゲーションで **ユーザー > ユーザーの管理** を選択し、ユーザーを 1 人選択します。
 
-As Teams admin, you were tasked to create an auto attendant with a transcribed welcome message that will respond to customers outside of office hours. As some of your employees work in different time zones, the auto-attendant informs a caller that the subscriber is currently on vacation and to call another person in the organization. Furthermore, the auto-attendant informs callers about business hours.
+3. **ユーザー** ページで **会議と通話** タブを選択します。
 
-1. Connect to the **Client 1 VM** and sign in with the Credentials that have been provided to you.
+4. 通話分析ページには、選択したユーザーのすべての通話と会議が表示されます。  
+   一覧からセッションを選択すると、通話や会議の詳細なメディア/ネットワーク統計など、そのセッションに関する情報を確認できます。
 
-2. You should still be in the **Teams admin center** and signed in as **Joni Sherman** (JoniS@&lt;YourTenant&gt;.onmicrosoft.com).
+#### タスク 2 – 通話品質ダッシュボード (CQD) を確認する
 
-3. On the left navigation pane, select **Voice**, and then choose **Resource accounts,** to create the resource account first.
+CQD は、Teams 管理者やネットワーク エンジニアが組織全体の通話/会議品質を監視するのに役立つよう設計されています。ほぼリアルタイムのデータにより、Teams 管理者は迅速に対応できます[...]
 
-4. On the **Resource accounts** page, select **+ Add** from the top pane.
+このタスクでは通話品質ダッシュボードに移動します。
 
-5. On the right pane, enter the following information:
+1. **Client 1 VM** に接続し、**Joni Sherman**（[JoniS@&lt;YourTenant&gt;.onmicrosoft.[...]）として Teams 管理センター（[https://admin.teams.microsoft.com](https://admin.teams.microsoft.com/)）にアクセスします。
 
-	- Display name: **Contoso Auto Attendant**
+2. 左ナビゲーションで **分析とレポート** > **通話品質ダッシュボード** を選択します。
 
-	- Username: **pilot_autoattendant1**
+3. 新しいタブで [**https://cqd.teams.microsoft.com/**](https://cqd.teams.microsoft.com/) が開きます。初回アクセス時はサインインが求められます[...]
 
-	- Resource Account Type: **Auto attendant**
+4. 初めてサインインすると、日次/月次の通話品質の傾向を示すサマリー レポートが表示されます。通話品質は良好、低品質、未分類に分類されます。 
 
-6. Select **Save**.
+5. **製品フィルター** のドロップダウンから **Microsoft Teams** を選択します。 
 
-7. On the left navigation pane, select **Voice** and then **Auto attendants** below.
+6. 全体の通話品質、サーバー-クライアント、クライアント-クライアント、音声品質 SLA など、各タブのデータを確認します。
 
-8. Select **+ Add** from the top pane, to create a new auto-attendant.
-
-9. Enter the following information:
-
-	- Add a name for your auto attendant: **Contoso Auto attendant**
-
-	- Operator: **Voice app**
-
-	- Search by resource account: **Contoso Call Queue Resource Account**
-
-	- Time zone: **(UTC-08:00) Pacific Time (US &amp; Canada)**
-
-	- Language: **English (United States)**
-
-	- Enable voice inputs: **Off**
-
-10. Select **Next**.
-
-11. On the **Call flow** page, configure the following:
-
-	- First, play a greeting message: Select **Add a greeting message**
-
-	- Type in: **Welcome. The person you called is currently on vacation, your call will be redirected to an operator.**
-
-	- Then under Call routing options select **Redirect call**
-
-	- Redirect to: **Voice app**
-
-	- Search by resource account: **Contoso Call Queue Resource Account**
-
-12. Select **Next**.
-
-13. On the **Busines and after hours** page, configure the following:
-
-	- Configure working hours **Monday** to **Friday** from **08:00 AM** to **04:00 PM**
-
-	- Leave **Saturday** and **Sunday** blank.
-
-	- Greeting options: **Add a greeting message**
-
-	- Type in: **Thank you for your call, our business hours are Monday to Friday, 08:00 AM to 04:00 PM.**
-
-	- Call routing options: **Disconnect**
-
-14. Select **Next**.
-
-15. On the **Holiday call settings** page, select **Next**.
-
-16. On the **Dial scope** page, select **Next**.
-
-17. On the **Resource accounts** page, select **Add**. In the right-side pane, type **Contoso auto attendant**, and then select **Add** twice.
-
-18. Select **Submit** to finish the creation of the auto attendant.
-
-19. Close all browser windows.
-
-You have successfully created a resource account for the auto attendant and then created an auto attendant configuration.
-
-### **Exercise 5: Explore reports for call quality in Microsoft Teams**
-
-When users experience calling problems, an organization's Teams administrator must quickly diagnose and fix the problems. The Teams client, the network, and any number of configuration issues in the Microsoft Teams admin center can disrupt an organization's users from effectively sending and receiving calls and participating in Teams meetings.
-
-In this exercise, you'll explore the monitoring and troubleshooting tools available in Teams admin center, including call analytics, and the call quality dashboard to investigate voice issues.
-
-Note: As we have not made any calls in this environment, reports will be blank and incomplete. 
-
-#### Task 1 – Explore call analytics for users, calls, and meetings
-
-1. Connect to the **Client 1 VM** and browse to Teams admin center ([https://admin.teams.microsoft.com](https://admin.teams.microsoft.com/)) as **Joni Sherman** ([JoniS@&lt;YourTenant&gt;.onmicrosoft.com](mailto:JoniS@&lt;YourTenant&gt;.onmicrosoft.com)).
-
-2. In the left-hand navigation pane, select **Users&gt;Manage users**, and then select a user.
-
-3. On the **User** page, select **Meetings &amp; calls** tab.
-
- 
-
-4. Call analytics page displays all calls and meetings for the selected user, 
-
-By selecting a session in the list, you can view other information about a given session, including detailed media and networking statistics for call and meeting activities.
-
-#### Task 2 – Explore Call Quality Dashboard (CQD)
-
-CQD is designed to help Microsoft Teams administrators and network engineers monitor call and meeting quality at an organization-wide level. The near real-time data enables Teams admins to quickly resolve issues by drilling down to find where issues originated, and who was affected.
-
-In this task you navigate to Call Quality Dashboard
-
-1. Connect to the **Client 1 VM** and browse to Teams admin center ([https://admin.teams.microsoft.com](https://admin.teams.microsoft.com/)) as **Joni Sherman** ([JoniS@&lt;YourTenant&gt;.onmicrosoft.com](mailto:JoniS@&lt;YourTenant&gt;.onmicrosoft.com)).
-
-2. In the left-hand navigation pane, select **Analytics & reports** then **Call Quality Dashboard**.
-
-3. A new browser tab with the url [**https://cqd.teams.microsoft.com/**](https://cqd.teams.microsoft.com/) will open. You will be prompted to sign-in, when you access the CQD portal for the first time. Note: If there is an error when the new browser tab opens, simply  type in the browser: https://cqd.teams.microsoft.com/.
-
-4. When you first sign into the CQD Portal, you'll see the summary reports with daily and monthly call quality trends. Call quality is classified as good, poor, or unclassified. 
-
-5. From the **Product Filter** dropdown menu, select **Microsoft Teams**. 
-
-6. Explore the data under different tabs, including Overall Call Quality, Server-Client, Client-Client, and Voice Quality SLA.
-
-In this exercise you have learnt how to access and navigate call analytics and Call Quality Dashboard.
+この演習では、通話分析と通話品質ダッシュボードへのアクセスおよびナビゲーション方法を学びました。
 
 END OF LAB
-
- 
