@@ -1,35 +1,35 @@
-# MS-700: Manage collaboration and communication with Microsoft Teams. 
+# MS-700: Microsoft Teams を使用したコラボレーションとコミュニケーションの管理
 
-- **[Download Latest Student Handbook and AllFiles Content](../../releases/latest)**
-- **Are you an MCT?** - Have a look at our [GitHub User Guide for MCTs](https://microsoftlearning.github.io/MCT-User-Guide/)
-- **Need to manually build the lab instructions?** - Instructions are available in the [MicrosoftLearning/Docker-Build](https://github.com/MicrosoftLearning/Docker-Build) repository
+- **[最新の学生用ハンドブックおよび AllFiles コンテンツをダウンロード](../../releases/latest)**
+- **MCT の方ですか？** - [MCT 向け GitHub ユーザーガイド](https://microsoftlearning.github.io/MCT-User-Guide/) をご覧ください。
+- **ラボ手順を手動で作成する必要がありますか？** - 手順は [MicrosoftLearning/Docker-Build](https://github.com/MicrosoftLearning/Docker-Build) リポジトリで入手できます。
 
-## What are we doing?
+## このラボの目的は？
 
-- To support this course, we will need to make frequent updates to the course content to keep it current with the Microsoft 365 services used in the course. We are publishing the lab instructions and lab files on GitHub to allow for open contributions between the course authors and MCTs to keep the content current with changes in the Microsoft 365 platform.
+- このコースをサポートするために、Microsoft 365 サービスの更新に合わせてコース コンテンツを頻繁に更新する必要があります。このため、ラボ手順と関連コンテンツを GitHub に公開しています。
 
-- We hope that this brings a sense of collaboration to the labs like we've never had before - when Microsoft 365 changes and you find it first during a live delivery, go ahead and make an enhancement right in the lab source. Help your fellow MCTs.
+- これにより、かつてないほどコラボレーションを体感できることを期待しています。もし Microsoft 365 の変更内容をライブ デリバリー中に最初に発見した場合は、GitHub 上で修正や改善を提案してみてください。
 
-## How should I use these files relative to the released MOC files?
+## リリースされた MOC ファイルと GitHub 上のこれらのファイルをどのように利用すればよいのか？
 
-- The instructor handbook and PowerPoints are still going to be your primary source for teaching the course content.
+- インストラクター ハンドブックと PowerPoint はコース内容を指導するための主な情報源であり続けます。
 
-- These files on GitHub are designed to be used in conjunction with the student handbook but are in GitHub as a central repository so MCTs and course authors can have a shared source for the latest lab files.
+- ここで提供する GitHub 上のファイルは、学生用ハンドブックと共に使用することを目的としており、MCT やコース作成者が最新のラボ手順を共有する中央リポジトリとして機能します。
 
-- It will be recommended that for every delivery, trainers check GitHub for any changes that may have been made to support the latest Microsoft 365 services, and get the latest files for their delivery.
+- 各デリバリーにおいては、トレーナーが GitHub を確認し、最新の Microsoft 365 サービスをサポートするために加えられた変更がないかを確認し、必要に応じて最新のファイルを取得することをお勧めします。
 
-## What about changes to the student handbook?
+## 学生用ハンドブックの変更については？
 
-- We will review the student handbook on a quarterly basis and update it through the normal MOC release channels as needed.
+- 学生用ハンドブックは四半期ごとにレビューされ、必要に応じて通常の MOC リリース チャンネルを通じて更新されます。
 
-## How do I contribute?
+## どのように貢献すればよいのか？
 
-- Any MCT can submit a pull request to the code or content in the GitHub repro, Microsoft and the course author will triage and include content and lab code changes as needed.
+- MCT は誰でも、コードやコンテンツに対してプルリクエストを送信することができます。Microsoft とコース作成者で内容を精査し、必要に応じてコンテ��ツやラボ コードの変更を含めます。
 
-- You can submit bugs, changes, improvements,  and ideas. Find a new Microsoft 365 feature before we have it? Submit a new demo!
+- バグ報告、変更提案、改善案、新しいアイデアを送ることができます。新しい Microsoft 365 機能を発見した場合は、新しいデモを送ってみてください！
 
-## Notes
+## 注意
 
-### Classroom Materials
+### 教室用教材
 
-It is strongly recommended that MCTs and Partners access these materials and in turn, provide them separately to students. Pointing students directly to GitHub to access Lab steps as part of an ongoing class will require them to access yet another UI as part of the course, contributing to a confusing experience for the student. An explanation to the student regarding why they are receiving separate Lab instructions can highlight the nature of an always-changing cloud-based interface and platform. Microsoft Learning support for accessing files on GitHub and support for navigation of the GitHub site is limited to MCTs teaching this course only.
+MCT やパートナーは、これらの教材を独自に活用し、学生に別途提供することを強くお勧めします。ラボ手順を進行中の練習の一部として直接 GitHub から学生にアクセスさせることは避けてください。
