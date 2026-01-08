@@ -1,9 +1,9 @@
-# Module: 00
-## Lab/Demo: 00
+# モジュール: 00
+## ラボ/デモ: 00
 
-Fixes # .
+修正 # .
 
-Changes proposed in this pull request:
+このプルリクエストで提案される変更:
 
 -
 -
