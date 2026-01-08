@@ -1,180 +1,165 @@
+# **ラボ 03: Teams のチーム、共同作業、アプリ設定を管理する**
 
+# **受講者用ラボ解答**
 
-# **Lab 03: Manage teams, collaboration and app settings for Teams**
+## **ラボ シナリオ**
 
-# **Student lab answer key**
+このコースのラボでは、Contoso Ltd. の Teams 管理者である Joni Sherman の役割を担います。このラボでは、既存のグループからのチーム作成など、Teams 管理者としての運用タスクを実施します[…]
 
-## **Lab Scenario**
+Microsoft Teams におけるコラボレーションの管理では、チーム設定やプライベート チャネル作成ポリシーなど、チャットと共同作業のエクスペリエンスを管理します。最後に、Teams のアプリ設定も管理します[…]
 
-In the labs of this course, you will assume the role of Joni Sherman, a Teams Administrator for Contoso Ltd. In this lab, you will perform operational tasks as a Teams administrator, such as creating and modifying teams, managing membership, and recovering deleted teams.
+## **目標**
 
-In managing collaboration in Microsoft Teams, you will manage chat and collaboration experiences such as team settings or private channel creation policies. Finally, you will manage settings for Teams apps such as app permission and app setup policies, Apps, bots & connectors in Microsoft Teams or publish a custom app in Microsoft Teams.
+このラボを完了すると、次のことができるようになります。
 
-## **Objectives**
+- Microsoft 365 グループからチームを作成する
+- PowerShell を使用してチームを作成する
+- Microsoft Graph API を使用してチームを作成する
+- 動的メンバーシップのチームを作成する
+- Teams をアーカイブ/アーカイブ解除する
+- Teams を削除/復元する
+- メッセージング ポリシーを作成する
+- プライベート チャネルを管理する
+- サードパーティ ストレージ プロバイダーを無効にする
+- ポリシー パッケージを管理する
+- 既定の組織全体のアプリ ポリシーを編集/テストする
+- 既定のアプリのアクセス許可ポリシーを編集/テストする
+- カスタムのアプリの設定ポリシーを作成/管理する
 
-After you complete this lab, you will be able to:
+## **ラボ セットアップ**
 
-- Create a Team from a Microsoft 365 Group
+- **推定時間:** 110 分
 
-- Create a Team by using PowerShell
+## **手順**
 
-- Create a Team by using Microsoft Graph API
+### **演習 1: チーム リソースを管理する**
 
-- Create a Team with dynamic membership
+#### タスク 1 - 既存の Microsoft 365 グループからチームを作成する
 
-- Archive and unarchive Teams
+Contoso のパイロット プロジェクトの一環として、以前のラボで作成した Microsoft 365 グループ **IT-Department** を変更し、Teams の機能を追加する必要があります。
 
-- Delete and recover Teams
+1. 提供された資格情報で **Client 1 VM** に接続します。
 
-- Create a messaging policy
+2. タスクバーの **Teams** アイコンを選択して Teams デスクトップ クライアントを起動し、**Joni Sherman**（JoniS@&lt;YourTenant&gt;.OnMicrosoft.com）としてサインインします。
 
-- Manage private channels
+3. Microsoft Teams デスクトップ クライアントが起動します。**チームをまとめましょう** や **Teams モバイル アプリを入手** のウィンドウが表示された場合は閉じます。
 
-- Disable third-party storage providers
+4. 左側のナビゲーションで **Teams** を選択し、**+** を選んで **チームを作成** を選択します。
 
-- Manage Policy packages
+5. **チームを作成** ダイアログで、**他の作成オプション** を選び、**グループから** を選択します。
 
-- Edit and test default org-wide app policy
+6. **どの Microsoft 365 グループを使用しますか?** ダイアログで、��ループ **“IT-Department”** を選び、**チームを追加** を押します。**チームを作成しています…** が完了するまで待ちます。
 
-- Edit and test default app permission policy
+8. 左ペインの新しいチームの右側にある三点リーダー（**…**）を選択し、**チームの管理** を選択します。
 
-- Create and manage a custom app setup policy
+9. チームの所有者とメンバーを確認します:
 
-## **Lab Setup**
+   - 所有者: **Joni Sherman**
+   - メンバーとゲスト: **Allan Deyoung**、**MOD Administrator**、**Patti Fernandez**
 
-- **Estimated Time:** 110 minutes.
+10. Teams デスクトップ クライアントは開いたまま、次のタスクに進みます。
 
-## **Instructions**
+既存の Microsoft 365 グループを使用し、Teams デスクトップ クライアントで新しいチームを作成できました。Teams クライアントは開いたまま次へ進んでください。
 
-### **Exercise 1: Manage team resources**
+#### タスク 2 - PowerShell を使用してチームを作成する
 
-#### Task 1 - Create a team from an existing Microsoft 365 group
+このタスクでは、Teams PowerShell を使って新しいチーム **“CA-Office”** を作成します。パブリック チャネル **“Support”** と **“Recruiting”** を作成し、さらに[…]
 
-As part of your pilot project for Contoso, you need to modify the **IT-Department** Microsoft 365 group, created in an earlier lab, and add Teams features to it.
+1. 提供された資格情報で **Client 1 VM** に接続します。
 
-1. Connect to the **Client 1 VM** with the credentials that have been provided to you.
+2. 画面下部のタスクバーで **スタート** を右クリックし、**Windows PowerShell** を選択します。
 
-2. Select the **Teams** icon on the taskbar to start the Teams desktop client and sign in as **Joni Sherman** (JoniS@&lt;YourTenant&gt;.OnMicrosoft.com).
-
-3. The Microsoft Teams desktop client will start. If a **Bring your team together**, or **Get the Teams mobile app** window appears, close both windows.
-
-4. In the left-hand navigation pane, select **Teams**, select **+**, and then select **Create team** .
-
-5. In the **Create a team** dialog, select **More create team options** and then **From group**.
-
-6. In the **Which Microsoft 365 group do you want to use?** dialog, select the group **“IT-Department”** by presing **Add Team**. Wait until the **Creating the team…** process is done.
-
-8. Select the three dots (**…**) right from the new team in the left pane and select **Manage team**.
-
-9. Check the team owner and members:
-
-	- Owners: **Joni Sherman**
-
-	- Members and guests: **Allan Deyoung** , **MOD Administrator** and **Patti Fernandez**
-
-10. Leave the Teams desktop client open and continue to the next task.
-
-You have successfully created a new team with the Teams desktop client, by using an existing Microsoft 365 group. Leave the Teams client open and continue with the next task.
-
-#### Task 2 - Create a team by using PowerShell
-
-In this task, you will create via the Teams PowerShell a new team **“CA-Office”**. You will create the public channels **“Support”** and **“Recruiting”**. Additionally, you will create the private channel **“Administration”** via Teams PowerShell.
-
-1. Connect to the **Client 1 VM** with the credentials that have been provided to you.
-
-2. On the taskbar at the bottom of the page, right select the **Start** button and then select **Windows PowerShell**.
-
-3. Run the following cmdlet to connect to Microsoft Teams in your tenant:
+3. 次のコマンドレットを実行して、テナント内の Microsoft Teams に接続します:
 
     ```powershell
     Connect-MicrosoftTeams
     ```
 
-4. A **Sign in** dialog box will open. Enter the **UPN** of **Joni Sherman’s** credential provided to you (for example, JoniS@&lt;YourTenant&gt;.onmicrosoft.com) and then select **Next**.
+4. **サインイン** ダイアログが開きます。提供された **Joni Sherman** の **UPN**（例: JoniS@&lt;YourTenant&gt;.onmicrosoft.com）を入力し、**次へ** を選択します。
 
-5. In the **Enter password** dialog box, enter the **password** of **Joni Sherman’s** credential provided to you and then select **Sign in**.
+5. **パスワードの入力** ダイアログで、提供された **Joni Sherman** の **パスワード** を入力し、**サインイン** を選択します。
 
-6. Type the following cmdlet to the PowerShell window to create the new team **CA-Office**:
+6. 新しいチーム **CA-Office** を作成するため、PowerShell ウィンドウで次のコマンドレットを入力します:
 
     ```powershell
     New-Team -Displayname "CA-Office" -MailNickName "CA-Office" -Visibility Public
     ```
 
-7. To add the user **Alex Wilber** to the team type the following cmdlet (Replacing <YourTenant> with the name of the Microsoft 365 Tenant provided to you.):
+7. ユーザー **Alex Wilber** をチームに追加します（<YourTenant> を提供された Microsoft 365 テナント名に置換）:
 
     ```powershell
     Get-Team -Displayname "CA-Office" | Add-TeamUser -User AlexW@<YourTenant>.OnMicrosoft.com
     ```
 
-8. To add the user **Allan Deyoung** to the team type the following cmdlet (Replacing <YourTenant> with the name of the Microsoft 365 Tenant provided to you.):
+8. ユーザー **Allan Deyoung** をチームに追加します（<YourTenant> を置換）:
 
     ```powershell
     Get-Team -Displayname "CA-Office" | Add-TeamUser -User AllanD@<YourTenant>.onmicrosoft.com
     ```
 
-9. Create a channel **Support** in the **CA-Office** team by using the following cmdlet:
+9. **CA-Office** チームに **Support** チャネルを作成します:
 
     ```powershell
     Get-Team -Displayname "CA-Office" | New-TeamChannel -DisplayName "Support"
     ```
 
-10. Create another channel **Recruiting** in the **CA-Office** team by using the following cmdlet:
+10. **CA-Office** チームに **Recruiting** チャネルを作成します:
 
     ```powershell
     Get-Team -Displayname "CA-Office" | New-TeamChannel -DisplayName "Recruiting"
     ```
 
-11. Create a private channel **Administration** in the **CA-Office** team by using the following cmdlet:
+11. **CA-Office** チームにプライベート チャネル **Administration** を作成します:
 
     ```powershell
     Get-Team -Displayname "CA-Office" | New-TeamChannel -DisplayName "Administration" -MembershipType Private
     ```
 
-12. Disconnect from the Microsoft Teams environment.  
+12. Microsoft Teams から切断します。  
 
     ```powershell
     Disconnect-MicrosoftTeams
     ```
 
-13. Close the PowerShell window.
+13. PowerShell ウィンドウを閉じます。
 
-14. Open the Teams desktop client from the taskbar. On the left side pane with all teams, Joni is a member of the new **CA-Office** team, where you can see a private channel below, named "Administration".
+14. タスクバーから Teams デスクトップ クライアントを開きます。左ペインのチーム一覧で、Joni は新しい **CA-Office** チームのメンバーになっており、下に「Administration」というプライベート チャネルが見えるはずです[…]
 
-15. Close all browser windows and the Teams desktop client.
+15. すべてのブラウザー ウィンドウと Teams デスクトップ クライアントを閉じます。
 
-You have successfully created a team named **CA-Office** with the members Alex Wilber and Allan Deyoung. Joni Sherman is the only team owner. Note that you did not specify any owner in the PowerShell cmdlet and because it was run in the context of Joni, she was added as owner automatically. Furthermore, you have created the public channels named **Support** and **Recruiting**, as well as the private channel named **Administration**.
+**CA-Office** というチームを、メンバー Alex Wilber と Allan Deyoung で作成できました。Joni Sherman が唯一のチーム所有者です。PowerShell では所有者を指定していない点に注意してください[…]
 
-#### Task 3 - Create a team by using Graph API
+#### タスク 3 - Graph API を使用してチームを作成する
 
-In this task, you will test the Graph API capabilities for certain automation plans of your organization with Teams. For this task, you will create a new team, called **Early Adopters** with minimal settings, such as Public join options, and another team with multiple existing channels, called **Tech Meetings**.
+このタスクでは、組織の自動化計画に向けて Teams で Graph API の機能をテストします。最小設定で **Early Adopters** という新しいチームを作成します[…]
 
-1. Connect to the **Client 1 VM** with the credentials that have been provided to you.
+1. 提供された資格情報で **Client 1 VM** に接続します。
 
-2. Open Microsoft Edge, maximize the browser, and navigate to the **Graph Explorer** at: [https://developer.microsoft.com/graph/graph-explorer](https://developer.microsoft.com/graph/graph-explorer)
+2. Microsoft Edge を開きブラウザーを最大化し、**Graph Explorer**（[https://developer.microsoft.com/graph/graph-explorer](https://developer.microsoft.com/graph/graph-explorer)）に移動します。
 
-3. Select the **Sign in to Graph Explorer** button in the left of the page and sign in as **Joni Sherman** (JoniS@&lt;YourTenant&gt;.onmicrosoft.com).
+3. ページ左側の **Sign in to Graph Explorer** を選択し、**Joni Sherman**（JoniS@&lt;YourTenant&gt;.onmicrosoft.com）としてサインインします。
 
-4. If you access the Graph Explorer for the first time, you will see a **Permissions requested** page. Select **Accept**.
+4. 初めて Graph Explorer にアクセスする場合、**Permissions requested** ページが表示されます。**承諾 (Accept)** を選択します。
 
-5. Select the **GET** button and select **POST** from the dropdown menu.
+5. **GET** ボタンを選択し、ドロップダウンから **POST** を選択します。
 
-6. Do not change the **v1.0** from the box in the middle.
+6. 中央の **v1.0** は変更しません。
 
-7. Enter the following to the text box before the **Run query** button:
+7. **Run query** ボタンの前のテキスト ボックスに次を入力します:
 
-	- [https://graph.microsoft.com/v1.0/teams](https://graph.microsoft.com/v1.0/teams)
+   - [https://graph.microsoft.com/v1.0/teams](https://graph.microsoft.com/v1.0/teams)
 
-8. Select **Modify permissions (Preview)** from the top pane.
+8. 上部ペインで **Modify permissions (Preview)** を選択します。
 
-	![Graphical user interface, text, application, email Description automatically generated](media/MS-700-lab_M03_ak_image1.png)
+   ![Graphical user interface, text, application, email Description automatically generated](media/MS-700-lab_M03_ak_image1.png)
 
-9. Scroll to the right and select the **Consent** button for the permissions **Team.Create**.
+9. 右にスクロールし、**Team.Create** の **Consent** ボタンを選択します。
 
-10. Another **Permissions requested** page appears. Select **Accept**.
+10. 再度 **Permissions requested** ページが表示されたら **承諾 (Accept)** を選択します。
 
-11. If you are redirected to the Microsoft Developers site, navigate back to the **Graph Explorer** at: [https://developer.microsoft.com/graph/graph-explorer](https://developer.microsoft.com/graph/graph-explorer)
+11. Microsoft Developers サイトにリダイレクトされた場合は、**Graph Explorer**（[https://developer.microsoft.com/graph/graph-explorer](https://developer.microsoft.com/graph/gra[…]）に戻ります。
 
-12. Select the **Request body** tab and enter the following code:
+12. **Request body** タブを選択し、次のコードを入力します:
 
     ```json
 	{
@@ -190,11 +175,11 @@ In this task, you will test the Graph API capabilities for certain automation pl
 	}
 	```
 
-13. Select **Run** **query** from the upper right of the page.
+13. 右上の **Run query** を選択します。
 
-14. After a moment, you should see a green bar below the Request body window, with a checkmark and an **Accepted** message.
+14. しばらくすると、要求本文ウィンドウの下に緑色のバーでチェック マークと **Accepted** のメッセージが表示されます。
 
-15. Remove the whole content of the textbox in the textbox of **Request body**, you just used to create a team and replace it with the following content:
+15. さきほどの **Request body** テキスト ボックスの内容をすべて削除し、次の内容に置き換えます:
 
     ```json
 	{
@@ -308,377 +293,331 @@ In this task, you will test the Graph API capabilities for certain automation pl
 	}
 	```
 
+16. 右上の **Run query** を選択します。
 
-16. Select **Run** **query** from the upper right of the page.
+17. しばらくすると、再びチェック マークと **Accepted** を含む緑色のバーが表示されます。
 
-17. After a moment, you should see a green bar with a checkmark and **Accepted** inside again.
+18. Teams デスクトップ アプリを開きます。左ペインで **Teams** を選択し、新たに作成された **“Early Adopters”** と **“Tech Meetings”** を確認します。
 
-18. Open the Teams Desktop App. Select **Teams** from the left-side pane and inspect the newly created teams “**Early Adopters"** and”**Tech Meetings**".
+Graph API を使って 2 つのチームを作成できました。Graph の機能テストは完了です。次の演習に進みます。
 
-You have successfully created two teams via Graph API. Your test of the Graph functionality is complete, and you can advance to the next exercise.
+#### タスク 4 – チームをアーカイブ/アーカイブ解除する
 
-#### Task 4 – Archive and unarchive a team
+このラボでさまざまなチームを作成した後、チームを削除するさまざまな方法も評価する必要があります。このタスクでは、アーカイブ機能をテストし、Sales チームを[…]
 
-After creating the different teams in this lab, you also need to evaluate the different ways of removing teams again. In this task, you will test the archiving function and change the Sales team to a non-activate state without deleting its content. This function is required for some company’s compliance requirements of retaining the stored data inside the teams. The only Teams administrative role with sufficient privilege for this task is the Teams Administrator, which is currently assigned to Joni Sherman, therefore you will use Joni’s account for this task.
+1. **Client 1 VM** に接続し、**Joni Sherman**（JoniS@&lt;YourTenant&gt;.onmicrosoft.com）として **Teams デスクトップ クライアント** を開きます。
 
-1. Connect to the **Client 1 VM** and browser to the **Teams desktop client**:  as **Joni Sherman** (JoniS@&lt;YourTenant&gt;.onmicrosoft.com).
+2. 左ペインで **Teams** を選択し、Teams の横の **…** を選んで **自分のチームとチャネル** をクリックします。
 
-2. Select **Teams** from the left-side pane and select the **...** icon next to Teams and click on **Your teams and channels**.
+3. **Sales** チームをアーカイブします
 
-3. Archive the **Sales** team
+   1. **Sales** チームの左のチェック マークを選択し、上部ペインから **アーカイブ** を選択します。
+   2. **チーム メンバーに対して SharePoint サイトを読み取り専用にする** のチェック ボックスをオンにして **アーカイブ** を選択します。
+   3. **状態** 列がオレンジ色の **アーカイブ済み** に変わります。ブラウザーは開いたまま進みます。**Sales** チームで問題がある場合は、他のチームをアーカイブしてください（…）
 
-	1. Select the checkmark left from the **Sales** team and select **Archive** from the top pane.
+4. アーカイブ済みチームを確認します
 
-	2. Select the checkbox of **Make the SharePoint site read-only for team members** and select **Archive**.
+   1. **Client 2 VM** に接続し、**Lynne Robbins**（LynneR@&lt;YourTenant&gt;.onmic[…]）として [**Microsoft Teams Web クライアント (https://teams.microsoft.com/)**](https://teams.microsoft.com/) にアクセスします。
+   2. Teams を選択し、**Teams とチャネル** を選択します。
+   3. **アーカイブ** セクションを展開し、**Sales** チームを選択します。**隠しチーム** セクションの下に **Sales** チームが表示されます。
+   4. **Sales** チームの **一般** チャネルを選択し、**新しい会話** が使用できないことを確認します。
 
-	3. The **Status** column should now have changed to **Archived**, written in orange color. Leave the browser open and proceed. If you have problems with the **Sales** team - archive another team (you can undo this action in the unarchive step).
+5. **Sales** チームをアーカイブ解除します
 
-4. Check the archived team
+   1. 再度 **Client 1 VM** に接続し、**Joni Sherman** として Teams 管理センターにアクセスします。
+   2. **Sales** の左のチェック ボックスを再度選択し、上部メニューから **アーカイブを解除** を選択します。**状態** が **アクティブ** に戻ります。
 
-	1. Connect to the **Client 2 VM** and browse to the [**Microsoft Teams web client (https://teams.microsoft.com/)**](https://teams.microsoft.com/) as **Lynne Robbins** (LynneR@&lt;YourTenant&gt;.onmicrosoft.com).
+6. アーカイブ解除したチームを確認します
 
-	2. Select Teams and then select  **Teams and channels**.
+   1. **Client 2 VM** に接続し、**Lynne Robbins**（LynneR@&lt;YourTenant&gt;.onmic[…]）として [**Microsoft Teams Web クライアント (https://teams.microsoft.com/)**](https://teams.microsoft.com/) にアクセスします。
+   2. 左側で **Teams** を選択します。
+   3. しばらくすると、**Sales** チームと **一般** チャネルの文字色が元に戻りますが、チームは非表示のままです。
+   4. Sales チーム名の右側の三点リーダー（…）を選択し、**表示** を選択します。
 
-	3. Expand **Archived** section, and select **Sales** team. You can see the **Sales** team under the **Hidden teams** section. 
+7. ブラウザーは開いたまま、サインイン状態を維持します。
 
-	4. Select **General** channel under the **Sales** team, notice the **New conversation** option is not available.
+アーカイブ機能をテストし、アーカイブ済みチームの制限を確認できました。これは、コンプライアンス保全のためのアーカイブ機能テストの最初の要件を満たします[…]
 
-5. Unarchive the **Sales** team
+#### タスク 5 - チームを削除して復元する
 
-	1. Connect to the **Client 1 VM** again and browse to the Teams admin center as **Joni Sherman**.
+このタスクでは、前のレッスンで作成したチームの 1 つを削除し、復元方法を学びます。
 
-	2. Select the checkbox left from **Sales** again and select **Unarchive** from the top menu. The **Status** field should change to **Active** again.
+1. **Client 2 VM** に接続し、**Lynne Robbins**（LynneR@&lt;YourTenant&gt;.onmicr[…]）として [**Microsoft Teams Web クライアント (https://teams.microsoft.com/)**](https://teams.microsoft.com/) にアクセスします。
 
-6. Check the unarchived team
+2. Teams Web クライアントの左ナビゲーションで、**Sales** チーム名の右の三点リーダー（…）を選択し、一覧から **チームの削除** を選択します。
 
-	1. Connect to the **Client 2 VM** and browse to the [**Microsoft Teams web client (https://teams.microsoft.com/)**](https://teams.microsoft.com/) as **Lynne Robbins** (LynneR@&lt;YourTenant&gt;.onmicrosoft.com).
+3. **Sales チームを削除** で、**すべてが削除されることを理解しました** にチェックを入れ、**チームの削除** を選択します。
 
-	2. On the left side, select **Teams**.
+4. グループを復元します
 
-	3. Notice that the text of the **Sales** team and the **General** channel changes back to normal after a moment, but the team is hidden.
+   1. **Client1 VM** に接続し、**MOD Administrator** として Entra 管理センター（https://entra.microsoft.com/）にアクセスします。
+   2. 左ナビゲーションで **ID** > **グループ** を選択します。
+   3. **グループ** ページで、左側の **削除済みのグループ** を選択します。
+   4. すべての削除済みグループが表示され、その中に **Sales** グループがあります。
+   5. **Sales** グループの左のチェック ボックスを選択し、上部ペインの **グループの復元** を選択します。**削除済みグループを復元しますか** のダイアログで **はい** を選択して確定します。
 
-	4. Select the three dots (…) right from the Sales team and select **Show**.
+5. 復元されたグループを確認します。
 
-7. Leave the browser open and stay signed in.
+   1. **Client 2 VM** に接続し、**Lynne Robbins**（LynneR@&lt;YourTenant&gt;.onmicroso[…]）として [**Microsoft Teams Web クライアント (https://teams.microsoft.com/)**](https://teams.microsoft.com/) にアクセスします。
+   2. **Sales** チームが再びチーム一覧に表示されます。必要に応じて **F5** でページを更新します。
+   3. チーム名の右の三点リーダー（…）を選択し、**チームの管理** を選択します。**メンバー** タブに所有者とすべてのメンバーが再表示されます。
 
-You have successfully archived a team and reviewed the limited functionality of archived teams. This fulfills the first requirement of testing the archiving function of teams for compliance preservation policies and rules. After this test, you have unarchived the team again, making it fully operational again.
+**注:** チームの削除から復元までの全プロセスには最大 24 時間かかる場合があります。すぐに表示されない場合は、このラボの後半で再度確認してください。
 
-#### Task 5 - Delete and recover teams
+Teams Web クライアントでチームを削除し、Azure ポータルで復元できました。
 
-In this task, you will delete one of the teams created in the previous lesson and learn how to restore it.
+#### タスク 6 - 動的メンバーシップでチーム メンバーを管理する
 
-1. Connect to the **Client 2 VM** and browse to the [**Microsoft Teams web client (https://teams.microsoft.com/)**](https://teams.microsoft.com/) as **Lynne Robbins** (LynneR@&lt;YourTenant&gt;.onmicrosoft.com).
+Contoso はカナダに進出し、トロントに新しいオフィスを開設します。システム管理者として、Office 365 サービスの場所に基づく動的グループを構成する必要があります。
 
-2. In the left-hand navigation pane of the Teams web client, select the three dots (…) right from the **Sales** team and select **Delete the team** from the list.
+1. **Client1 VM** に接続し、**MOD Administrator** として Entra 管理センター（https://entra.microsoft.com/）にアクセスします。
 
-3. In the **Delete the Sales team**, select **I understand that everything will be deleted**. and select **Delete team**.
+2. 左ナビゲーションで **ID** > **グループ** > **すべてのグループ** を選択します。
 
-4. Restore group
+3. **グループ | すべてのグループ** ページで **CA-Office** グループを検索して選択します。
 
-	1.Connect to the **Client1 VM** and browse to Entra admin center (https://entra.microsoft.com/) as **MOD Administrator**.
+4. **CA-Office** ページの左ナビゲーションで **プロパティ** を選択します。
 
-	2. On the left navigation pane, select **Identity* > **Groups**.
+5. **メンバーシップの種類** を **割り当て済み** から **動的ユーザー** に変更します。
 
-	3. On the **Groups** page, select **Deleted groups** in the left side pane.
+6. **動的ユーザー メンバー** の下で **動的クエリの追加** を選択します。
 
-	4. Now you can see all deleted groups, including the **Sales** group.
+7. **動的メンバーシップ ルール** ページで、次の情報を入力します:
 
-	5. Select the checkbox left from the **Sales** group and select **Restore group** from the top pane. Confirm the **Do you want to restore deleted groups dialog** by selecting **Yes**.
+   - プロパティ: **accountEnabled**
+   - 演算子: **等しい**
+   - 値: **true**
 
-5. Check the restored group.
+8. **+ 式を追加** を選択し、次の情報を入力します:
 
-	1. Connect to **Client 2 VM** and browse to the [**Microsoft Teams web client (https://teams.microsoft.com/)**](https://teams.microsoft.com/) as **Lynne Robbins** (LynneR@&lt;YourTenant&gt;.onmicrosoft.com).
+   - プロパティ: **usageLocation**
+   - 演算子: **等しい**
+   - 値: **CA**
 
-	2. The **Sales** team appears in the list of teams again. Press **F5** to refresh the page if needed.
+9. **保存** を 2 回選択します。
 
-	3. Select the three dots (…) right from the team name and select **Manage team**. You can see the owner and all members again in the **Members** tab.
+   メンバーシップが新しい動的メンバーシップ ルールに従って変更されるという警告が表示されます。**はい** を選択して確定します。
 
-**Note:** The full process of deleting and restoring a team can take up to 24 hours. If it does not appear again, check for it at a later point in this lab.
+11. **CA-Office** グループ ウィンドウの左ナビゲーションで **概要** を選択します。
 
-You have successfully deleted a team via the Teams web client and restored it with the Azure Portal.
+12. 概要ウィンドウで **動的ルールの処理状態** を確認します。
 
-#### Task 6 - Manage team members with dynamic membership
+   状態が **成功** と表示されるまで待ち、ブラウザーを更新します。反映には数分かかる場合があります。
 
-Contoso is expanding to Canada and will open a new office in Toronto. As a system administrator, you need to configure a dynamic group with membership based on the location of the Office 365 services.
+13. 次に左ナビゲーションの **メンバー** を選択し、**最新の情報に更新** を選択します。**Alex Wilber** がメンバー一覧に含まれ、**Allan Deyoung** がグループから削除されていることを確認します[…]
 
-1. Connect to the **Client1 VM** and browse to Entra admin center (https://entra.microsoft.com/) as **MOD Administrator**.
+14. 左ナビゲーションの **所有者** を選択し、Joni が動的グループ条件に合致しなくても引き続きグループの所有者であることを確認します。
 
-2. On the left navigation pane, select **Identity** > **Groups** > **All groups**.
+Microsoft 365 グループを静的（割り当て）から動的メンバー���ップに変換できました。メンバーシップはユーザーの usageLocation とアカウント有効状態で制御されます。条件に合致する新規ユーザーは自動的に追加されます[…]
 
-3. On the **Groups | All groups** page, search and select **CA-Office** group.
+### **演習 2: チャネルとメッセージのポリシーを構成する**
 
-4. On the **CA-Office** page, select **Properties** from the left-hand navigation pane.
+この演習では、新しいプライベート チャネルの作成と、ユーザーがチャットで使用できるツールを管理するためのポリシーを構成します。
 
-5. Change the **Membership type** from **Assigned** to **Dynamic User**.
+#### タスク 1 - giphy、ミーム、ステッカー用のメッセージング ポリシーを作成する
 
-6. Select **Add dynamic query** below **Dynamic user members**.
+会社は Teams のコミュニケーションにおけるグラフィック要素の使用を制限したいと考えています。Teams サービス管理者として、パイロット ユーザーが会話で GIF ファイルやミーム、ステッカーを使用できないようにする新しいメッセージ ポリシーを作成します[…]
 
-7. On the **Dynamic membership rules** page, enter the following information to the fields:
+1. **Client 1 VM** に接続し、**Joni Sherman**（JoniS@&lt;YourTenant&gt;.onmicrosoft.com）として Teams 管理センター（https://admin.teams.microsoft.com）にアクセスします。
 
-	- Property: **accountEnabled**
+2. Teams 管理センターの左ナビゲーションで **メッセージング** > **メッセージング ポリシー** を選択します。 
 
-	- Operator: **Equals**
+3. **ポリシーの管理** タブで **+ 追加** を選び、次を入力します
 
-	- Value: **true**
+   - **名前**: Regular users without fun stuff
+   - **説明**: 会話での giphy、ステッカー、ミームを無効にするポリシー
+   - **会話での Giphys**: オフ
+   - **会話でのミーム**: オフ
+   - **会話でのステッカー**: オフ
+   - 残りは既定のまま。**保存** を選択。
 
-8. Select **+add expression** and enter the following information to the fields:
+4. **メッセージング ポリシー** の概要ページに戻り、**Regular users without fun stuff** の左のチェックを選択してから **ユーザーの割り当て** を選択します。 
 
-	- Property: **usageLocation**
+   **注:** **ユーザーの割り当て** が見えない場合は **ユーザーの管理** を選んでメニューを展開します。
 
-	- Operator: **Equals**
+5. 次のパイロット ユーザーを検索して **追加** を選択します。その後 **適用**、プロンプトが出たら **確認** を選択します。
 
-	- Value: **CA**
+   - **Alex Wilber**
+   - **Lynne Robbins**
+   - **Diego Siciliani**
 
-9. Select **Save** twice.
+**注:** 設定が反映されるまで最大 24 時間かかる場合があります。
 
-	A warning message is displayed, that the membership will change according to the new dynamic membership rules. Select **Yes** to confirm the message.
+このタスクでは、新しいメッセージング ポリシーを構成し、パイロット ユーザーに割り当てました。ポリシーが有効になるまで時間をおいて、次のタスクに進みます。
 
-11. Select **Overview** in the left-hand navigation pane of the **CA-Office** group window.
+#### タスク 2 - チーム内のプライベート チャネルを管理する
 
-12. In the Overview window, locate **Dynamic rule processing status** field.
+Contoso の Teams 管理者として��Sales チームに一部のメンバーのみがアクセスできる **confidential** というプライベート チャネルを作成します。
 
-	Wait and refresh your browser, until the status says **Succeeded**. It may take several minutes for the change to be processed.
+1. **Client 1 VM** に接続し、**Joni Sherman**（JoniS@&lt;YourTenant&gt;.onmicrosoft.com）として Teams 管理センター（https://admin.teams.microsoft.com）にアクセスします。
 
-13. Then select **Members** in the left-hand navigation pane and then select **Refresh**. Verify that **Alex Wilber** is in the list of members, but that **Allan Deyoung** has been removed from the group.
+2. 左ナビゲーションで **チーム** > **チームの管理** を選択します。
 
-14. Select Owners from the left-hand navigation pane and verify, that Joni is still the Owner of the group, even if she does not match the dynamic group criteria.
+3. **Sales** チームを選択し、**チャネル** タブを選択します。
 
-You have successfully converted a Microsoft 365 group from static (assigned) to dynamic membership. This membership is controlled by the usageLocation of the user and if the account is enabled. Any user with the usageLocation “Canada” is added automatically to the team.
+4. プライベート チャネルを追加します
 
-### **Exercise 2: Configure channel and message policies**
+   1. 上部メニューの **+ 追加** を選択します。
+   2. **追加** ウィンドウで次を入力します:
+      - **名前**: Confidential sales
+      - **説明**: 機密のプライベート Sales チャネル
+      - **種類**: プライベート
+      - **チャネル所有者**: Lynne Robbins
 
-In this exercise, you will configure policies to manage the creation of new private channels and the available tools for users in chat.
+3. **適用** を選択します。
 
-#### Task 1 - Create a messaging policy for giphy, memes, and stickers
+5. プライベート チャネルを確認します
 
-The company wants to restrict the use of graphic elements in Teams communication. As a Teams service administrator, you will create a new message policy that prohibits pilot users from using GIF files, memes, and stickers in the Teams chat and channel conversation.
+   1. **Client 2 VM** に接続し、**Lynne Robbins**（LynneR@&lt;YourTenant&gt;.onmicrosoft.com）として **Teams Web クライアント**（[(https://teams.microsoft.com)](https://teams.microsoft.com/)）にアクセスします[…]
+   2. **Teams** を選択すると、小さな鍵アイコン付きで新しいプライベート チャネル **Confidential sales** が表示されます。
 
-1. Connect to the **Client 1 VM** and browse to Teams admin center (https://admin.teams.microsoft.com) as **Joni Sherman** (JoniS@&lt;YourTenant&gt;.onmicrosoft.com).
+このタスクでは、Microsoft Teams 管理センターでプライベート チャネルを作成し、アクセスを構成・確認する方法を学びました。
 
-2. In the left navigation of the Teams admin center, select **Messaging** from the left side navigation, then select **Messaging policies**. 
+### **演習 3: アプリ設定を管理する**
 
-3. Select **+Add** under **Manage Policies** tab and enter the following
+#### タスク 1 - サードパーティ ストレージ プロバイダーを無効にする
 
-	- **Name**: Regular users without fun stuff
+過去にユーザーはサードパーティのストレージ プロバイダーを含むさまざまな場所にデータを保存していました。最近、会社は全ユーザーに OneDrive を展開し、ユーザーが SharePoint[…]
 
-	- **Description**: Policy to disable giphys, stickers, and memes in conversations
+1. **Client 1 VM** に接続し、**Joni Sherman**（JoniS@&lt;YourTenant&gt;.onmicrosoft.com）として Teams 管理センター（https://admin.teams.microsoft.com）にアクセスします。
 
-	- **Giphys in conversations**: Off
+2. 左ナビゲーションで **チーム** > **Teams の設定** を選択します。
 
-	- **Memes in conversations**: Off
+3. **Teams の設定** ページで **ファイル** セクションに移動します。
 
-	- **Stickers in conversations**: Off
+4. 次のファイル共有とクラウド ファイル ストレージ オプションを構成します。
 
-	- Leave the rest of the settings as default. Select **Save**.
+   - **Citrix Files:** オフ
+   - **Dropbox:** オフ
+   - **Box:** オン
+   - **Google Drive:** オフ
+   - **Egnyte:** オフ
 
-4. Back to the **Messaging policies** overview page, select the checkmark left to **Regular users without fun stuff**. Then select **Assign users** 
+5. 下までスクロールし **保存** を選択します。
 
-	**Note**: If you didn’t see **Assign users**, select **Manage users** to expand the menu.
+**注:** 設定が反映されるまで最大 24 時間かかる場合があります。
 
-5. Search and select **add** for the following pilot users. Then select **Apply** and **Confirm** when prompted.
+このタスクでは、テナント全体でサードパーティ ストレージ プロバイダーを有効/無効にする方法を学びました。
 
-	- **Alex Wilber**
+#### タスク 2 - 組織レベルでアプリをブロックする
 
-	- **Lynne Robbins**
+このタスクでは、テナント全体で Google Analytics アプリをブロックします。
 
-	- **Diego Siciliani**
+1. **Client 1 VM** に接続し、**Joni Sherman**（JoniS@&lt;YourTenant&gt;.onmicrosoft.com）として Teams 管理センター（https://admin.teams.microsoft.com）にアクセスします。
 
-**Note**: It can take up to 24 hours for the settings to take effect.
+2. Teams 管理センターの左ナビゲーションで **Teams アプリ** > **アプリの管理** を選択します。
 
-In this task, you have successfully configured a new messaging policy and assigned it to the pilot users. It will now take some time for the policy to take effect. Continue with the next task.
+3. **アプリの管理** ページで検索ボックスに **Google** と入力します。 
 
-#### Task 2 - Manage private channels in a team
+   ![Graphical user interface, application Description automatically generated](media/MS-700-lab_M03_ak_image5.png)
 
-As Teams administrator of Contoso, you will create a private channel named **confidential** in the sales team that is only accessible for some team members.
+4. 検索結果で **Google Analytics** を選択して開きます。
 
-1. Connect to the **Client 1 VM** and browse to Teams admin center (https://admin.teams.microsoft.com) as **Joni Sherman** (JoniS@&lt;YourTenant&gt;.onmicrosoft.com).
+5. 画面左上の **操作** ドロップダウンを選択し、**アプリをブロック** を選択します。
 
-2. In left navigation of the Teams admin center, select **Teams** > **Manage teams**.
+**注:** 設定が反映されるまで最大 24 時間かかる場合があります。
 
-3. Select the **Sales** team > **Channels** tab.
+このタスクでは、テナントで Google Analytics アプリをブロックする方法を学びました。
 
-4. Add the private channel
+### **演習 4: アプリの設定ポリシーを作成/管理する**
 
-	1. Select **+ Add** from the top menu.
+Teams 管理者として、ユーザーにとって最も重要なアプリを強調表示し、サードパーティや社内開発のアプリを含む、組織のユーザーが必要とするアプリを紹介する必要があります[…]
 
-	2. In the **Add** window, enter the following information:
+#### タスク 1 - 既定の組織全体のアプリ ポリシーを編集する
 
-		- **Name**: Confidential sales
+パイロット プロジェクトでは、すべてのユーザーの既定アプリとして **Planner と To Do のタスク (Tasks by Planner and To Do)** を追加したいと考えています。そのため、既定の組織全体のアプリ ポリシーを編集します。この反映には時間がかかる場合があります[…]
 
-		- **Description**: Confidential private sales channel
+1. **Client 1 VM** に接続し、**Joni Sherman**（JoniS@&lt;YourTenant&gt;.onmicrosoft.com）として Teams 管理センター（https://admin.teams.microsoft.com）にアクセスします。
 
-		- **Type**: Private
+2. 左ナビゲーションで **Teams アプリ** > **アプリの設定ポリシー** を選択します。
 
-		- **Channel owner**: Lynne Robbins
+3. **アプリの設定ポリシー** ページの **ポリシーの管理** から **Global (組織全体の既定)** を選択して、組織全体のアプリ ポリシーを開きます。
 
-3. Select **Apply**.
+4. **ピン留めされたアプリ** セクションで **アプリを追加** を選択します。
 
-5. Check the private channel
+5. **インストール済みアプリの追加** ページで、検索ボックスに **Planner** と入力し、アプリ名にマウスオーバーして **追加** を 2 回選択します。
 
-	1. Connect to the **Client 2 VM** and browse to the **Teams Web Client** [(https://teams.microsoft.com)](https://teams.microsoft.com/) as **Lynne Robbins** (LynneR@&lt;YourTenant&gt;.onmicrosoft.com).
+6. **Planner** が **ピン留めされたアプリ** セクションに表示されていることを確認し、**保存**、**確認** を選択します。
 
-	2. Select **Teams**, you should see the new private channel **Confidential sales** with a small padlock icon.
+**注:** 設定が反映されるまで最大 24 時間かかる場合があります。
 
-In this task, you learned how to create a private channel in the Microsoft Teams admin center and how to configure and check the access.
+このタスクでは、Microsoft Teams 管理センターから既定アプリをピン留めする方法を学びました。
 
-### **Exercise 3: Manage app settings**
+#### タスク 2 - カスタムのアプリの設定ポリシーを作成する
 
-#### Task 1 - Disable third-party storage providers
+1. **Client 1 VM** に接続し、**Joni Sherman**（[**JoniS@&lt;YourTenant&gt;.onmicrosoft.com**](mailto:JoniS@&lt;YourTena[…)) として Teams 管理センター（**https://admin.teams.microsoft.com**）にアクセスします。
 
-In the past, users stored data at various locations, including third-party storage providers. Recently, the company deployed OneDrive for all users and would like to guide the users to use SharePoint and OneDrive as the primary data storage locations with Box as an alternative for all file collaborations. As the Teams admin, you are asked to deactivate all third-party storage providers except Box in Microsoft Teams to align with the direction.
+2. Microsoft Teams 管理センターの左ナビゲーションで **Teams アプリ** > **アプリの設定ポリシー** に移動します。
 
-1. Connect to the **Client 1 VM** and browse to Teams admin center (https://admin.teams.microsoft.com) as **Joni Sherman** (JoniS@&lt;YourTenant&gt;.onmicrosoft.com).
+3. **+ 追加** を選択します。 
 
-2. In left navigation of the Teams admin center, select **Teams** > **Teams settings**.
+4. 次の情報を入力します
 
-3. On the **Teams settings** page, go to the **Files** section.
+   - 名前: **Sales team**
+   - 説明: **Adobe Acrobat Sign をインストールし、Viva Goals をピン留めする。**
+   - ユーザーによるピン留め: **オン**
+   - ユーザーにアプリをインストールする:
+     1. **インストール済みアプリ** で **アプリを追加** を選択。
+     2. **インストール済みアプリの追加** ペインで、ユーザーが Teams を開始したときに自動インストールさせたいアプリを検索。  
+        この演習では **Adobe** を検索し、**Adobe Acrobat Sign** を選択して **追加** を選び、**追加するアプリ** 一覧に入れます。  
+        その後 **追加** を選び、**インストール済みアプリ** に追加を完了します。
+   - アプリをピン留めする:
+     1. **ピン留めされたアプリ** で **アプリを追加** を選択。
+     2. **ピン留めするアプリの追加** ペインで **Viva Goals** を検索し、**追加** を選択。
+     3. **保存** を選択。
 
-4. Configure the following file sharing and cloud file storage options.
+5. **保存** を選択します。
 
-	- **Citrix files:** Off
+新しいカスタム アプリの設定ポリシーを作成しました。
 
-	- **DropBox:** Off
+#### タスク 3 - カスタムのアプリの設定ポリシーをユーザーに割り当てる
 
-	- **Box:** On
+1. **Microsoft Teams 管理センター** の左ナビゲーションで **Teams アプリ** > **アプリの設定ポリシー** に移動します。
 
-	- **Google Drive:** Off
+2. **Sales team** アプリの設定ポリシーを選択します。
 
-	- **Egnyte:** Off
+3. **ユーザーの割り当て** を選択します。
 
-5. Scroll down and select **Save**.
+4. **ユーザーの管理** ペインで **Alex Wilber** を検索して **追加** を選択します。
 
-**Note**: It can take up to 24 hours for the settings to take effect.
+5. **適用** を選択します。
 
-In this task, you have learned how to enable or disable third-party storage providers for your whole tenant.
+### **演習 5: 構成したポリシー設定をテストする**
 
-#### Task 2 - Block an app at organizational level
+この演習では、影響を受けるユーザー **Lynne Robbins** のクライアントで構成済みポリシー設定をテストし、**Joni Sherman** の利用可能なクライアント設定と比較します。
 
-In this task, you will block the Google Analytics app for all tenants
+#### タスク 1 – メッセージング ポリシーとプライベート チャネル アクセスをテストする
 
-1. Connect to the **Client 1 VM** and browse to Teams admin center (https://admin.teams.microsoft.com) as **Joni Sherman** (JoniS@&lt;YourTenant&gt;.onmicrosoft.com).
+このタスクでは、演習 1 で構成した **メッセージング ポリシー** をテストし、影響を受けるユーザー（Lynne Robbins）と通常ユーザー（Joni Sherman）の違いを確認します。
 
-2. In the left navigation of the Teams admin center, select **Teams apps** > **Manage apps**.
+1. **Client 2 VM** に接続し、**Lynne Robbins**（LynneR@&lt;YourTenant&gt;.onmicroso[…]）として [**Microsoft Teams Web クライアント (https://teams.microsoft.com/)**](https://teams.microsoft.com/) にアクセスします。
 
-3. On the **Manage apps** page, type **Google** in the search box. 
+2. 左ナビゲーションで **チャット** > **新しいチャット** アイコンを選択します。
 
-	![Graphical user interface, application Description automatically generated](media/MS-700-lab_M03_ak_image5.png)
+   ![Graphical user interface, application Description automatically generated with medium confidence](media/MS-700-lab_M03_ak_image8.png)
 
-4. In the search result, select **Google Analytics** to open.
+3. メイン ペインで **Joni Sherman** を入力して会話を開始します。
 
-5. Select **Actions** dropwdown at the top left of the screen and select **Block app** .
+4. **giphy**、**ミーム**、**ステッカー** のアイコンが表示されないことに気づきます。
 
-**Note**: It can take up to 24 hours for the settings to take effect.
+#### タスク 2 – ブロックされたアプリとストレージ プロバイダーをテストする
 
-In this task, you have learned how to block the Google Analytics app for your tenant.
+このタスクでは、ブロックされたアプリをテストします。
 
+1. **Client 2 VM** に接続し、**Lynne Robbins**（LynneR@&lt;YourTenant&gt;.onmicroso[…]）として [**Microsoft Teams Web クライアント (https://teams.microsoft.com/)**](https://teams.microsoft.com/) にアクセスします。
 
-### **Exercise 4: Create and manage app setup policies**
+2. 左ナビゲーションで **アプリ** を選択します。
 
-As a Teams administrator you need to highlight the apps that are most important for your users and also showcase apps that users in your organization need, including apps built by third-parties or by parties or by developers in your organization.
+3. 検索ボックスで **Google** を検索します。
 
-#### Task 1 - Edit default org-wide app policy
+4. 検索結果で **Google Analytics** を選択します。鍵アイコンと「リクエスト」ボタンが表示されていることを確認します。 
 
-In the pilot project, the company wants to add **Tasks by Planner and To Do** as the default app for all users. To do this, edit the default org-wide app policy. This task may take some time to propagate throughout the tenant.
+5. 左ナビゲーションで **チャット** を選択し、**Sales** チームの **sales** チャネルに移動します。
 
-1. Connect to the **Client 1 VM** and browse to Teams admin center (https://admin.teams.microsoft.com) as **Joni Sherman** (JoniS@&lt;YourTenant&gt;.onmicrosoft.com).
+6. **ファイル** タブを選択し、リボンの **…** を選択します。
 
-2. In the left navigation of the Teams admin center, select **Teams apps** > **Setup policies**.
+7. **OneDrive にショートカットを追加** を選択します。
 
-3. On the **App setup policies** page, Under **Manage Policies,** select on **Global (Org-wide default)** to open the org-wide app policy.
-
-4. In the **Pinned apps** section, select **Add apps**.
-
-5. From the **Add installed apps** page, type in the search box **Planner** app, mouseover the name and select **Add** twice.
-
-6. Make sure that **Planner** is now listed in the **Pinned apps** section then select **Save** and **Confirm**.
-
-**Note**: It can take up to 24 hours for the settings to take effect.
-
-In this task, you learned how to pin default apps from the Microsoft Teams admin center.
-
-#### Task 2 - Create a custom app setup policy
-
-1. Connect to the **Client 1 VM** and browse to Teams admin center (**https://admin.teams.microsoft.com**) as **Joni Sherman** ([**JoniS@&lt;YourTenant&gt;.onmicrosoft.com**](mailto:JoniS@&lt;YourTenant&gt;.onmicrosoft.com)).
-
-2. In the left navigation of the Microsoft Teams admin center, go to **Teams apps** > **Setup policies**.
-
-3. Select **+** **Add**. 
-
-4. Enter the following information
-
-	- Name: **Sales team**
-	- Description: **Install Adobe Acrobat Sign and pin Viva Goals**.
-	- User pinning: **On**
-	- To install apps for users:
-
-		1. Under **Installed apps**, select **Add apps**.
-		2. In the **Add installed apps** pane, search for the apps you want to automatically install for users when they start Teams. 
-		
-			In this exercise search for **Adobe**, choose **Adobe Acrobat Sign** and select **Add** to add to the **Apps to add** list. 
-			
-			You can now select **Add** to finish adding the app under **Installed apps list.**
-
-	- To pin apps:
-
-		1. Under **Pinned apps**, select **Add apps**.
-
-		2. In the **Add pinned apps** pane, search for **Viva Goals** and then select **Add**. 
-
-		3. Select **Save.**  
-
-5. Select **Save.**
-
-You have now created a new custom app set up policy.
-
-#### Task 3 - Assign a custom app setup policy to users
-
-1. In the left-hand navigation pane on the **Microsoft Teams admin center**, go to **Teams apps** > **Setup policies**.
-
-2. Select **Sales team** app setup policy.
-
-3. Select **Assign users**.
-
-4. In the **Manage users** pane, search for **Alex Wilber**, and then select **Add**.
-
-5. Select **Apply**.
-
- 
-### **Exercise 5: Test configured policy settings**
-
-In this exercise, you will test the configured policy settings on a client with the affected user **Lynne Robbins** and compare the settings to the available client settings of **Joni Sherman**.
-
-#### Task 1 – Test the messaging policy and private channel access
-
-In this task, you will test the **messaging policies** configured in exercise 1 and compare the difference between an affected user (Lynne Robbins) vs a regular user(Joni Sherman).
-
-1. Connect to the **Client 2 VM** and browse the [**Microsoft Teams web client (https://teams.microsoft.com/)**](https://teams.microsoft.com/) as **Lynne Robbins** (LynneR@&lt;YourTenant&gt;.onmicrosoft.com).
-
-2. In the left-hand navigation pane, select **Chat** > **New Chat** icon.
-
-	![Graphical user interface, application Description automatically generated with medium confidence](media/MS-700-lab_M03_ak_image8.png)
-
-3. In the main pane, enter **Joni Sherman** to start the conversation.
-
-4. Notice there’s no **giphy**, **memes** and **stickers** icons.
-
-#### Task 2 – Test blocked app and storage providers
-
-In this task, you will test the blocked app.
-
-1. Connect to the **Client 2 VM** and browse the [**Microsoft Teams web client (https://teams.microsoft.com/)**](https://teams.microsoft.com/) as **Lynne Robbins** (LynneR@&lt;YourTenant&gt;.onmicrosoft.com).
-
-2. In the left-hand navigation select **Apps**.
-
-3. Search **Google** from the search box.
-
-4. In the search results select **Google Analytics**. Note the lock icon and the "Request " button. 
-
-5. In the left-hand navigation pane, select **Chat**, go to the **sales** channel of the **Sales** team.
-
-6. Select the **files** tab and select **...** in the ribbon.
-
-7. Select **Add shortcut to OneDrive**
-
-8. Sign out of Teams and close all open windows.
+8. Teams からサインアウトし、開いているウィンドウをすべて閉じます。
 
 END OF LAB
